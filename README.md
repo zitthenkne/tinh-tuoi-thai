@@ -6,6 +6,23 @@ Web App luyện tính nhẩm, phản xạ định tuổi thai và ngày dự sin
 
 ---
 
+## 🆕 Bản 3.0 — Nhiều trang ngắn, học bằng hình
+
+Công thức bám **Chương 1 (skill `san-khoa-y4`)** + Sách Thực hành Sản khoa 2025.
+
+- **🏠 Trang chủ**: linh vật "Bé Mầm" (chạm để nghe mẹo), vòng xoay thai kỳ 40 tuần bấm được từng mốc.
+- **🧭 Chọn công thức**: mỗi câu hỏi 1 màn (IVF? ➔ kinh chót tin cậy? ➔ chu kỳ? ➔ yếu tố nhiễu?) ➔ ra đúng công thức hoặc bẫy phải né.
+- **📚 Bài học dạng slide** (◀ ▶, vuốt, phím mũi tên; mỗi bài kết thúc bằng 1 câu thử):
+  * Bài 0 — Đếm từ kinh chót (tính cả ngày đó = ngày 1): thụ tinh = ngày 14 ➔ lùi 13 ra kinh chót lý thuyết, hạt 7 ngày = 1 tuần, đếm tuổi thai hôm khám (01/02 ➔ 02/04 = 61 ngày = 8w5d).
+  * Bài 1 — Naegele: lịch lật số 3 nhịp, vòng 12 tháng (+9 = −3 & năm +1), máy tính từng bước.
+  * Bài 1B — Vắt tháng: nắm tay đếm tháng 30/31, lịch tháng dự sinh tràn ô.
+  * Bài 2 — Chu kỳ: hoàng thể cố định 14 ngày, dự sinh + (X − 28), kinh không đều ➔ đóng dấu "KHÔNG NAEGELE".
+  * Bài 3 — IVF & IUI: phôi phân chia N0 ➔ N5, thụ tinh = ngày 14 (2w0d), máy tính (Khám − Chuyển phôi) + 17/19 (bài Thầy Vinh 08/08 ➔ 17/09 = 8w3d), kinh chót lý thuyết = chuyển phôi − 16/18, IUI + 14, tuổi thai IVF bất biến.
+  * Bài 4 — CRL: màn hình siêu âm giả lập (42 + CRL), tư thế đo chuẩn (cúi / ngửa làm sai CRL), cân LMP ↔ CRL theo ACOG (< 9 tuần: lệch > 5 ngày; 9 – 13⁺⁶ tuần: lệch > 7 ngày ➜ đổi), khóa chết TCN1.
+- **⚡ Luyện**: thêm dạng IUI, IVF hôm khám, "LMP hay CRL"; câu sai hiện bảng giải + nút 🎬 xem hoạt ảnh đúng số liệu câu đó; Blitz 60 giây.
+- **🚫 Bẫy**: 6 thẻ lật có con dấu kết luận • **📋 Thẻ công thức** gói gọn 1 màn • **🏆 Kỷ lục**: huy hiệu, % đúng theo bài.
+- Font **Baloo 2 + Nunito nhúng base64** trong `fonts/fonts-embed.css` ➔ không lỗi font tiếng Việt, chạy offline.
+
 ## 🌟 Điểm Nổi Bật & Tính Năng
 
 1. **⚡ Phản Xạ 1 Giây (Flashcard Rapid-Fire)**:
@@ -23,11 +40,13 @@ Web App luyện tính nhẩm, phản xạ định tuổi thai và ngày dự sin
    - Siêu âm 3 tháng giữa đo BPD/FL lệch ➔ 🚫 KHÓA CHẾT NGÀY DỰ SINH 3 THÁNG ĐẦU.
 
 3. **📚 Bám Sát 2 Chuẩn Học Thuật**:
-   - **Chuẩn Thi Lý Thuyết Bộ Môn (Thầy Luân & Thầy Vinh - Sách 2025 Trang 2)**: Tịnh tiến 13 ngày ➔ Phôi D3 = 16 ngày (2w2d), Phôi D5 = 18 ngày (2w4d).
-   - **Chuẩn Trạm OSCE / Lâm Sàng**: Quy ước mốc 14 ➔ Phôi D3 = 17 ngày, Phôi D5 = 19 ngày.
+   - **Thứ tự nguồn**: lời giảng APP Chương 1 (bản chép lời gốc) > sách bộ môn (chỉ dùng chỗ bài giảng không nói). Sách tự lệch nhau: ví dụ vòng xoay (bà G.) đếm *không* tính ngày kinh chót, ví dụ lùi (bà A., bà C.) thì tính ➔ app theo bài giảng.
+   - **Chu kỳ đều X ngày**: dự sinh + (X − 28) (APP C1: chu kỳ 40 ➔ rụng trứng ngày 26 ➔ tính từ ngày 12).
+   - **Cách đếm (bài giảng Thầy Vinh – APP Chương 1)**: tuổi thai đếm **tính cả ngày kinh chót** ➔ 01/02 ➔ 02/04 = 61 ngày = 8w5d.
+   - **IVF**: thụ tinh = ngày 14 (2w0d) ➔ Phôi D3 = 17 ngày (2w3d), Phôi D5 = 19 ngày (2w5d); tuổi thai = (Khám − Chuyển phôi) + 17 / + 19. Tịnh tiến 13 ngày dùng để lùi ra kinh chót lý thuyết = chuyển phôi − 16 / − 18 (Sách 2025 trang 2: chuyển 23/08 ➔ 07/08).
 
 4. **🎨 Giao Diện Sổ Dán Pastel Retro (zitthenk Style)**:
-   - Font chữ chuẩn 100% tiếng Việt (`Plus Jakarta Sans` & `Nunito`), sạch bóng lỗi font.
+   - Font chữ chuẩn 100% tiếng Việt (`Baloo 2` & `Nunito`, nhúng base64 trong `fonts/fonts-embed.css`), sạch bóng lỗi font.
    - Washi tape, giấy caro, hiệu ứng âm thanh Synth Web Audio API nhẹ nhàng và pháo hoa Confetti khi đạt chuỗi Streak!
    - Chạy 100% offline không cần cài đặt.
 

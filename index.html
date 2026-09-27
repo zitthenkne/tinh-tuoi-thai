@@ -2,1078 +2,1159 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>SanCalc Y4 • Luyện Tính Tuổi Thai & Phản Xạ Trực Quan</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23ffd3e0%22/><circle cx=%2250%22 cy=%2250%22 r=%2226%22 fill=%22%23e76f95%22/><text x=%2250%22 y=%2258%22 font-size=%2226%22 text-anchor=%22middle%22 fill=%22white%22 font-weight=%22bold%22>Y4</text></svg>">
-  <meta name="theme-color" content="#ffd3e0">
-
-  <!-- Full Vietnamese Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- GSAP 3 for Ultra Smooth Animation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2230%22 fill=%22%23ffd3e2%22/><ellipse cx=%2250%22 cy=%2256%22 rx=%2234%22 ry=%2230%22 fill=%22%23fff%22 stroke=%22%233b2f4a%22 stroke-width=%225%22/><circle cx=%2238%22 cy=%2254%22 r=%225%22 fill=%22%233b2f4a%22/><circle cx=%2262%22 cy=%2254%22 r=%225%22 fill=%22%233b2f4a%22/><path d=%22M42 66 q8 7 16 0%22 fill=%22none%22 stroke=%22%233b2f4a%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
+  <meta name="theme-color" content="#ffd3e2">
+  <!-- Baloo 2 + Nunito nhúng base64: chạy offline, không bao giờ lỗi font tiếng Việt -->
+  <link rel="stylesheet" href="fonts/fonts-embed.css">
   <style>
     :root {
-      --bg: #fffaf2;
-      --surface: #fffefb;
-      --ink: #2b2738;
-      --muted: #79718b;
-      --line: #ebdcd0;
-      --soft: #fbf5ec;
-      --brand: #e76f95;
-
-      --pink: #ffd3e0;
-      --peach: #ffe0c2;
-      --butter: #fff1b8;
-      --mint: #cdeedd;
-      --sky: #cfe6fb;
-      --lav: #e4d7fb;
-
-      --trap-bg: #fff0f0;
-      --trap-border: #cf222e;
-      --trap-ink: #b31d28;
-
-      --grid: rgba(143, 177, 230, .18);
-      --r: 16px;
-      --sh: 2px 3px 0 var(--ink);
-      --sh-lg: 4px 6px 0 var(--ink);
-      --sh-sm: 1px 2px 0 var(--ink);
-
-      --font-main: 'Plus Jakarta Sans', 'Nunito', sans-serif;
-      --font-round: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+      --bg: #fff6fa;
+      --ink: #3b2f4a;
+      --muted: #8b809b;
+      --line: #f0dde8;
+      --brand: #ff6fa3;
+      --brand-d: #e2508a;
+      --pink: #ffd6e6;
+      --peach: #ffe2cc;
+      --butter: #fff0ad;
+      --mint: #c9f2de;
+      --sky: #d3e9ff;
+      --lav: #e6dcff;
+      --ok: #1f9d63;
+      --ok-bg: #e2f8ec;
+      --bad: #e5484d;
+      --bad-bg: #ffedf0;
+      --blue: #3a7bea;
+      --r: 22px;
+      --sh-sm: 0 3px 0 var(--ink);
+      --sh: 0 4px 0 var(--ink);
+      --sh-lg: 0 6px 0 var(--ink);
+      --spring: cubic-bezier(.34, 1.56, .64, 1);
+      --f-head: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+      --f-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
+    html { scroll-behavior: smooth; }
     body {
-      background-color: var(--bg);
-      background-image: 
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: var(--ink);
-      font-family: var(--font-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.5;
-      overflow-x: hidden;
+      font-family: var(--f-body); color: var(--ink); min-height: 100vh; line-height: 1.5; overflow-x: hidden; touch-action: manipulation;
+      background:
+        radial-gradient(circle at 8% 12%, #ffe0ee 0, transparent 32%),
+        radial-gradient(circle at 92% 18%, #e2efff 0, transparent 30%),
+        radial-gradient(circle at 85% 92%, #fff1c2 0, transparent 30%),
+        radial-gradient(circle at 12% 88%, #dcf6e8 0, transparent 28%),
+        radial-gradient(#f5cfe0 1.3px, transparent 1.4px) 0 0 / 24px 24px,
+        var(--bg);
+      background-attachment: fixed;
     }
-
-    h1, h2, h3, h4, .brand, .btn, .tab-btn, .kicker, .flash-date, .pill, .opt-key, .stat-num, .input-switch-btn, .metric-value {
-      font-family: var(--font-round);
-    }
+    h1, h2, h3, h4, .f-head { font-family: var(--f-head); font-weight: 800; line-height: 1.15; letter-spacing: .1px; }
     b, strong { font-weight: 800; }
+    button, input, select { font-family: inherit; color: inherit; }
+    a { color: inherit; }
+    [hidden] { display: none !important; }
+    svg text { font-family: var(--f-body); }
+    mark { background: linear-gradient(transparent 52%, var(--pink) 52%); color: inherit; padding: 0 3px; border-radius: 4px; }
+    .muted { color: var(--muted); }
+    .hl { color: var(--brand-d); }
+    .good { color: var(--ok); font-weight: 900; }
+    .bad { color: var(--bad); font-weight: 900; }
 
-    /* Washi tape decoration */
-    .tape {
-      position: absolute;
-      z-index: 3;
-      height: 20px;
-      width: 86px;
-      pointer-events: none;
-      opacity: .92;
-      background: radial-gradient(circle, rgba(255, 255, 255, .8) 2px, transparent 2.5px) 0 0 / 10px 10px, var(--tc, var(--pink));
-      clip-path: polygon(0 8%, 5% 0, 10% 10%, 15% 0, 20% 8%, 25% 0, 30% 8%, 35% 0, 40% 10%, 45% 0, 50% 8%, 55% 0, 60% 8%, 65% 0, 70% 10%, 75% 0, 80% 8%, 85% 0, 90% 10%, 95% 0, 100% 8%, 100% 92%, 95% 100%, 90% 90%, 85% 100%, 80% 92%, 75% 100%, 70% 90%, 65% 100%, 60% 92%, 55% 100%, 50% 90%, 45% 100%, 40% 92%, 35% 100%, 30% 90%, 25% 100%, 20% 92%, 15% 100%, 10% 90%, 5% 100%, 0 92%);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-    }
-    .tape.stripe {
-      background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .5) 0 5px, transparent 5px 10px), var(--tc, var(--mint));
-    }
+    /* ---------- Trang trí nền ---------- */
+    .bg-deco { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .bg-deco span { position: absolute; font-size: 1.5rem; opacity: .35; animation: floaty 7s ease-in-out infinite; }
+    .bg-deco span:nth-child(2n) { animation-duration: 9s; animation-delay: -2s; }
+    .bg-deco span:nth-child(3n) { animation-duration: 11s; animation-delay: -4s; font-size: 1.1rem; }
 
-    /* Top Navigation Bar */
+    /* ---------- Top bar + nav ---------- */
     #topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 253, 248, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 2px dashed #e8cfd7;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 8px 18px; background: rgba(255, 255, 255, .86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--line);
     }
-
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--ink);
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+    .brand .mascot-slot { width: 44px; flex-shrink: 0; }
+    .brand-t { font-family: var(--f-head); font-size: 1.2rem; font-weight: 800; line-height: 1.1; display: block; }
+    .brand-t em { font-style: normal; color: var(--brand); }
+    .brand small { display: block; font-size: .72rem; color: var(--muted); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 330px; }
+    #nav { display: flex; gap: 6px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 4px; box-shadow: var(--sh-sm); }
+    #nav a {
+      text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 999px; font-weight: 800;
+      font-size: .9rem; transition: background .2s, transform .2s var(--spring); white-space: nowrap;
     }
-    .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: var(--pink);
-      border: 2px solid var(--ink);
-      box-shadow: var(--sh-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      transform: rotate(-3deg);
-      flex-shrink: 0;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .brand-logo:hover {
-      transform: rotate(6deg) scale(1.1);
-    }
-    .brand-text {
-      font-size: 1.15rem;
-      font-weight: 900;
-      line-height: 1.2;
-    }
-    .brand-text b { color: var(--brand); }
-    .brand-sub {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+    #nav a i { font-style: normal; font-size: 1.05rem; transition: transform .3s var(--spring); }
+    #nav a:hover { background: #fff3f8; }
+    #nav a.active { background: var(--pink); }
+    #nav a.active i { transform: scale(1.2) rotate(-8deg); }
+    .top-actions { display: flex; gap: 8px; flex-shrink: 0; }
     .icon-btn {
-      background: var(--butter);
-      border: 2px solid var(--ink);
-      box-shadow: var(--sh-sm);
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 0.84rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.12s ease;
+      background: var(--butter); border: 2px solid var(--ink); box-shadow: var(--sh-sm); border-radius: 999px; padding: 5px 12px;
+      font-size: .85rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: transform .12s;
     }
-    .icon-btn:hover {
-      transform: translate(-1px, -2px);
-      box-shadow: var(--sh);
-    }
-    .icon-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: none;
-    }
+    .icon-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+    .icon-btn.std { background: var(--sky); cursor: default; }
 
-    /* Layout Container */
-    #container {
-      max-width: 860px;
-      width: 100%;
-      margin: 18px auto;
-      padding: 0 16px;
-      flex: 1;
+    /* ---------- Layout trang ---------- */
+    #app { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; padding: 16px 16px 30px; }
+    .page { display: none; }
+    .page.active { display: block; animation: pageIn .42s var(--spring); }
+    .page-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .page-head h2 { font-size: 1.6rem; }
+    .page-head .sp { flex: 1; }
+    .back {
+      width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--ink); background: #fff; box-shadow: var(--sh-sm);
+      display: grid; place-items: center; text-decoration: none; font-weight: 900; cursor: pointer; flex-shrink: 0;
     }
+    .back:active { transform: translateY(2px); box-shadow: none; }
+    .card { background: #fff; border: 2px solid var(--ink); border-radius: var(--r); box-shadow: var(--sh-lg); padding: 18px; position: relative; }
+    .kick { display: inline-block; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .6px; background: var(--butter); border: 2px solid var(--ink); border-radius: 999px; padding: 1px 10px; }
+    .sub { color: var(--muted); font-weight: 700; font-size: .92rem; }
+    .row-c { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+    .hint { font-size: .82rem; color: var(--muted); font-weight: 700; }
 
-    /* Tab Switcher */
-    .tab-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-    .tab-bar::-webkit-scrollbar { display: none; }
-
-    .tab-btn {
-      background: #fff;
-      border: 2px solid var(--ink);
-      padding: 9px 18px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--ink);
-      cursor: pointer;
-      box-shadow: var(--sh-sm);
-      white-space: nowrap;
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .tab-btn:hover {
-      transform: translate(-1px, -2px);
-      box-shadow: var(--sh);
-    }
-    .tab-btn.active {
-      background: var(--pink);
-      box-shadow: var(--sh);
-      transform: translate(-1px, -2px);
-    }
-
-    /* Cards */
-    .paper-card {
-      background: var(--surface);
-      border: 2px solid var(--ink);
-      border-radius: var(--r);
-      box-shadow: var(--sh-lg);
-      padding: 22px;
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .kicker {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: var(--butter);
-      border: 1.5px solid var(--ink);
-      padding: 2px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-
-    /* Buttons */
+    /* ---------- Nút ---------- */
     .btn {
-      border: 2px solid var(--ink);
-      border-radius: 12px;
-      padding: 10px 18px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: var(--sh);
-      transition: all 0.12s ease;
-      text-decoration: none;
+      border: 2px solid var(--ink); border-radius: 999px; padding: 10px 20px; font-size: .98rem; font-weight: 800; cursor: pointer; background: #fff;
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px; box-shadow: var(--sh); text-decoration: none;
+      transition: transform .1s, box-shadow .1s, filter .15s; user-select: none;
     }
-    .btn:hover {
-      transform: translate(-1px, -2px);
-      box-shadow: var(--sh-lg);
-    }
-    .btn:active {
-      transform: translate(1px, 2px);
-      box-shadow: none;
-    }
-    .btn-sm {
-      padding: 6px 12px;
-      font-size: 0.82rem;
-      border-radius: 999px;
-    }
-    .btn-primary { background: var(--butter); color: var(--ink); }
-    .btn-pink { background: var(--pink); color: var(--ink); }
-    .btn-mint { background: var(--mint); color: var(--ink); }
-    .btn-sky { background: var(--sky); color: var(--ink); }
-    .btn-trap { background: #ffe4e4; border-color: var(--trap-border); color: var(--trap-ink); }
+    .btn:hover { filter: brightness(1.03); transform: translateY(-1px); }
+    .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+    .btn:disabled { opacity: .45; pointer-events: none; }
+    .btn-sm { padding: 6px 13px; font-size: .84rem; box-shadow: var(--sh-sm); }
+    .btn-pink { background: var(--pink); } .btn-butter { background: var(--butter); } .btn-mint { background: var(--mint); }
+    .btn-sky { background: var(--sky); } .btn-lav { background: var(--lav); } .btn-peach { background: var(--peach); }
+    .btn-hot { background: var(--brand); color: #fff; }
+    .btn-trap { background: #ffe4e8; color: var(--bad); border-color: var(--bad); }
+    .seg-switch { display: inline-flex; flex-wrap: wrap; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 3px; box-shadow: var(--sh-sm); gap: 2px; }
+    .seg-switch button { border: none; background: transparent; padding: 5px 12px; border-radius: 999px; font-size: .84rem; font-weight: 800; cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .seg-switch button.active { background: var(--butter); box-shadow: inset 0 0 0 2px var(--ink); }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .chips .btn-sm { font-size: .78rem; padding: 4px 10px; }
 
-    /* ==========================================================================
-       VISUAL WIDGETS (INTERACTIVE SANDBOX - TAB 1)
-       ========================================================================== */
-    .widget-box {
-      background: #ffffff;
-      border: 2px solid var(--ink);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 18px;
-      box-shadow: var(--sh);
-      position: relative;
-      overflow: hidden;
+    /* ---------- Linh vật ---------- */
+    .mascot-slot { display: inline-block; line-height: 0; cursor: pointer; }
+    .mascot { width: 100%; height: auto; overflow: visible; }
+    .m-body { fill: #ffd3e2; stroke: var(--ink); stroke-width: 3; }
+    .m-belly { fill: #ffeaf2; }
+    .m-leaf { fill: #9be3b9; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+    .m-eye-n ellipse { fill: var(--ink); }
+    .m-glint { fill: #fff; }
+    .m-eye-h path, .m-mouth, .m-arm { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .m-grin { fill: #ff8fb3; }
+    .m-blush { fill: #ff9dbd; opacity: .7; }
+    .m-shadow { fill: rgba(59, 47, 74, .12); }
+    .m-tear { fill: #9fd8ff; stroke: var(--ink); stroke-width: 1.5; }
+    .m-eye-h, .m-grin, .m-sad, .m-tear { display: none; }
+    .mascot.happy .m-eye-n, .mascot.happy .m-smile, .mascot.sad .m-smile { display: none; }
+    .mascot.happy .m-eye-h, .mascot.happy .m-grin, .mascot.sad .m-sad, .mascot.sad .m-tear { display: inline; }
+    .m-bob { animation: bob 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+    .m-eye-n { animation: blink 4.4s infinite; transform-box: fill-box; transform-origin: center; }
+    .m-all { transform-box: fill-box; transform-origin: center bottom; }
+    .mascot.happy .m-all { animation: hop .65s var(--spring); }
+    .mascot.sad .m-all { animation: wob .5s ease; }
+    .m-arm { transform-box: fill-box; }
+    .m-arm.al { transform-origin: right bottom; } .m-arm.ar { transform-origin: left bottom; }
+    .mascot.happy .m-arm.al { animation: waveL .35s ease-in-out 2; }
+    .mascot.happy .m-arm.ar { animation: waveR .35s ease-in-out 2; }
+    .bubble {
+      position: relative; background: #fff; border: 2px solid var(--ink); border-radius: 18px; padding: 8px 14px; font-weight: 800; font-size: .92rem;
+      box-shadow: var(--sh-sm); animation: popIn .35s var(--spring);
     }
-    .widget-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .widget-title {
-      font-size: 1.15rem;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .widget-badge {
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 2px 10px;
-      border-radius: 999px;
-      border: 1.5px solid var(--ink);
-      background: var(--soft);
-    }
+    .bubble::before { content: ''; position: absolute; left: -9px; top: 22px; width: 14px; height: 14px; background: #fff; border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); }
 
-    /* Slider styling */
-    .visual-slider-wrap {
-      margin: 12px 0;
+    /* ---------- HOME ---------- */
+    .home-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; }
+    .hero-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+    .hero-top .mascot-slot { width: 112px; flex-shrink: 0; }
+    .hero-card h1 { font-size: 2.05rem; margin-bottom: 12px; }
+    .path-chips { display: grid; gap: 8px; margin-bottom: 14px; }
+    .pc {
+      display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 10px; background: var(--c); border: 2px solid var(--ink);
+      border-radius: 16px; padding: 7px 12px; font-weight: 800; box-shadow: var(--sh-sm); animation: slideIn .5s var(--spring) backwards;
     }
-    .visual-slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      background: #e7dfd5;
-      border: 2px solid var(--ink);
-      outline: none;
-      transition: background 0.2s;
+    .pc:nth-child(2) { animation-delay: .1s; } .pc:nth-child(3) { animation-delay: .2s; }
+    .pc i { font-style: normal; font-size: 1.6rem; text-align: center; }
+    .pc b { background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 10px; font-size: .88rem; white-space: nowrap; }
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ring-card { display: flex; flex-direction: column; align-items: center; }
+    #ringSvg { width: 100%; max-width: 300px; overflow: visible; display: block; }
+    .ring-caption { width: 100%; background: #fff9fc; border: 2px dashed #f0bfd4; border-radius: 16px; padding: 8px 12px; font-size: .86rem; font-weight: 700; text-align: center; min-height: 70px; }
+    .ring-track { fill: none; stroke: #f6e8ef; stroke-width: 18; stroke-linecap: round; }
+    .ring-tri { fill: none; stroke-width: 16; }
+    .ring-tri-t { font-size: 8.5px; font-weight: 900; fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
+    .ring-tick { stroke: var(--ink); stroke-width: 1; opacity: .25; }
+    .ring-tick.big { opacity: .7; stroke-width: 1.6; }
+    .ring-wk { font-size: 9px; font-weight: 800; fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
+    .ring-crl { fill: none; stroke: #9fcdf5; stroke-width: 7; stroke-linecap: round; }
+    .ring-prog { fill: none; stroke: var(--brand); stroke-width: 4; stroke-linecap: round; }
+    .ring-dot { fill: var(--brand); stroke: #fff; stroke-width: 2.5; }
+    .ring-mark { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: transform .25s var(--spring); }
+    .ring-mark circle { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+    .ring-mark text { font-size: 13px; text-anchor: middle; dominant-baseline: central; }
+    .ring-mark:hover, .ring-mark.sel { transform: scale(1.2); }
+    .ring-mark.sel circle { fill: var(--butter); }
+    .ring-mark.pulse circle { animation: ringPulse 1.8s ease-in-out infinite; }
+    #ringWeek { font-family: var(--f-head); font-size: 34px; font-weight: 800; text-anchor: middle; fill: var(--ink); }
+    #ringSub { font-size: 10.5px; font-weight: 800; fill: var(--muted); text-anchor: middle; }
+    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+    .tile {
+      display: flex; align-items: center; gap: 10px; text-decoration: none; background: var(--c); border: 2px solid var(--ink); border-radius: 18px;
+      padding: 10px 12px; box-shadow: var(--sh); transition: transform .2s var(--spring); cursor: pointer;
     }
-    .visual-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--brand);
-      border: 2px solid var(--ink);
-      box-shadow: var(--sh-sm);
-      cursor: pointer;
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .visual-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
+    .tile:hover { transform: translateY(-3px) rotate(-1deg); }
+    .tile i { font-style: normal; font-size: 1.9rem; }
+    .tile b { display: block; font-family: var(--f-head); font-size: 1.02rem; line-height: 1.1; }
+    .tile span { font-size: .76rem; font-weight: 700; color: #5d5270; }
 
-    /* Interactive SVG Timelines */
-    .timeline-svg {
-      width: 100%;
-      height: auto;
-      max-height: 110px;
-      display: block;
-      margin: 10px 0;
-      background: #fbf9f5;
-      border: 1.5px dashed var(--line);
-      border-radius: 12px;
+    /* ---------- WIZARD ---------- */
+    .wiz-prog { display: flex; gap: 6px; }
+    .wiz-prog i { width: 34px; height: 10px; border-radius: 99px; border: 2px solid var(--ink); background: #fff; transition: background .3s; }
+    .wiz-prog i.on { background: var(--brand); }
+    .wiz-trail { display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; margin-bottom: 10px; }
+    .wiz-trail button { border: 2px solid var(--ink); background: var(--mint); border-radius: 999px; padding: 2px 10px; font-weight: 800; font-size: .8rem; cursor: pointer; }
+    .wiz-trail button.red { background: #ffe4e8; }
+    .wiz-card { min-height: 430px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; overflow: hidden; }
+    .wiz-icon { font-size: 4rem; line-height: 1; animation: bounceIn .6s var(--spring); }
+    .wiz-card h3 { font-size: 1.7rem; }
+    .wiz-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; width: 100%; max-width: 820px; }
+    .wiz-opt {
+      border: 2px solid var(--ink); border-radius: 20px; background: #fff; padding: 16px 10px; cursor: pointer; box-shadow: var(--sh);
+      display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 800; font-size: .95rem;
+      transition: transform .2s var(--spring), background .2s; animation: popIn .4s var(--spring) backwards;
     }
+    .wiz-opt i { font-style: normal; font-size: 2.2rem; }
+    .wiz-opt:hover { transform: translateY(-4px) rotate(-1deg); background: #fff7fb; }
+    .wiz-opt:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+    .wiz-res { display: grid; grid-template-columns: 130px 1fr; gap: 18px; align-items: center; text-align: left; max-width: 780px; }
+    .wiz-res .mascot-slot { width: 130px; }
+    .wiz-verdict { border: 2px solid var(--ink); border-radius: 18px; padding: 14px 16px; font-size: 1rem; font-weight: 700; box-shadow: var(--sh); }
+    .wiz-verdict.good { background: var(--ok-bg); color: #155c3b; }
+    .wiz-verdict.bad { background: var(--bad-bg); color: #9b1c23; }
+    .wiz-verdict .big-ic { font-size: 2.4rem; float: left; margin-right: 10px; animation: stampIn .6s var(--spring); }
 
-    /* Metric Highlight Grid */
-    .metric-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 10px;
-      margin: 12px 0;
+    /* ---------- LESSON GRID ---------- */
+    .lesson-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+    .lg-tile {
+      text-decoration: none; background: #fff; border: 2px solid var(--ink); border-radius: 22px; box-shadow: var(--sh-lg); overflow: hidden;
+      display: flex; flex-direction: column; transition: transform .25s var(--spring); cursor: pointer; animation: popIn .45s var(--spring) backwards;
     }
-    .metric-card {
-      background: var(--soft);
-      border: 1.5px solid var(--ink);
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 1px 2px 0 var(--ink);
-    }
-    .metric-title {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .metric-value {
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: var(--ink);
-      margin-top: 2px;
-    }
+    .lg-tile:hover { transform: translateY(-5px) rotate(-.6deg); }
+    .lg-art { background: var(--c); border-bottom: 2px solid var(--ink); height: 96px; display: grid; place-items: center; position: relative; }
+    .lg-art i { font-style: normal; font-size: 3.2rem; animation: floaty 3.5s ease-in-out infinite; }
+    .lg-num { position: absolute; top: 8px; left: 10px; background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 0 9px; font-family: var(--f-head); font-weight: 800; }
+    .lg-done { position: absolute; top: 8px; right: 10px; font-size: 1.2rem; }
+    .lg-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .lg-body h4 { font-size: 1.12rem; }
+    .lg-f { font-size: .8rem; font-weight: 800; color: #5d5270; }
+    .lg-dots { display: flex; gap: 4px; }
+    .lg-dots i { flex: 1; height: 7px; border-radius: 99px; background: #f1e6ec; border: 1.5px solid var(--ink); }
+    .lg-dots i.on { background: var(--brand); }
+    .lg-stat { font-size: .74rem; font-weight: 800; color: var(--muted); }
 
-    /* Mini Rule Chips (Bento Style) */
-    .chip-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px;
-      margin-top: 10px;
+    /* ---------- LESSON DECK / SLIDES ---------- */
+    .lp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .lp-num { background: var(--lpc, var(--butter)); border: 2px solid var(--ink); border-radius: 12px; padding: 0 10px; font-family: var(--f-head); font-weight: 800; font-size: 1.1rem; box-shadow: var(--sh-sm); }
+    .lp-head h2 { font-size: 1.35rem; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dots { display: flex; gap: 6px; }
+    .dots button { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); background: #fff; cursor: pointer; padding: 0; transition: all .25s var(--spring); }
+    .dots button.on { background: var(--brand); width: 26px; border-radius: 99px; }
+    .dots button.seen { background: var(--pink); }
+    .deck { display: none; }
+    .deck.active { display: block; }
+    .slide {
+      display: none; min-height: clamp(400px, calc(100vh - 230px), 640px); background: #fff; border: 2px solid var(--ink); border-radius: 28px;
+      box-shadow: var(--sh-lg); padding: 18px 22px; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;
+      position: relative; overflow: hidden;
     }
-    .chip-card {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      border-radius: 10px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      box-shadow: 1px 1px 0 var(--ink);
+    .slide.active { display: flex; }
+    .slide::after { content: ''; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%; background: var(--lpc, var(--pink)); opacity: .45; z-index: 0; }
+    .slide > * { position: relative; z-index: 1; }
+    .s-title { font-size: 1.55rem; }
+    .s-cap { font-size: 1rem; font-weight: 600; max-width: 680px; color: #564a67; }
+    .s-cap b { background: linear-gradient(transparent 55%, var(--butter) 55%); }
+    .s-svg { width: 100%; max-width: 640px; height: auto; overflow: visible; }
+    .lp-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; }
+    #lpCount { font-family: var(--f-head); font-weight: 800; color: var(--muted); }
+    .big-read { font-family: var(--f-head); font-size: 1.75rem; font-weight: 800; color: var(--brand-d); line-height: 1.1; }
+    .answer-pop {
+      background: #fffaf0; border: 2px solid var(--ink); border-radius: 16px; padding: 8px 14px; font-weight: 700; font-size: .95rem;
+      box-shadow: var(--sh-sm); min-height: 42px; max-width: 700px;
     }
-    .chip-icon {
-      font-size: 1.2rem;
-      flex-shrink: 0;
+    .answer-pop:empty { display: none; }
+    .formula-chip { display: inline-block; background: #fff; border: 2px dashed var(--ink); border-radius: 14px; padding: 5px 14px; font-weight: 800; }
+    .slider {
+      -webkit-appearance: none; appearance: none; width: 100%; max-width: 640px; height: 14px; border-radius: 999px; border: 2px solid var(--ink);
+      background: linear-gradient(90deg, var(--pink), var(--butter)); outline: none;
     }
+    .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--ink), 0 3px 0 2px var(--ink); cursor: grab; transition: transform .15s var(--spring); }
+    .slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .slider::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--brand); border: 2px solid var(--ink); cursor: grab; }
+    .inputs-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+    .inputs-row.c { justify-content: center; }
+    .inputs-row label { display: flex; flex-direction: column; gap: 2px; font-size: .74rem; font-weight: 900; color: var(--muted); text-transform: uppercase; text-align: left; }
+    .inputs-row input[type="date"], .inputs-row select {
+      border: 2px solid var(--ink); border-radius: 14px; padding: 6px 10px; font-size: .95rem; font-weight: 800; background: #fff; box-shadow: var(--sh-sm); min-height: 40px;
+    }
+    .viz { width: 100%; height: auto; display: block; background: #fffafc; border: 2px dashed var(--line); border-radius: 16px; }
+    .scroll-x { width: 100%; max-width: 760px; overflow-x: auto; }
+    .scroll-x > svg { min-width: 560px; }
 
-    /* Decision Tree Nodes */
-    .tree-step-box {
-      border: 2px dashed #cfc2b6;
-      border-radius: 14px;
-      padding: 12px;
-      background: #fcfbfa;
-      margin-bottom: 12px;
-    }
-    .tree-question {
-      font-weight: 800;
-      font-size: 0.92rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .tree-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .tree-btn {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 1px 1px 0 var(--ink);
-      transition: all 0.12s;
-    }
-    .tree-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 2px 2px 0 var(--ink);
-    }
-    .tree-btn.active-green {
-      background: var(--mint);
-      border-color: #1e7e34;
-      box-shadow: 2px 2px 0 var(--ink);
-    }
-    .tree-btn.active-red {
-      background: #ffe3e3;
-      border-color: #cf222e;
-      color: #900;
-      box-shadow: 2px 2px 0 var(--ink);
-    }
+    /* L0 */
+    .j-stop { transform-box: fill-box; transform-origin: center; animation: popIn .5s var(--spring) backwards; }
+    .j-lab { font-size: 13px; font-weight: 900; text-anchor: middle; fill: var(--ink); }
+    .j-badge { font-family: var(--f-head); font-size: 15px; font-weight: 800; text-anchor: middle; fill: var(--brand-d); }
+    .oc { fill: #fff; stroke: #e2cfdb; stroke-width: 1.5; }
+    .oc.g { fill: #faf5ff; }
+    .oc.key { fill: var(--butter); stroke: var(--ink); }
+    .oc.g.key { fill: var(--mint); }
+    .ot { font-size: 10.5px; font-weight: 800; text-anchor: middle; fill: var(--ink); }
+    .ot.sm { font-size: 8.5px; }
+    .row-l { font-size: 11px; font-weight: 900; text-anchor: end; fill: var(--muted); }
+    .om { font-size: 15px; text-anchor: middle; }
+    .omt { font-size: 10px; font-weight: 900; text-anchor: middle; fill: var(--brand-d); }
+    .ocur { fill: none; stroke: var(--brand); stroke-width: 3; transition: transform .15s ease, opacity .2s; }
+    .bd { fill: #f1e8ee; transition: fill .15s; }
+    .bd.t1 { fill: #58c48f; } .bd.t2 { fill: #f0c233; } .bd.t3 { fill: #ff7aa8; } .bd.cur { fill: var(--blue); }
+    .band { stroke: var(--ink); stroke-width: 1.2; }
+    .band-t { font-size: 10px; font-weight: 900; text-anchor: middle; fill: var(--ink); }
+    .wk-n { font-size: 8.5px; font-weight: 800; text-anchor: middle; fill: var(--muted); }
+    .edd-col { fill: none; stroke: var(--brand); stroke-width: 2; stroke-dasharray: 3 2; }
+    .bcur { fill: none; stroke: var(--blue); stroke-width: 2.5; }
+    .segments { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; max-width: 700px; }
+    .seg-b { min-width: 56px; border: 2px solid var(--ink); border-radius: 12px; padding: 4px 6px; font-size: .78rem; font-weight: 800; background: var(--sky); transform-origin: left; white-space: nowrap; overflow: hidden; }
+    .seg-b:nth-child(even) { background: var(--peach); }
+    .seg-b b { display: block; font-family: var(--f-head); font-size: .95rem; }
 
-    .tree-result-box {
-      background: #fff;
-      border: 2px solid var(--ink);
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 0.92rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      box-shadow: var(--sh-sm);
+    /* L1 flip + wheel + machine */
+    .flipdate { display: flex; align-items: flex-end; gap: 8px; perspective: 600px; }
+    .fd-tile {
+      position: relative; width: 96px; border: 2.5px solid var(--ink); border-radius: 18px; box-shadow: var(--sh-lg); padding: 6px 0 8px; text-align: center;
+      background: linear-gradient(var(--c) 0 50%, #fff 50%); transition: transform .25s var(--spring);
     }
+    .fd-tile.y { width: 126px; }
+    .fd-tile.on { transform: translateY(-6px) scale(1.06); }
+    .fd-tile::after { content: ''; position: absolute; left: 6px; right: 6px; top: 50%; border-top: 2px dashed rgba(59, 47, 74, .25); }
+    .fd-lab { display: block; font-size: .66rem; font-weight: 900; color: #5d5270; letter-spacing: .6px; }
+    .fd-num { display: block; font-family: var(--f-head); font-size: 2.6rem; font-weight: 800; line-height: 1.05; transform-origin: center; }
+    .fd-op {
+      position: absolute; top: -15px; right: -12px; background: var(--brand); color: #fff; border: 2px solid var(--ink); border-radius: 999px;
+      padding: 0 9px; font-weight: 900; font-size: .9rem; opacity: 0; transform: scale(.4); transition: all .3s var(--spring);
+    }
+    .fd-op.show { opacity: 1; transform: scale(1) rotate(6deg); }
+    .fd-sep { font-family: var(--f-head); font-size: 2.2rem; font-weight: 800; color: var(--muted); padding-bottom: 12px; }
+    .rule3 { display: grid; grid-template-columns: repeat(3, minmax(110px, 170px)); gap: 10px; }
+    .r3 { border: 2px solid var(--ink); border-radius: 18px; padding: 8px; background: #fff; box-shadow: var(--sh-sm); display: flex; flex-direction: column; align-items: center; transition: all .3s var(--spring); }
+    .r3 i { font-style: normal; font-size: 1.6rem; }
+    .r3 span { font-family: var(--f-head); font-size: 1.6rem; font-weight: 800; color: var(--brand-d); line-height: 1; }
+    .r3 small { font-size: .74rem; font-weight: 800; color: var(--muted); }
+    .r3.on { background: var(--butter); transform: translateY(-5px) scale(1.06); box-shadow: var(--sh-lg); }
+    .fd-result { font-size: 1.25rem; font-weight: 800; }
+    .wheel-stage { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .wheel { width: 270px; max-width: 80vw; }
+    .wheel-side { display: flex; flex-direction: column; gap: 10px; align-items: center; max-width: 330px; }
+    .wheel .seg { stroke: var(--ink); stroke-width: 1.5; transition: fill .15s; cursor: pointer; }
+    .wheel .seg.early { fill: var(--butter); } .wheel .seg.late { fill: var(--sky); }
+    .wheel .seg.start { fill: var(--pink); } .wheel .seg.cur { fill: #fff; } .wheel .seg.end { fill: var(--mint); stroke-width: 3; }
+    .wheel .seg:hover { filter: brightness(.96); }
+    .wheel .seg-t { font-size: 11px; font-weight: 900; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+    .wheel .ptr { transform-origin: 110px 110px; transition: transform .13s ease-out; pointer-events: none; }
+    .wheel .ptr line { stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; }
+    .wheel .ptr circle { fill: var(--brand); stroke: var(--ink); stroke-width: 2; }
+    .wheel .hub { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+    .wheel .hub-y { font-family: var(--f-head); font-size: 16px; font-weight: 800; text-anchor: middle; dominant-baseline: central; }
+    .wheel .hub-s { font-size: 9px; font-weight: 800; text-anchor: middle; fill: var(--muted); }
+    .wheel .hub-y.bump { fill: var(--brand); animation: bump .5s var(--spring); transform-box: fill-box; transform-origin: center; }
+    .wheel .back-arc { fill: none; stroke: var(--brand); stroke-width: 3; stroke-dasharray: 5 4; animation: dash 1s linear infinite; }
+    .legend2 { display: flex; flex-direction: column; gap: 6px; }
+    .lg { border: 2px solid var(--ink); border-radius: 999px; padding: 2px 12px; font-weight: 800; font-size: .84rem; }
+    .lg.y { background: var(--butter); } .lg.b { background: var(--sky); }
+    .machine { width: 100%; max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .slots { display: flex; align-items: flex-end; gap: 8px; margin-top: 10px; }
+    .slot { position: relative; background: #fff; border: 2.5px solid var(--ink); border-radius: 16px; width: 86px; padding: 3px 0 5px; text-align: center; box-shadow: var(--sh); transition: transform .25s var(--spring), background .2s; }
+    .slot-y { width: 110px; }
+    .slot.hot { background: var(--butter); transform: translateY(-5px) scale(1.06); }
+    .slot.done { background: var(--mint); }
+    .slot-lab { display: block; font-size: .64rem; font-weight: 900; color: var(--muted); letter-spacing: .5px; }
+    .slot-val { display: block; font-family: var(--f-head); font-size: 2rem; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+    .slot-op { position: absolute; top: -15px; right: -12px; background: var(--brand); color: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; font-size: .8rem; font-weight: 900; opacity: 0; transform: scale(.5); transition: all .25s var(--spring); }
+    .slot-op.show { opacity: 1; transform: scale(1); }
+    .slot-sep { font-family: var(--f-head); font-size: 1.9rem; font-weight: 800; color: var(--muted); padding-bottom: 8px; }
+    .steps { list-style: none; display: grid; gap: 6px; width: 100%; }
+    .step { display: flex; gap: 8px; align-items: center; background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 6px 12px; font-size: .9rem; font-weight: 700; text-align: left; box-shadow: var(--sh-sm); }
+    .step.idle { color: var(--muted); border-style: dashed; box-shadow: none; justify-content: center; }
+    .step-i { font-size: 1.15rem; }
+    .step i { color: var(--muted); font-style: normal; font-size: .8rem; }
+    .result-card { width: 100%; border: 2.5px solid var(--ink); border-radius: 18px; padding: 8px 12px; box-shadow: var(--sh); background: linear-gradient(120deg, var(--pink), var(--butter)); }
+    .rc-lab { font-size: .72rem; font-weight: 900; letter-spacing: .6px; }
+    .rc-date { font-family: var(--f-head); font-size: 2rem; font-weight: 800; line-height: 1.1; }
+    .rc-sub { font-size: .82rem; font-weight: 700; color: #5d5270; }
 
-    /* ==========================================================================
-       DRILL TAB (FLASHCARD & REFLEX ARENA - TAB 2)
-       ========================================================================== */
-    .mode-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    .pill {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 1px 1px 0 var(--ink);
-      transition: all 0.12s;
-    }
-    .pill.active {
-      background: var(--butter);
-      box-shadow: 2px 2px 0 var(--ink);
-      transform: translate(-1px, -1px);
-    }
+    /* L1B fist + calendar */
+    .fist { fill: #ffdcc7; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+    .thumb { fill: #ffcfb4; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+    .fline { stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; opacity: .45; }
+    .kshine { fill: #fff; opacity: .7; }
+    .fball { fill: var(--brand); stroke: var(--ink); stroke-width: 2.5; }
+    .fball-t { font-family: var(--f-head); font-size: 12px; font-weight: 800; fill: #fff; text-anchor: middle; dominant-baseline: central; }
+    .ftag rect { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+    .ftag text { font-family: var(--f-head); font-size: 14px; font-weight: 800; text-anchor: middle; dominant-baseline: central; }
+    .fk-lab { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--muted); }
+    .month-strip { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; width: 100%; max-width: 700px; }
+    .ms { border: 2px solid var(--ink); border-radius: 10px; text-align: center; padding: 2px 0; font-size: .68rem; font-weight: 800; background: #fff; opacity: .35; transition: all .3s var(--spring); }
+    .ms b { display: block; font-family: var(--f-head); font-size: 1rem; }
+    .ms.lit { opacity: 1; transform: translateY(-3px); }
+    .ms.d31 { background: var(--mint); } .ms.d30 { background: var(--sky); } .ms.d28, .ms.d29 { background: var(--pink); }
+    .cal-wrap { width: 100%; }
+    .cal-title { font-size: .86rem; font-weight: 800; margin-bottom: 6px; }
+    .cal-pair { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .cal { background: #fff; border: 2px solid var(--ink); border-radius: 16px; padding: 7px; width: 226px; box-shadow: var(--sh-sm); }
+    .cal.spill { border-color: #e8914a; background: #fff8f0; }
+    .cal-h { font-size: .78rem; font-weight: 900; margin-bottom: 3px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-dow { font-size: .58rem; font-weight: 900; color: var(--muted); }
+    .cal-cell { aspect-ratio: 1; display: grid; place-items: center; font-size: .7rem; font-weight: 800; border-radius: 8px; background: #f8f1f5; transition: transform .2s var(--spring); }
+    .cal-cell.pad { visibility: hidden; }
+    .cal-cell.start { background: var(--butter); outline: 2px solid var(--ink); }
+    .cal-cell.walk { background: var(--sky); animation: walkPop .3s var(--spring); }
+    .spill .cal-cell.walk { background: var(--peach); }
+    .cal-cell.end { background: var(--brand) !important; color: #fff; transform: scale(1.2); outline: 2px solid var(--ink); }
+    .cal-arrow { font-size: 1.6rem; font-weight: 900; color: #e8914a; animation: nudge 1s ease-in-out infinite; }
 
-    .control-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: var(--soft);
-      border: 2px dashed #e2d1c3;
-      border-radius: 14px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
+    /* L2 */
+    .ph { stroke: var(--ink); stroke-width: 2; }
+    .ph.fol { fill: var(--peach); } .ph.lut { fill: var(--mint); } .ph.ghost { opacity: .45; stroke-dasharray: 4 3; }
+    .ph-t { font-size: 11px; font-weight: 800; text-anchor: middle; fill: var(--ink); }
+    .ph-t.g { fill: #155c3b; }
+    .ov { fill: var(--brand); stroke: var(--ink); stroke-width: 2; }
+    .ov.ghost { opacity: .45; }
+    .egg-g { transform-box: fill-box; transform-origin: center bottom; animation: eggBounce .6s var(--spring); }
+    .egg { font-size: 14px; text-anchor: middle; }
+    .ov-t { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--brand-d); }
+    .lab { font-size: 11px; font-weight: 800; text-anchor: middle; fill: var(--muted); }
+    .lab-l { font-size: 11px; font-weight: 800; fill: var(--muted); }
+    .dot { fill: var(--ink); }
+    .guide { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 3 3; }
+    .shift { stroke: var(--brand); stroke-width: 3; }
+    .shift-t { font-size: 12px; font-weight: 900; fill: var(--brand-d); text-anchor: middle; }
+    .mini-metrics { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .mm { border: 2px solid var(--ink); border-radius: 14px; padding: 4px 12px; background: #fff; box-shadow: var(--sh-sm); font-size: .8rem; font-weight: 800; }
+    .mm b { font-family: var(--f-head); font-size: 1.1rem; display: block; }
+    .jitter { position: relative; width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 10px; padding: 10px 0 70px; }
+    .jrow { display: flex; align-items: center; gap: 10px; }
+    .jlab { width: 52px; font-weight: 900; font-size: .8rem; color: var(--muted); text-align: right; }
+    .jbar { height: 24px; border: 2px solid var(--ink); border-radius: 999px; background: linear-gradient(90deg, var(--peach), var(--pink)); width: var(--a); animation: jw var(--d) ease-in-out infinite alternate; }
+    .jegg { position: absolute; left: 20%; top: -8px; font-size: 1.8rem; animation: wander 2.4s ease-in-out infinite; }
+    .jegg b { font-size: .9rem; background: #fff; border: 2px solid var(--ink); border-radius: 50%; padding: 0 6px; margin-left: -6px; vertical-align: top; }
+    .stamp {
+      display: inline-block; font-family: var(--f-head); font-weight: 800; font-size: 1.5rem; color: var(--bad); border: 4px double var(--bad); border-radius: 14px;
+      padding: 2px 14px; transform: rotate(-8deg); background: rgba(255, 255, 255, .9); letter-spacing: .5px;
     }
+    .stamp.small { font-size: .95rem; border-width: 3px; padding: 0 8px; }
+    .play .stamp, .stamp.play { animation: stampIn .55s var(--spring) backwards; animation-delay: var(--sd, .9s); }
+    .jitter .stamp { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%) rotate(-8deg); }
+    .jfix { font-weight: 900; font-size: 1.05rem; animation: fadeUp .5s 1.6s backwards; }
 
-    .mode-switch-group {
-      display: flex;
-      background: #fff;
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 2px;
-      box-shadow: 1px 2px 0 var(--ink);
+    /* L3 */
+    .embryo-stage { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    #embryoSvg { width: 220px; }
+    .zona { fill: #fffdf6; stroke: #d9c3ae; stroke-width: 7; }
+    .zona.thin { stroke-width: 3; }
+    .cavity { fill: #e6f3ff; }
+    .cell { fill: var(--peach); stroke: var(--ink); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: cellIn .45s var(--spring) backwards; }
+    .cell.mor { fill: #ffd1a8; } .cell.te { fill: var(--pink); stroke-width: 1.5; } .cell.icm { fill: #ffc2d4; }
+    .pn { fill: var(--brand); stroke: var(--ink); stroke-width: 1.5; animation: pulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .emb-t { font-size: 10px; font-weight: 900; text-anchor: middle; fill: var(--blue); }
+    .daychips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 8px; }
+    .daychips button { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--ink); background: #fff; font-family: var(--f-head); font-weight: 800; cursor: pointer; box-shadow: var(--sh-sm); transition: all .2s var(--spring); }
+    .daychips button.on { background: var(--sky); transform: translateY(-4px) scale(1.1); }
+    .tl-track { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+    .tl-tick { stroke: var(--ink); stroke-width: 1.5; }
+    .tl-wk { font-size: 10px; font-weight: 900; text-anchor: middle; fill: var(--muted); }
+    .tl-pt { stroke: var(--ink); stroke-width: 2; }
+    .tl-e { font-size: 13px; text-anchor: middle; dominant-baseline: central; }
+    .tl-top { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--ink); }
+    .tl-bot { font-size: 10.5px; font-weight: 800; fill: var(--muted); }
+    .tl-sel { fill: var(--brand-d); }
+    .tl-br { fill: none; stroke: var(--brand); stroke-width: 2; }
+    .tl-br-t { font-size: 11px; font-weight: 900; text-anchor: middle; fill: var(--brand-d); }
+    .chip-mini { display: inline-block; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 10px; font-size: .8rem; font-weight: 800; background: #fff; }
+    .calc-steps { list-style: none; display: grid; gap: 6px; width: 100%; max-width: 640px; counter-reset: cs; }
+    .calc-steps li {
+      background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 6px 10px 6px 40px; font-size: .9rem; font-weight: 700; text-align: left;
+      position: relative; box-shadow: var(--sh-sm); animation: fadeUp .4s ease backwards; animation-delay: calc(var(--i) * 110ms);
     }
-    .input-switch-btn {
-      border: none;
-      background: transparent;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .input-switch-btn.active {
-      background: var(--butter);
-      box-shadow: 1px 1px 0 var(--ink);
-    }
+    .calc-steps li::before { counter-increment: cs; content: counter(cs); position: absolute; left: 9px; top: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--butter); border: 2px solid var(--ink); display: grid; place-items: center; font-size: .72rem; font-weight: 900; }
+    .lock-scene { display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .ls-card { position: relative; width: 190px; border: 2px solid var(--ink); border-radius: 20px; padding: 12px; background: #fff; box-shadow: var(--sh); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .ls-card.ok { background: var(--mint); }
+    .ls-card i { font-style: normal; font-size: 2.4rem; }
+    .ls-card span { font-size: .84rem; font-weight: 700; }
+    .ls-card .ls-lock { position: absolute; top: -14px; right: -10px; font-size: 1.8rem; font-style: normal; animation: lockSwing 2.4s ease-in-out infinite; transform-origin: top center; }
+    .ls-card .stamp { position: absolute; bottom: -14px; right: -12px; }
+    .ls-vs { font-family: var(--f-head); font-size: 1.4rem; font-weight: 800; color: var(--muted); }
+    .ls-note { border: 2px dashed var(--ink); border-radius: 16px; padding: 7px 14px; font-weight: 700; background: #fffaf0; max-width: 640px; }
 
-    .drill-stats {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .stat-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 800;
-      font-size: 0.92rem;
-    }
-    .stat-num {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      border-radius: 8px;
-      padding: 2px 8px;
-      box-shadow: 1px 1px 0 var(--ink);
-      color: var(--brand);
-    }
+    /* L4 */
+    .crl-stage { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: center; width: 100%; max-width: 820px; }
+    .crl-side { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .us-screen { background: #050505; border: 2px solid var(--ink); border-radius: 18px; box-shadow: var(--sh); overflow: hidden; }
+    #usSvg { width: 100%; display: block; }
+    .us-t { font-family: ui-monospace, Consolas, 'Courier New', monospace; font-size: 11px; fill: #e8e8e8; }
+    .us-t.y { fill: #ffe066; }
+    .us-scan { stroke: rgba(255, 255, 255, .07); stroke-width: 18; transform-origin: 180px 10px; animation: scan 2.6s ease-in-out infinite alternate; }
+    .us-heart { fill: #fff; animation: flicker .42s steps(2) infinite; }
+    #crlSlider { background: linear-gradient(90deg, var(--mint) 0 27%, var(--sky) 27% 100%); }
+    .zone { display: inline-block; border: 2px solid var(--ink); border-radius: 14px; padding: 4px 12px; font-size: .82rem; font-weight: 800; }
+    .zone.ok { background: var(--ok-bg); } .zone.best { background: var(--sky); } .zone.warn { background: #ffe4e8; color: var(--bad); }
+    .mb-row { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+    .wk { display: inline-flex; gap: 2px; padding: 3px 4px; border: 2px solid var(--ink); border-radius: 999px; background: var(--mint); animation: cellIn .35s var(--spring) backwards; }
+    .wk.part { background: #fff; }
+    .wk i { width: 6px; height: 6px; border-radius: 50%; background: #2f8f5f; display: block; }
+    .wk i.e { background: #e3dbd0; }
+    .posture-stage, .balance-stage { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%; }
+    #postureSvg { width: 100%; max-width: 420px; }
+    .p-head { transform-origin: 170px 110px; transition: transform .45s var(--spring); }
+    .p-skin { fill: #ffdcc7; stroke: var(--ink); stroke-width: 2.5; }
+    .p-cal { stroke: var(--brand); stroke-width: 2.5; stroke-dasharray: 5 4; transition: all .45s var(--spring); }
+    .p-plus { stroke: var(--brand-d); stroke-width: 3; }
+    .check4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; max-width: 760px; }
+    .ck { border: 2px solid var(--ink); border-radius: 16px; padding: 7px; background: #fff; box-shadow: var(--sh-sm); font-size: .8rem; font-weight: 800; animation: popIn .4s var(--spring) backwards; }
+    .ck i { display: block; font-style: normal; font-size: 1.5rem; }
+    .ck:nth-child(2) { animation-delay: .08s; } .ck:nth-child(3) { animation-delay: .16s; } .ck:nth-child(4) { animation-delay: .24s; }
+    #balanceSvg { width: 100%; max-width: 420px; }
+    .b-beam { transform-origin: 210px 70px; transition: transform .6s var(--spring); }
+    .b-pan { transition: transform .6s var(--spring); }
+    .b-wood { fill: #ffe7a8; stroke: var(--ink); stroke-width: 2.5; }
+    .b-str { stroke: var(--ink); stroke-width: 2; }
+    .b-pan-s { fill: #fff; stroke: var(--ink); stroke-width: 2.5; }
+    .b-t { font-size: 13px; font-weight: 900; text-anchor: middle; fill: var(--ink); }
+    .b-e { font-size: 26px; text-anchor: middle; dominant-baseline: central; }
+    .verdict { font-family: var(--f-head); font-size: 1.25rem; font-weight: 800; border: 2px solid var(--ink); border-radius: 16px; padding: 6px 14px; box-shadow: var(--sh-sm); transition: background .3s; }
+    .verdict.keep { background: var(--butter); } .verdict.change { background: var(--sky); }
+    .lock-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: .88rem; }
+    .lk-chip { border: 2px solid var(--ink); border-radius: 14px; padding: 5px 10px; background: var(--mint); box-shadow: var(--sh-sm); }
+    .lk-chip.gray { background: #eee; text-decoration: line-through; color: var(--muted); }
+    .lk-lock { font-size: 1.7rem; display: inline-block; animation: lockSwing 2.4s ease-in-out infinite; transform-origin: top center; }
 
-    /* Streak Fire Container */
-    .streak-fire-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .streak-fire-wrap.active {
-      transform: scale(1.15);
-    }
+    /* ---------- QUIZ (cuối mỗi bài) ---------- */
+    .quiz { width: 100%; max-width: 720px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .qz-card { display: flex; gap: 12px; align-items: center; background: #fffafc; border: 2px solid var(--ink); border-radius: 20px; padding: 10px 14px; box-shadow: var(--sh); width: 100%; text-align: left; }
+    .qz-card .mascot-slot { width: 64px; flex-shrink: 0; }
+    .qz-tag { display: inline-block; font-size: .72rem; font-weight: 900; background: var(--butter); border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; }
+    .qz-date { font-family: var(--f-head); font-size: 1.5rem; font-weight: 800; line-height: 1.15; }
+    .qz-cond { font-size: .86rem; font-weight: 700; color: #5d5270; }
+    .qz-target { font-weight: 900; color: var(--brand-d); font-size: .9rem; }
+    .qz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+    .qz-fb { font-weight: 700; font-size: .9rem; min-height: 22px; }
 
-    /* Flashcard Box */
+    /* ---------- DRILL ---------- */
+    .topic-row { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: none; }
+    .topic-row::-webkit-scrollbar { display: none; }
+    .pill { flex-shrink: 0; background: #fff; border: 2px solid var(--ink); padding: 4px 13px; border-radius: 999px; font-size: .84rem; font-weight: 800; cursor: pointer; box-shadow: var(--sh-sm); transition: all .15s; }
+    .pill.active { background: var(--butter); transform: translateY(-2px); }
+    .drill-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .chk { display: inline-flex; align-items: center; gap: 5px; font-size: .84rem; font-weight: 800; cursor: pointer; }
+    .chk input { width: 18px; height: 18px; accent-color: var(--brand); }
+    .stat-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .stat-chips span { background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 10px; font-weight: 800; font-size: .86rem; box-shadow: var(--sh-sm); }
+    .stat-chips b { color: var(--brand-d); }
+    .streak-fire { display: inline-block; }
+    .streak-fire.active { animation: fire .45s ease-in-out infinite alternate; }
+    .blitz-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 900; }
+    .blitz-bar { flex: 1; height: 16px; border: 2px solid var(--ink); border-radius: 999px; background: #fff; overflow: hidden; }
+    #blitzFill { height: 100%; width: 100%; background: linear-gradient(90deg, var(--brand), #ffb35c); }
     .flashcard {
-      background: #fff;
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      padding: 24px 18px;
-      text-align: center;
-      box-shadow: 4px 6px 0 var(--ink);
-      position: relative;
-      margin-bottom: 16px;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative; background: #fff; border: 3px solid var(--ink); border-radius: 26px; padding: 20px 18px 18px 120px; box-shadow: var(--sh-lg);
+      margin-bottom: 14px; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transition: box-shadow .3s, border-color .3s;
     }
-    .flashcard.on-fire {
-      border-color: #e76f95;
-      box-shadow: 0 0 16px rgba(231, 111, 149, 0.4), 4px 6px 0 var(--ink);
-    }
-
-    .flash-category {
-      display: inline-block;
-      padding: 3px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      border: 1.5px solid var(--ink);
-      background: var(--butter);
-      box-shadow: 1px 1px 0 var(--ink);
-      margin-bottom: 10px;
-    }
-    .flash-label {
-      font-size: 0.84rem;
-      color: var(--muted);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .flash-date {
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: var(--ink);
-      line-height: 1.15;
-      margin: 4px 0 8px 0;
-    }
-    .flash-condition {
-      display: inline-block;
-      background: var(--soft);
-      border: 1.5px dashed #cfc2b6;
-      border-radius: 8px;
-      padding: 4px 12px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #554e66;
-      margin-bottom: 8px;
-    }
-    .flash-target {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--brand);
-    }
-
-    /* Date Input Box */
-    .date-input-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .date-box-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .date-sub-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
+    .flashcard .mascot-slot { position: absolute; left: 14px; bottom: 12px; width: 92px; }
+    .flashcard.on-fire { border-color: var(--brand); box-shadow: 0 0 22px rgba(255, 111, 163, .5), var(--sh-lg); }
+    .q-timer { position: absolute; top: 10px; right: 14px; font-size: .8rem; font-weight: 900; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .flash-category { display: inline-block; padding: 1px 12px; border-radius: 999px; font-size: .78rem; font-weight: 900; border: 2px solid var(--ink); background: var(--butter); margin-bottom: 6px; }
+    .flash-label { font-size: .8rem; color: var(--muted); font-weight: 900; text-transform: uppercase; letter-spacing: .5px; }
+    .flash-date { font-family: var(--f-head); font-size: 2.4rem; font-weight: 800; line-height: 1.1; margin: 2px 0 6px; }
+    .flash-date.long { font-size: 1.55rem; }
+    .flash-condition { display: inline-block; background: #fff7fb; border: 2px dashed #efc2d6; border-radius: 12px; padding: 3px 12px; font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
+    .flash-target { font-size: 1.02rem; font-weight: 900; color: var(--brand-d); }
+    .date-input-wrap { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .date-box-item { display: flex; flex-direction: column; align-items: center; }
+    .date-sub-label { font-size: .7rem; font-weight: 900; color: var(--muted); margin-bottom: 3px; }
     .date-inp {
-      width: 72px;
-      height: 52px;
-      border: 2.5px solid var(--ink);
-      border-radius: 12px;
-      background: #fff;
-      font-family: var(--font-round);
-      font-size: 1.5rem;
-      font-weight: 900;
-      text-align: center;
-      color: var(--ink);
-      box-shadow: 2px 3px 0 var(--ink);
-      outline: none;
-      transition: all 0.12s;
+      width: 74px; height: 56px; border: 2.5px solid var(--ink); border-radius: 16px; background: #fff; font-family: var(--f-head); font-size: 1.7rem; font-weight: 800;
+      text-align: center; box-shadow: var(--sh); outline: none; transition: all .12s;
     }
-    .date-inp:focus {
-      background: #fffcee;
-      border-color: var(--brand);
-      transform: translateY(-2px);
-      box-shadow: 3px 5px 0 var(--ink);
-    }
-    .date-inp.inp-year { width: 92px; }
-    .date-slash {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--muted);
-      align-self: flex-end;
-      margin-bottom: 8px;
-    }
-
-    .type-actions-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 550px) {
-      .type-actions-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Multiple Choice Grid */
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    @media (max-width: 600px) {
-      .options-grid { grid-template-columns: 1fr; }
-    }
-
+    .date-inp:focus { background: #fffbe6; border-color: var(--brand); transform: translateY(-2px); }
+    .date-inp.inp-year { width: 98px; }
+    .date-inp.inp-text { width: 320px; max-width: 100%; font-size: 1.25rem; }
+    .date-slash { font-family: var(--f-head); font-size: 1.9rem; font-weight: 800; color: var(--muted); align-self: flex-end; margin-bottom: 8px; }
+    .type-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .opt-btn {
-      background: #fff;
-      border: 2px solid var(--ink);
-      border-radius: 14px;
-      padding: 16px 14px;
-      font-family: var(--font-main);
-      font-size: 1.15rem;
-      font-weight: 800;
-      cursor: pointer;
-      text-align: center;
-      box-shadow: 3px 3px 0 var(--ink);
-      transition: all 0.12s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background: #fff; border: 2px solid var(--ink); border-radius: 18px; padding: 12px; font-size: 1.02rem; font-weight: 800; cursor: pointer; box-shadow: var(--sh);
+      display: flex; align-items: center; gap: 8px; transition: transform .1s, background .15s; text-align: center;
     }
-    .opt-btn:hover {
-      transform: translate(-1px, -2px);
-      box-shadow: 4px 5px 0 var(--ink);
-      background: var(--soft);
+    .opt-btn:hover { background: #fff7fb; transform: translateY(-2px); }
+    .opt-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+    .opt-key { background: var(--butter); border: 2px solid var(--ink); border-radius: 8px; padding: 0 7px; font-size: .78rem; font-weight: 900; }
+    .opt-text { flex: 1; }
+    .opt-btn.is-trap-btn { background: #fff0f2; border-color: var(--bad); color: #b3212b; }
+    .opt-btn.correct, .date-inp.correct { background: #d6f7e4 !important; border-color: var(--ok) !important; color: #155c3b !important; }
+    .opt-btn.wrong, .date-inp.wrong { background: #ffd9df !important; border-color: var(--bad) !important; color: #8b1a22 !important; animation: shake .35s; }
+    #helperTip { text-align: center; margin-top: 10px; }
+    .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 80; display: flex; justify-content: center; padding: 0 12px 12px; pointer-events: none; }
+    .sheet-card {
+      pointer-events: auto; width: 100%; max-width: 760px; border: 2.5px solid var(--ink); border-radius: 24px; padding: 14px 16px; box-shadow: 0 -4px 30px rgba(59, 47, 74, .18), var(--sh-lg);
+      background: #fff; animation: sheetUp .38s var(--spring);
     }
-    .opt-btn:active {
-      transform: translate(1px, 2px);
-      box-shadow: 1px 1px 0 var(--ink);
+    .sheet-card.wrong { background: #fff4f6; }
+    .fb-title { font-family: var(--f-head); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .fb-hack { background: #fff; border: 2px dashed var(--ink); border-radius: 14px; padding: 7px 12px; font-size: .92rem; margin-top: 6px; font-weight: 700; }
+    .fb-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+    .fb-steps:empty { display: none; }
+    .fb-step, .fb-arrow { animation: fadeUp .35s ease backwards; }
+    .fb-step { background: var(--butter); border: 2px solid var(--ink); border-radius: 12px; padding: 2px 10px; font-size: .84rem; font-weight: 700; }
+    .fb-arrow { font-weight: 900; color: var(--muted); }
+    .sheet-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 10px; }
+    #toast {
+      position: fixed; top: 76px; left: 50%; transform: translateX(-50%); z-index: 90; background: var(--ok-bg); border: 2.5px solid var(--ok); color: #155c3b;
+      border-radius: 999px; padding: 6px 18px; font-family: var(--f-head); font-weight: 800; font-size: 1.1rem; box-shadow: var(--sh); pointer-events: none;
     }
-    .opt-key {
-      background: var(--butter);
-      border: 1.5px solid var(--ink);
-      border-radius: 6px;
-      padding: 2px 7px;
-      font-size: 0.78rem;
-      font-weight: 900;
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-    .opt-text { flex: 1; text-align: center; }
+    #toast.show { animation: toastIn .9s ease forwards; }
 
-    .opt-btn.is-trap-btn {
-      background: #fff0f0;
-      border-color: #d1242f;
-      color: #b31d28;
+    /* ---------- TRAPS ---------- */
+    .trap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .flip { perspective: 1000px; cursor: pointer; outline: none; animation: popIn .45s var(--spring) backwards; }
+    .flip-inner { display: grid; transition: transform .65s var(--spring); transform-style: preserve-3d; height: 100%; }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face {
+      grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 2.5px solid var(--ink); border-radius: 22px; padding: 12px;
+      box-shadow: var(--sh-lg); min-height: 196px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; position: relative;
     }
+    .flip:focus-visible .flip-face { outline: 3px solid var(--blue); }
+    .flip.flash .flip-face { animation: flashRing 1.2s ease; }
+    .front { background: linear-gradient(160deg, #fff, #fff1f5); }
+    .fback { background: #fff; transform: rotateY(180deg); }
+    .trap-no { position: absolute; top: 10px; left: 12px; background: var(--bad); color: #fff; border: 2px solid var(--ink); border-radius: 10px; padding: 0 8px; font-family: var(--f-head); font-weight: 800; }
+    .trap-icon { font-size: 3rem; animation: floaty 3s ease-in-out infinite; }
+    .trap-q { font-weight: 800; font-size: .92rem; }
+    .flip-hint { font-size: .72rem; color: var(--muted); font-weight: 800; }
+    .trap-title { color: var(--bad); font-weight: 900; font-size: .9rem; }
+    .trap-rule { font-size: .84rem; font-weight: 600; }
+    .flip.flipped .stamp { animation: stampIn .55s .35s var(--spring) backwards; }
 
-    .opt-btn.correct, .date-inp.correct {
-      background: #d4f7e2 !important;
-      border-color: #1e7e34 !important;
-      color: #155724 !important;
-    }
-    .opt-btn.wrong, .date-inp.wrong {
-      background: #fed7d7 !important;
-      border-color: #c53030 !important;
-      color: #742a2a !important;
-      animation: shake 0.35s;
-    }
+    /* ---------- CHEAT ---------- */
+    .cheat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .cc { background: var(--c); border: 2px solid var(--ink); border-radius: 20px; padding: 10px 12px; box-shadow: var(--sh); animation: popIn .4s var(--spring) backwards; }
+    .cc h4 { font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
+    .cc h4 i { font-style: normal; font-size: 1.4rem; }
+    .cc p { font-size: .86rem; font-weight: 700; margin-top: 2px; }
+    .cc code { font-family: var(--f-head); font-weight: 800; background: #fff; border: 1.5px solid var(--ink); border-radius: 8px; padding: 0 6px; }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
-    }
+    /* ---------- STATS ---------- */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+    .badge-card { text-align: center; }
+    .badge-card .bi { font-size: 2rem; }
+    .badge-card .bn { font-family: var(--f-head); font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
+    .stats-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stats-2col h4 { font-size: 1.1rem; margin-bottom: 8px; }
+    .ach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .ach { border: 2px dashed #d9c6d2; border-radius: 16px; padding: 6px; text-align: center; font-size: .74rem; filter: grayscale(1); opacity: .5; }
+    .ach.on { border: 2px solid var(--ink); background: var(--butter); filter: none; opacity: 1; box-shadow: var(--sh-sm); }
+    .ach-i { font-size: 1.5rem; }
+    .ach span { display: block; color: var(--muted); font-weight: 700; }
+    .tb-row { display: grid; grid-template-columns: 130px 1fr 92px; gap: 8px; align-items: center; margin-bottom: 7px; font-size: .82rem; font-weight: 800; }
+    .tb-bar { height: 14px; border: 2px solid var(--ink); border-radius: 999px; background: #f6edf2; overflow: hidden; }
+    .tb-fill { height: 100%; background: linear-gradient(90deg, var(--mint), var(--ok)); transition: width .7s ease; }
+    .tb-num { color: var(--muted); text-align: right; }
 
-    /* Feedback Micro-Card */
-    .feedback-box {
-      border: 2px solid var(--ink);
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 14px;
-      display: none;
-      animation: popIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    @keyframes popIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .feedback-box.correct { background: #e6ffed; border-color: #2ea043; }
-    .feedback-box.wrong { background: #ffeef0; border-color: #cf222e; }
-    .fb-title {
-      font-size: 1.05rem;
-      font-weight: 900;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .fb-hack {
-      background: #fff;
-      border: 1.5px dashed var(--ink);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 0.92rem;
-      margin-top: 6px;
-      font-weight: 700;
-    }
+    /* Modal */
+    .modal { position: fixed; inset: 0; z-index: 100; background: rgba(59, 47, 74, .45); display: grid; place-items: center; padding: 16px; }
+    .modal .card { max-width: 380px; width: 100%; text-align: center; animation: popIn .3s var(--spring); }
+    .br-big { font-family: var(--f-head); font-size: 3.6rem; font-weight: 800; color: var(--brand); line-height: 1; }
+    #confettiCanvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999; }
+    footer { position: relative; z-index: 1; text-align: center; padding: 14px; font-size: .78rem; color: var(--muted); font-weight: 600; }
 
-    /* Confetti Canvas */
-    #confettiCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 999;
-    }
+    /* ---------- Keyframes ---------- */
+    @keyframes pageIn { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: none; } }
+    @keyframes popIn { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes bounceIn { 0% { transform: scale(.3) rotate(-15deg); opacity: 0; } 60% { transform: scale(1.15) rotate(5deg); opacity: 1; } 100% { transform: none; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+    @keyframes sheetUp { from { transform: translateY(110%); } to { transform: none; } }
+    @keyframes toastIn { 0% { opacity: 0; transform: translate(-50%, -12px) scale(.8); } 20% { opacity: 1; transform: translate(-50%, 0) scale(1.05); } 75% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -8px); } }
+    @keyframes cellIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes walkPop { 0% { transform: scale(.6); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    @keyframes eggBounce { 0% { transform: translateY(-14px) scale(.8); } 60% { transform: translateY(2px) scale(1.08); } 100% { transform: none; } }
+    @keyframes bump { 50% { transform: scale(1.5); } }
+    @keyframes dash { to { stroke-dashoffset: -18; } }
+    @keyframes nudge { 50% { transform: translateX(5px); } }
+    @keyframes pulse { 50% { transform: scale(1.18); } }
+    @keyframes ringPulse { 50% { stroke-width: 5; stroke: var(--brand); } }
+    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+    @keyframes hop { 0% { transform: none; } 30% { transform: translateY(-16px) scale(1.05, .95); } 60% { transform: translateY(0) scale(.94, 1.06); } 100% { transform: none; } }
+    @keyframes wob { 20% { transform: rotate(-8deg); } 40% { transform: rotate(7deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(3deg); } }
+    @keyframes waveL { 50% { transform: rotate(-25deg); } }
+    @keyframes waveR { 50% { transform: rotate(25deg); } }
+    @keyframes scan { from { transform: rotate(-48deg); } to { transform: rotate(48deg); } }
+    @keyframes flicker { 0% { opacity: 1; } 100% { opacity: .15; } }
+    @keyframes lockSwing { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-12deg); } 40% { transform: rotate(10deg); } 60% { transform: rotate(0); } }
+    @keyframes fire { from { transform: scale(1.2) rotate(-8deg); } to { transform: scale(1.45) rotate(8deg); } }
+    @keyframes flashRing { 0% { box-shadow: 0 0 0 0 rgba(255, 111, 163, .7), var(--sh-lg); } 100% { box-shadow: 0 0 0 18px rgba(255, 111, 163, 0), var(--sh-lg); } }
+    @keyframes shake { 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+    @keyframes stampIn { 0% { opacity: 0; transform: scale(2.6) rotate(-20deg); } 70% { opacity: 1; transform: scale(.92) rotate(-6deg); } 100% { opacity: 1; transform: scale(1) rotate(-8deg); } }
+    @keyframes jw { from { width: var(--a); } to { width: var(--b); } }
+    @keyframes wander { 0% { left: 18%; } 25% { left: 62%; } 50% { left: 34%; } 75% { left: 80%; } 100% { left: 18%; } }
 
-    footer {
-      text-align: center;
-      padding: 18px 14px;
-      font-size: 0.82rem;
-      color: var(--muted);
-      border-top: 2px dashed #eccfd9;
-      background: rgba(255, 253, 248, 0.7);
-      margin-top: 20px;
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      #topbar { padding: 8px 12px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, .96); }
+      .brand small { display: none; }
+      #nav {
+        position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 70; justify-content: space-around; border-radius: 24px; padding: 6px;
+        box-shadow: 0 4px 0 var(--ink), 0 8px 30px rgba(59, 47, 74, .18);
+      }
+      #nav a { flex-direction: column; gap: 0; padding: 4px 8px; font-size: .68rem; border-radius: 16px; }
+      #nav a i { font-size: 1.35rem; }
+      #app { padding-bottom: 100px; }
+      .slide { min-height: clamp(360px, calc(100vh - 310px), 640px); }
+      .lp-foot { position: sticky; bottom: 84px; z-index: 5; }
+      .sheet { bottom: 82px; }
+      .home-grid { grid-template-columns: 1fr; }
+      .tiles { grid-template-columns: repeat(2, 1fr); }
+      .trap-grid, .cheat-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-2col { grid-template-columns: 1fr; }
+      .crl-stage { grid-template-columns: 1fr; }
+      .check4 { grid-template-columns: repeat(2, 1fr); }
+      footer { padding-bottom: 96px; }
+    }
+    @media (max-width: 560px) {
+      .hide-sm { display: none; }
+      .brand-t { font-size: 1.05rem; }
+      .hero-card h1 { font-size: 1.6rem; }
+      .hero-top .mascot-slot { width: 84px !important; }
+      .slide { padding: 14px 12px; border-radius: 22px; }
+      .s-title { font-size: 1.28rem; }
+      .big-read { font-size: 1.4rem; }
+      .trap-grid, .cheat-grid { grid-template-columns: 1fr; }
+      .flashcard { padding: 40px 12px 14px 12px; }
+      .flashcard .mascot-slot { width: 44px !important; left: 10px; top: 6px; bottom: auto; }
+      .flash-date { font-size: 1.9rem; }
+      .flash-date.long { font-size: 1.15rem; }
+      .type-actions-grid, .options-grid, .qz-opts { grid-template-columns: 1fr; }
+      .date-inp { width: 62px; } .date-inp.inp-year { width: 86px; }
+      .fd-tile { width: 76px; } .fd-tile.y { width: 104px; } .fd-num { font-size: 2rem; }
+      .rule3 { grid-template-columns: repeat(3, 1fr); }
+      .slot { width: 70px; } .slot-y { width: 92px; } .slot-val { font-size: 1.6rem; }
+      .tb-row { grid-template-columns: 96px 1fr 70px; font-size: .74rem; }
+      .ach-grid { grid-template-columns: repeat(2, 1fr); }
+      .month-strip { grid-template-columns: repeat(6, 1fr); }
+      .wiz-res { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+      .wiz-res .mascot-slot { width: 90px !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
+  <div class="bg-deco" aria-hidden="true">
+    <span style="left:4%;top:18%">💗</span><span style="left:92%;top:30%">✨</span><span style="left:8%;top:70%">⭐</span>
+    <span style="left:88%;top:78%">🌸</span><span style="left:48%;top:92%">🫧</span><span style="left:70%;top:10%">💫</span>
+    <span style="left:24%;top:44%">🌷</span><span style="left:96%;top:56%">💗</span>
+  </div>
   <canvas id="confettiCanvas"></canvas>
 
-  <!-- Top bar -->
   <header id="topbar">
-    <a href="#" class="brand-wrap">
-      <div class="brand-logo">🤰</div>
-      <div>
-        <span class="brand-text">SanCalc Y4 • <b>Phản Xạ Tuổi Thai</b></span>
-        <span class="brand-sub">Nguyễn Việt Thanh (Y23C ĐHYD) • Trực Quan Hóa & Phản Xạ Thần Tốc</span>
-      </div>
+    <a class="brand" href="#home">
+      <span class="mascot-slot" data-size="44"></span>
+      <span style="min-width:0">
+        <b class="brand-t">SanCalc Y4 • <em>Tuổi Thai</em></b>
+        <small>Nguyễn Việt Thanh (Y23C ĐHYD) • Trực Quan Hóa & Phản Xạ Thần Tốc</small>
+      </span>
     </a>
+    <nav id="nav">
+      <a href="#home" data-nav="home"><i>🏠</i><span>Trang chủ</span></a>
+      <a href="#lessons" data-nav="lessons"><i>📚</i><span>Bài học</span></a>
+      <a href="#drill" data-nav="drill"><i>⚡</i><span>Luyện</span></a>
+      <a href="#traps" data-nav="traps"><i>🚫</i><span>Bẫy</span></a>
+      <a href="#stats" data-nav="stats"><i>🏆</i><span>Kỷ lục</span></a>
+    </nav>
     <div class="top-actions">
-      <button id="soundToggle" class="icon-btn" title="Bật/Tắt âm thanh">
-        <span id="soundIcon">🔊</span>
-      </button>
-      <div class="icon-btn" style="background: var(--sky); cursor: default;" title="Chuẩn Thi Lý Thuyết Thầy Luân">
-        <span>📚</span> <span>Chuẩn Thầy Luân (16/18d)</span>
-      </div>
+      <button id="soundToggle" class="icon-btn" title="Bật/Tắt âm thanh"><span id="soundIcon">🔊</span></button>
+      <span class="icon-btn std" title="Sách: thụ tinh = 2 tuần ➜ phôi 3 ngày chuyển = 2w3d, phôi 5 ngày = 2w5d">📚<b class="hide-sm">2w3d/2w5d</b></span>
     </div>
   </header>
 
-  <main id="container">
-    <!-- Navigation Tabs -->
-    <nav class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('learn')">🎨 1. Trực Quan Hóa (Sandbox)</button>
-      <button class="tab-btn" onclick="switchTab('drill')">⚡ 2. Đấu Trường Phản Xạ</button>
-      <button class="tab-btn" onclick="switchTab('traps')">🚫 3. Bảng Tử Thần Phải Né</button>
-      <button class="tab-btn" onclick="switchTab('badges')">🏆 4. Kỷ Lục & Streak</button>
-    </nav>
-
-    <!-- ====================================================================
-         VIEW 1: TRỰC QUAN HÓA & INTERACTIVE SANDBOX (MINIMAL TEXT, MAXIMUM VISUALS)
-         ==================================================================== -->
-    <section id="view-learn" class="paper-card">
-      <div class="tape" style="top: -10px; right: 40px; --tc: var(--butter);"></div>
-      <span class="kicker">🎨 INTERACTIVE SANDBOX • HỌC BẰNG HÌNH ẢNH</span>
-      <h2 style="font-size: 1.4rem; margin-bottom: 4px;">Khám Phá Bản Chất Sinh Học Qua Thước Đo Tương Tác</h2>
-      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
-        Kéo thanh trượt để mắt thấy tai nghe sự thay đổi của chu kỳ kinh, phôi thai IVF và siêu âm CRL.
-      </p>
-
-      <!-- WIDGET 1: THƯỚC ĐO CHU KỲ KINH & NAEGELE -->
-      <div class="widget-box">
-        <div class="widget-header">
-          <div class="widget-title">
-            <span>🗓️</span> Thước Đo Chu Kỳ Kinh & Naegele Động
+  <main id="app">
+    <!-- ======================= TRANG CHỦ ======================= -->
+    <section class="page" data-page="home">
+      <div class="home-grid">
+        <div class="card hero-card">
+          <div class="hero-top">
+            <span class="mascot-slot" data-size="112" id="homeMascot"></span>
+            <div class="bubble" id="homeBubble">Chào Thanh! Hôm nay mình luyện tính tuổi thai nha 💕</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('naegele_simple')">
-            ⚡ Luyện Phản Xạ Bài Này
-          </button>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 0.85rem; font-weight: 800; color: var(--muted);">ĐỘ DÀI CHU KỲ KINH:</span>
-          <span id="cycleDisplay" style="font-size: 1.25rem; font-weight: 900; color: var(--brand);">28 ngày (Chuẩn)</span>
-        </div>
-
-        <div class="visual-slider-wrap">
-          <input type="range" id="cycleSlider" class="visual-slider" min="21" max="45" value="28" oninput="updateCycleVisualizer(this.value)">
-        </div>
-
-        <div style="display: flex; gap: 6px; margin-bottom: 10px;">
-          <button class="btn btn-sm btn-sky" onclick="setCycleVal(28)">28d (Chuẩn)</button>
-          <button class="btn btn-sm btn-pink" onclick="setCycleVal(32)">32d (+4)</button>
-          <button class="btn btn-sm btn-butter" onclick="setCycleVal(35)">35d (+7)</button>
-        </div>
-
-        <!-- Dynamic SVG Timeline -->
-        <svg id="cycleSvg" class="timeline-svg" viewBox="0 0 700 90"></svg>
-
-        <div class="metric-row">
-          <div class="metric-card">
-            <div class="metric-title">Pha Nang Noãn</div>
-            <div id="follicularDisplay" class="metric-value" style="color: #0969da;">14 ngày</div>
+          <h1>Tuổi thai = <mark>đếm từ Ngày 0</mark></h1>
+          <div class="path-chips">
+            <div class="pc" style="--c:var(--butter)"><i>📅</i><span>Kinh chót tin cậy</span><b>Naegele</b></div>
+            <div class="pc" style="--c:var(--sky)"><i>🧬</i><span>Thai IVF</span><b>14 + tuổi phôi</b></div>
+            <div class="pc" style="--c:var(--mint)"><i>📏</i><span>Không tin kinh chót</span><b>42 + CRL</b></div>
           </div>
-          <div class="metric-card">
-            <div class="metric-title">Pha Hoàng Thể</div>
-            <div class="metric-value" style="color: #2ea043;">14 ngày (Cố định)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-title">Độ Lệch Naegele</div>
-            <div id="offsetDisplay" class="metric-value" style="color: var(--brand);">+0 ngày</div>
+          <div class="cta-row">
+            <a class="btn btn-hot" href="#lessons">📚 Học từ đầu</a>
+            <a class="btn btn-butter" href="#drill">⚡ Luyện ngay</a>
           </div>
         </div>
-
-        <!-- 3 Bento Chips Mẹo Nhẩm -->
-        <div class="chip-grid">
-          <div class="chip-card" style="background: #fff8eb;">
-            <span class="chip-icon">✨</span>
-            <div><b>Tháng 1, 2, 3:</b> Cộng thẳng 9 (+9), năm giữ nguyên</div>
-          </div>
-          <div class="chip-card" style="background: #f0f7ff;">
-            <span class="chip-icon">⚡</span>
-            <div><b>Tháng 4 đến 12:</b> Trừ thẳng 3 (-3), năm cộng 1 (+1)</div>
-          </div>
-          <div class="chip-card" style="background: #fbf0f4;">
-            <span class="chip-icon">🚀</span>
-            <div><b>Ngày ≥ 24:</b> +7 rồi trừ số ngày tháng đó, tháng tự +1</div>
-          </div>
+        <div class="card ring-card">
+          <span class="kick">🎡 Vòng xoay thai kỳ</span>
+          <svg id="ringSvg" viewBox="0 0 300 300" aria-label="Vòng thai kỳ 40 tuần"></svg>
+          <div class="ring-caption" id="ringCaption">👆 Chạm vào mốc trên vòng<br><span class="muted">Vòng xoay (sách): ① tạm tính tuổi thai theo kinh cuối tin cậy • ② xác định mốc zero lí thuyết • ③ tính nhanh tuổi thai ở một thời điểm</span></div>
         </div>
       </div>
-
-      <!-- WIDGET 2: TRỤC THỜI GIAN PHÔI IVF (N3 VS N5) -->
-      <div class="widget-box">
-        <div class="widget-header">
-          <div class="widget-title">
-            <span>🔬</span> Trục Thời Gian Phôi IVF Chuẩn Thầy Luân & Thầy Vinh
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('ivf')">
-            ⚡ Luyện Phản Xạ IVF
-          </button>
-        </div>
-
-        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-          <button id="ivfBtnD3" class="btn btn-sm btn-sky" onclick="setIvfStage('D3')">
-            🥚 Phôi Ngày 3 (Cleavage - 8 tế bào)
-          </button>
-          <button id="ivfBtnD5" class="btn btn-sm" style="background: #fff;" onclick="setIvfStage('D5')">
-            🧬 Phôi Ngày 5 (Blastocyst - Phôi nang)
-          </button>
-        </div>
-
-        <!-- Dynamic SVG IVF Timeline -->
-        <svg id="ivfSvg" class="timeline-svg" viewBox="0 0 700 90" style="max-height: 120px;"></svg>
-
-        <div class="metric-row">
-          <div class="metric-card">
-            <div class="metric-title">Tuổi Thai Ngày Chuyển</div>
-            <div id="ivfAgeDisplay" class="metric-value" style="color: #0969da;">16 ngày (2w2d)</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-title">Bản Chất Trừ 13 Ngày</div>
-            <div class="metric-value" style="color: #2ea043;">14 - 1 = 13 ngày</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-title">Thuật Toán Thầy Vinh</div>
-            <div class="metric-value" style="color: var(--brand); font-size: 1.1rem;">Thụ Tinh + Ngày + 13</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- WIDGET 3: THƯỚC ĐO SIÊU ÂM CRL 10 - 84 MM -->
-      <div class="widget-box">
-        <div class="widget-header">
-          <div class="widget-title">
-            <span>📏</span> Thước Đo Siêu Âm CRL & Công Thức Thầy Luân
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('crl')">
-            ⚡ Luyện Phản Xạ CRL
-          </button>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 0.85rem; font-weight: 800; color: var(--muted);">CHIỀU DÀI ĐẦU MÔNG (CRL):</span>
-          <span id="crlDisplay" style="font-size: 1.25rem; font-weight: 900; color: var(--brand);">21 mm</span>
-        </div>
-
-        <div class="visual-slider-wrap">
-          <input type="range" id="crlSlider" class="visual-slider" min="10" max="84" value="21" oninput="updateCrlVisualizer(this.value)">
-        </div>
-
-        <!-- SVG Fetus Scaler Graphic -->
-        <svg id="crlSvg" class="timeline-svg" viewBox="0 0 700 95" style="max-height: 120px;"></svg>
-
-        <div class="metric-row">
-          <div class="metric-card">
-            <div class="metric-title">Công Thức Thầy Luân</div>
-            <div id="crlFormulaDisplay" class="metric-value" style="color: #0969da;">42 + 21 = 63 ngày</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-title">Tuổi Thai Chính Xác</div>
-            <div id="crlGaDisplay" class="metric-value" style="color: #2ea043;">9 tuần 0 ngày</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-title">Quy Tắc Khóa ACOG</div>
-            <div class="metric-value" style="color: var(--brand); font-size: 1.1rem;">🔒 Khóa Chết TCN1</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- WIDGET 4: CÂY QUYẾT ĐỊNH CLICKABLE NÉ BẪY ĐIỂM LIỆT -->
-      <div class="widget-box" style="border-color: #cf222e;">
-        <div class="widget-header">
-          <div class="widget-title" style="color: #b31d28;">
-            <span>🛡️</span> Cây Quyết Định Clickable: Né 6 Bẫy Điểm Liệt
-          </div>
-          <button class="btn btn-trap btn-sm" onclick="startTopicDrill('traps')">
-            ⚡ Luyện Bẫy Điểm Liệt
-          </button>
-        </div>
-
-        <div class="tree-step-box">
-          <div class="tree-question">1️⃣ Nhớ chính xác ngày đầu kinh chót (LMP)?</div>
-          <div class="tree-options">
-            <button class="tree-btn active-green" onclick="selectTreeNode(1, 'yes')">✅ Nhớ rõ từng ngày</button>
-            <button class="tree-btn" onclick="selectTreeNode(1, 'no')">❌ Không nhớ / Cho con bú / Vô kinh</button>
-          </div>
-        </div>
-
-        <div id="treeStep2" class="tree-step-box">
-          <div class="tree-question">2️⃣ Chu kỳ kinh nguyệt như thế nào?</div>
-          <div class="tree-options">
-            <button class="tree-btn active-green" onclick="selectTreeNode(2, 'regular')">✅ Đều 28 - 30 ngày</button>
-            <button class="tree-btn" onclick="selectTreeNode(2, 'long')">⚠️ Đều nhưng dài (32 - 35 ngày)</button>
-            <button class="tree-btn" onclick="selectTreeNode(2, 'irregular')">🚫 KHÔNG ĐỀU (dao động 30-60 ngày)</button>
-          </div>
-        </div>
-
-        <div id="treeStep3" class="tree-step-box">
-          <div class="tree-question">3️⃣ Có yếu tố nhiễu / bẫy đặc biệt nào không?</div>
-          <div class="tree-options">
-            <button class="tree-btn active-green" onclick="selectTreeNode(3, 'none')">✅ Không có gì bất thường</button>
-            <button class="tree-btn" onclick="selectTreeNode(3, 'intercourse')">🚨 Quan hệ duy nhất 1 lần</button>
-            <button class="tree-btn" onclick="selectTreeNode(3, 'postinor')">🚨 Uống Postinor-1 khẩn cấp</button>
-            <button class="tree-btn" onclick="selectTreeNode(3, 'ivf_fgr')">🚨 Thai IVF siêu âm thai nhỏ</button>
-          </div>
-        </div>
-
-        <div id="treeResult" class="tree-result-box" style="background: #e6ffed; border-color: #2ea043; color: #155724;">
-          <span style="font-size: 1.5rem;">✅</span>
-          <div>
-            <b>ĐỦ ĐIỀU KIỆN ÁP DỤNG NAEGELE:</b> Kinh đều, nhớ rõ kinh chót ➔ Ngày +7, Tháng -3/+9.
-          </div>
-        </div>
+      <div class="tiles">
+        <a class="tile" href="#path" style="--c:var(--lav)"><i>🧭</i><div><b>Chọn công thức</b><span>4 câu hỏi là ra</span></div></a>
+        <a class="tile" href="#cheat" style="--c:var(--peach)"><i>📋</i><div><b>Thẻ công thức</b><span>gói gọn 1 màn</span></div></a>
+        <a class="tile" href="#traps" style="--c:var(--pink)"><i>🚫</i><div><b>6 bẫy điểm liệt</b><span>thẻ lật</span></div></a>
+        <a class="tile" href="#drill" data-blitz style="--c:var(--butter)"><i>⏱️</i><div><b>Blitz 60 giây</b><span>đua tốc độ</span></div></a>
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 2: ĐẤU TRƯỜNG PHẢN XẠ (DRILL ARENA)
-         ==================================================================== -->
-    <section id="view-drill" class="paper-card" style="display: none;">
-      <div class="tape stripe" style="top: -10px; right: 40px; --tc: var(--mint);"></div>
-      <span class="kicker">⚡ ĐẤU TRƯỜNG PHẢN XẠ THẦN TỐC</span>
-
-      <!-- Topic Filters -->
-      <div class="mode-pills">
-        <span style="font-size: 0.85rem; font-weight: 800; align-self: center; margin-right: 4px;">Đang luyện:</span>
-        <button class="pill active" onclick="setTopic('all')">Tất cả ngẫu nhiên</button>
-        <button class="pill" onclick="setTopic('naegele_simple')">Naegele cơ bản</button>
-        <button class="pill" onclick="setTopic('naegele_overflow')">Vắt cuối tháng</button>
-        <button class="pill" onclick="setTopic('naegele_cycle')">Chu kỳ dài</button>
-        <button class="pill" onclick="setTopic('ivf')">IVF D3/D5</button>
-        <button class="pill" onclick="setTopic('crl')">CRL 42+CRL</button>
-        <button class="pill" onclick="setTopic('traps')">Bẫy điểm liệt</button>
+    <!-- ======================= CHỌN CÔNG THỨC ======================= -->
+    <section class="page" data-page="path">
+      <div class="page-head">
+        <a class="back" href="#home" aria-label="Quay lại"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <h2>🧭 Chọn đúng công thức</h2>
+        <span class="sp"></span>
+        <div class="wiz-prog" id="wizProg"></div>
       </div>
+      <div class="wiz-trail" id="wizTrail"></div>
+      <div class="card wiz-card" id="wizCard"></div>
+    </section>
 
-      <!-- Controls Row: Mode Switcher & Stats -->
-      <div class="control-row">
-        <div class="mode-switch-group">
-          <button id="btnModeType" class="input-switch-btn active" onclick="setInputMode('type')">
-            ⌨️ Gõ Đáp Án
-          </button>
-          <button id="btnModeChoice" class="input-switch-btn" onclick="setInputMode('choice')">
-            ⚡ Trắc Nghiệm 4 Nút
-          </button>
-        </div>
+    <!-- ======================= DANH SÁCH BÀI ======================= -->
+    <section class="page" data-page="lessons">
+      <div class="page-head">
+        <h2>📚 Bài học</h2>
+        <span class="sub">mỗi bài 3–5 slide ngắn • vuốt hoặc ◀ ▶</span>
+      </div>
+      <div class="lesson-grid" id="lessonGrid"></div>
+    </section>
 
-        <div class="drill-stats">
-          <div class="stat-badge">
-            <span id="streakFire" class="streak-fire-wrap">🔥</span> Streak: <span id="statStreak" class="stat-num">0</span>
+    <!-- ======================= BÀI HỌC (SLIDE) ======================= -->
+    <section class="page" data-page="lesson">
+      <div class="lp-head">
+        <a class="back" href="#lessons" aria-label="Quay lại"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <span class="lp-num" id="lpNum">1</span>
+        <h2 id="lpTitle"></h2>
+        <div class="dots" id="lpDots"></div>
+      </div>
+      <div id="deckWrap">
+
+        <!-- BÀI 0 -->
+        <div class="deck" data-deck="L0" data-num="0" data-icon="🧭" data-color="var(--lav)" data-topic="ga" data-title="Nền tảng: đếm từ kinh chót" data-f="Kinh chót = ngày 1 • 7 ngày = 1 tuần">
+          <div class="slide">
+            <h3 class="s-title">🩸 Đếm từ đâu?</h3>
+            <svg id="journeySvg" class="s-svg" viewBox="0 0 640 235"></svg>
+            <p class="s-cap">Tuổi thai đếm từ <b>ngày đầu kỳ kinh chót</b> — tính luôn ngày đó là <b>ngày 1</b>. Lúc phóng noãn + thụ tinh (ngày 14) tuổi thai là <b>2 tuần</b>.</p>
           </div>
-          <div class="stat-badge">🎯 Đúng: <span id="statScore" class="stat-num">0</span></div>
-          <div class="stat-badge">⚡ Kỷ lục: <span id="statBest" class="stat-num">0</span></div>
+          <div class="slide">
+            <h3 class="s-title">🥚 Ví dụ sách: bà C. (IVF)</h3>
+            <div class="scroll-x"><svg id="offsetSvg" class="viz" viewBox="0 0 700 130"></svg></div>
+            <button class="btn btn-sm btn-sky" onclick="playOffset()">▶ Đếm lại</button>
+            <p class="s-cap">Sách: phôi 3 ngày tuổi chuyển <b>23.08</b> ↔ thụ tinh <b>20.08</b> (2 tuần) ➜ tuổi thai lúc đặt phôi <b>2 tuần 3/7</b>, "23.08 là ngày thứ 17" ➜ kinh cuối lí thuyết <b>07.08</b>.</p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🫘 7 ngày = 1 tuần</h3>
+            <div class="big-read" id="gaDisplay">63 ngày = 9 tuần 0 ngày</div>
+            <input type="range" id="gaSlider" class="slider" min="0" max="294" value="63" aria-label="Số ngày tuổi thai">
+            <div class="scroll-x"><svg id="beadSvg" class="viz" viewBox="0 0 700 166"></svg></div>
+            <div class="chips" id="gaPresets"></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">📆 Hôm nay thai mấy tuần?</h3>
+            <div class="inputs-row c">
+              <label>Kinh chót<input type="date" id="gaLmp"></label>
+              <label>Ngày khám<input type="date" id="gaExam"></label>
+              <button class="btn btn-sm btn-pink" onclick="runGaCalc(true)">▶ Đếm</button>
+              <button class="btn btn-sm btn-lav" onclick="gaExample()">📘 Ví dụ APP chương 1</button>
+            </div>
+            <div id="gaSegments" class="segments"></div>
+            <div id="gaCalcOut" class="answer-pop"></div>
+            <p class="s-cap">Đếm <b>tính cả ngày kinh chót</b> (APP chương 1): 01/02 ➜ 02/04 = 28 + 31 + 2 = <b>61 ngày = 8w5d</b>.</p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="ga"></div>
+          </div>
+        </div>
+
+        <!-- BÀI 1 -->
+        <div class="deck" data-deck="L1" data-num="1" data-icon="🗓️" data-color="var(--butter)" data-topic="naegele_simple" data-title="Naegele cơ bản" data-f="Ngày +7 • Tháng −3 / +9 • Năm +1">
+          <div class="slide">
+            <h3 class="s-title">🗓️ Naegele: 3 nhịp</h3>
+            <div class="flipdate">
+              <div class="fd-tile" id="fdD" style="--c:var(--butter)"><span class="fd-op"></span><span class="fd-lab">NGÀY</span><span class="fd-num">15</span></div>
+              <span class="fd-sep">/</span>
+              <div class="fd-tile" id="fdM" style="--c:var(--sky)"><span class="fd-op"></span><span class="fd-lab">THÁNG</span><span class="fd-num">05</span></div>
+              <span class="fd-sep">/</span>
+              <div class="fd-tile y" id="fdY" style="--c:var(--mint)"><span class="fd-op"></span><span class="fd-lab">NĂM</span><span class="fd-num">2026</span></div>
+            </div>
+            <div class="rule3">
+              <div class="r3" data-k="d"><i>📆</i><b>Ngày</b><span>+7</span><small>mọi tháng</small></div>
+              <div class="r3" data-k="m"><i>🗓️</i><b>Tháng</b><span>−3</span><small>T1, 2, 3: +9</small></div>
+              <div class="r3" data-k="y"><i>🎆</i><b>Năm</b><span>+1</span><small>T1, 2, 3: giữ</small></div>
+            </div>
+            <div class="fd-result" id="fdResult"></div>
+            <button class="btn btn-sm btn-sky" onclick="flipDemo()">🔁 Ví dụ khác</button>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎡 Vì sao −3 thì phải +1 năm?</h3>
+            <div class="wheel-stage">
+              <svg id="bigWheel" class="wheel" viewBox="0 0 220 220"></svg>
+              <div class="wheel-side">
+                <div class="answer-pop" id="wheelOut"></div>
+                <div class="legend2"><span class="lg y">T1–3 ➜ +9 • năm giữ</span><span class="lg b">T4–12 ➜ −3 • năm +1</span></div>
+                <span class="hint">👆 Chạm 1 tháng trên vòng</span>
+              </div>
+            </div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">⚙️ Máy Naegele</h3>
+            <div class="inputs-row c">
+              <label>Kinh chót<input type="date" id="nLmp" value="2026-05-15"></label>
+              <button class="btn btn-sm btn-pink" onclick="runMachine(M1, parseISO($('#nLmp').value))">▶ Chạy</button>
+              <button class="btn btn-sm btn-sky" onclick="randomLmp('#nLmp', M1)">🎲</button>
+            </div>
+            <div id="machine1" class="machine"></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="naegele_simple"></div>
+          </div>
+        </div>
+
+        <!-- BÀI 1B -->
+        <div class="deck" data-deck="L1B" data-num="1B" data-icon="✊" data-color="var(--peach)" data-topic="naegele_overflow" data-title="Vắt cuối tháng" data-f="Ngày ≥ 24: +7 rồi trừ số ngày tháng đó, tháng +1">
+          <div class="slide">
+            <h3 class="s-title">✊ Nắm tay đếm tháng</h3>
+            <svg id="fistSvg" class="s-svg" viewBox="0 0 460 250" style="max-width:460px"></svg>
+            <div class="month-strip" id="monthStrip"></div>
+            <div class="row-c"><button class="btn btn-sm btn-peach" onclick="playFist()">▶ Đếm lại</button><span class="s-cap">Đốt nhô = <b>31</b> • khe lõm = <b>30</b> (T2: 28, nhuận 29)</span></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🌊 Lịch tháng dự sinh tràn ô</h3>
+            <div class="inputs-row c">
+              <label>Tháng kinh chót<select id="ovMonth"></select></label>
+              <label>Năm<select id="ovYear"><option>2025</option><option selected>2026</option><option>2027</option></select></label>
+              <label style="min-width:180px">Ngày: <span id="ovDayVal" class="hl"></span><input type="range" id="ovDay" class="slider" min="1" max="31" value="28" style="margin-top:6px"></label>
+            </div>
+            <div class="answer-pop" id="ovText"></div>
+            <div id="ovCal" class="cal-wrap"></div>
+            <p class="hint">🚀 Mẹo: <b>Ngày ≥ 24</b> ➜ +7 rồi trừ số ngày tháng đó, tháng tự +1 (tháng đó = tháng dự sinh)</p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="naegele_overflow"></div>
+          </div>
+        </div>
+
+        <!-- BÀI 2 -->
+        <div class="deck" data-deck="L2" data-num="2" data-icon="🔄" data-color="var(--pink)" data-topic="naegele_cycle" data-title="Chu kỳ dài / ngắn" data-f="Dự sinh + (X − 28) ngày">
+          <div class="slide">
+            <h3 class="s-title">🔄 Hoàng thể luôn 14 ngày</h3>
+            <div class="big-read" id="cycleDisplay">28 ngày (Chuẩn)</div>
+            <input type="range" id="cycleSlider" class="slider" min="21" max="45" value="28" oninput="updateCycleVisualizer(this.value)" aria-label="Độ dài chu kỳ kinh">
+            <div class="chips"><button class="btn btn-sm btn-sky" onclick="setCycleVal(28)">28d (Chuẩn)</button><button class="btn btn-sm btn-pink" onclick="setCycleVal(32)">32d (+4)</button><button class="btn btn-sm btn-butter" onclick="setCycleVal(35)">35d (+7)</button><button class="btn btn-sm btn-lav" onclick="setCycleVal(40)">40d (+12)</button></div>
+            <div class="scroll-x"><svg id="cycleSvg" class="viz" viewBox="0 0 700 145"></svg></div>
+            <div class="mini-metrics">
+              <span class="mm">Pha Nang Noãn<b id="follicularDisplay" style="color:var(--blue)">14 ngày</b></span>
+              <span class="mm">Pha Hoàng Thể<b style="color:var(--ok)">14 ngày (Cố định)</b></span>
+              <span class="mm">Độ Lệch Naegele<b id="offsetDisplay" class="hl">+0 ngày</b></span>
+            </div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">📅 Dự sinh dời đúng (X − 28) ngày</h3>
+            <div class="inputs-row c">
+              <label>Kinh chót<input type="date" id="cLmp" value="2026-04-10"></label>
+              <span class="formula-chip">Chu kỳ <b id="cycleNow">28</b> ngày</span>
+              <button class="btn btn-sm btn-pink" onclick="runMachine(M2, parseISO($('#cLmp').value), +$('#cycleSlider').value)">▶ Chạy</button>
+              <button class="btn btn-sm btn-sky" onclick="randomLmp('#cLmp', M2)">🎲</button>
+            </div>
+            <div class="chips"><button class="btn btn-sm" onclick="setCycleVal(28)">28</button><button class="btn btn-sm" onclick="setCycleVal(32)">32</button><button class="btn btn-sm" onclick="setCycleVal(35)">35</button><button class="btn btn-sm" onclick="setCycleVal(40)">40</button></div>
+            <div id="machine2" class="machine"></div>
+            <p class="hint">APP chương 1: chu kỳ đều 40 ngày ➜ rụng trứng ngày 26 (40 − 14) ➜ tính tuổi thai từ ngày 12 (26 − 14) ➜ dự sinh <b>+12</b></p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎢 Kinh KHÔNG đều thì sao?</h3>
+            <div class="jitter" id="jitter">
+              <div class="jegg">🥚<b>?</b></div>
+              <div class="jrow"><span class="jlab">Kỳ 1</span><div class="jbar" style="--a:32%;--b:78%;--d:1.1s"></div></div>
+              <div class="jrow"><span class="jlab">Kỳ 2</span><div class="jbar" style="--a:66%;--b:38%;--d:.9s"></div></div>
+              <div class="jrow"><span class="jlab">Kỳ 3</span><div class="jbar" style="--a:45%;--b:96%;--d:1.35s"></div></div>
+              <span class="stamp">🚫 KHÔNG NAEGELE</span>
+            </div>
+            <div class="jfix">Chu kỳ 30 – 60 ngày ➜ rụng trứng bất định ➜ 📏 <b>CRL siêu âm 3 tháng đầu</b></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="naegele_cycle"></div>
+          </div>
+        </div>
+
+        <!-- BÀI 3 -->
+        <div class="deck" data-deck="L3" data-num="3" data-icon="🔬" data-color="var(--sky)" data-topic="ivf" data-title="IVF & canh phóng noãn" data-f="Thụ tinh = 2 tuần • phôi 3 ngày = 2w3d • phôi 5 ngày = 2w5d">
+          <div class="slide">
+            <h3 class="s-title">🔬 Phôi lớn lên từng ngày</h3>
+            <div class="embryo-stage">
+              <svg id="embryoSvg" viewBox="0 0 200 200" aria-label="Phôi"></svg>
+              <div><div class="daychips" id="dayChips"></div><div class="answer-pop" id="embryoLabel"></div></div>
+            </div>
+            <p class="s-cap">Sách: lúc phóng noãn + thụ tinh = <b>2 tuần</b> ➜ phôi X ngày tuổi khi chuyển = <b>2 tuần + X ngày</b></p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">📘 Ví dụ sách: bà C.</h3>
+            <div class="seg-switch"><button id="ivfBtnD3" class="active" onclick="setIvfStage('D3')">🥚 Phôi N3</button><button id="ivfBtnD5" onclick="setIvfStage('D5')">🧬 Phôi N5</button></div>
+            <div class="big-read" id="ivfAgeDisplay">Phôi N3 ➜ 17 ngày (2w3d)</div>
+            <div class="row-c"><span class="chip-mini" id="ivfM2v"></span><span class="chip-mini" id="ivfM3v"></span></div>
+            <div class="scroll-x"><svg id="ivfSvg" class="viz" viewBox="0 0 700 125"></svg></div>
+            <p class="s-cap">Sách: phôi 3 ngày chuyển 23.08 ↔ thụ tinh 20.08 ➜ <b>2 tuần 3/7</b> • kinh cuối lí thuyết <b>07.08</b> (lùi 13 ngày từ ngày thụ tinh).</p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🧮 Máy tính IVF / IUI</h3>
+            <div class="seg-switch" id="artType"><button data-t="D3">🥚 Phôi 3 ngày</button><button data-t="D5" class="active">🧬 Phôi 5 ngày</button><button data-t="IUI">🥚 Canh phóng noãn</button></div>
+            <div class="formula-chip" id="artFormula"></div>
+            <div class="inputs-row c">
+              <label id="artDateLab">Ngày chuyển phôi<input type="date" id="ivfTransfer"></label>
+              <label>Ngày khám<input type="date" id="ivfExam"></label>
+              <button class="btn btn-sm btn-lav" onclick="ivfExample()">📘 Bài APP chương 1</button>
+            </div>
+            <div id="ivfCalcOut" style="width:100%;display:flex;justify-content:center"></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🔒 Tuổi thai IVF là bất biến</h3>
+            <div class="lock-scene">
+              <div class="ls-card ok"><i>🧬</i><b>Tuổi thai IVF</b><span>chuẩn tuyệt đối 100%</span><em class="ls-lock">🔒</em></div>
+              <span class="ls-vs">VS</span>
+              <div class="ls-card"><i>📏</i><b>Siêu âm tuần 12</b><span>CRL nhỏ hơn 7 ngày</span><span class="stamp small play" style="--sd:.6s">CẤM ĐỔI</span></div>
+            </div>
+            <div class="ls-note">🔎 Thai nhỏ ➜ nghĩ <b>FGR khởi phát sớm</b> hoặc <b>bất thường NST</b>, không phải do tính sai.</div>
+            <div class="ls-note">📖 Sách: nếu thông tin khác mâu thuẫn với ngày chuyển phôi ➜ <b>kết luận thai phát triển bất thường</b>, không hiệu chỉnh lại tuổi thai.</div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="ivf"></div>
+          </div>
+        </div>
+
+        <!-- BÀI 4 -->
+        <div class="deck" data-deck="L4" data-num="4" data-icon="📏" data-color="var(--mint)" data-topic="crl" data-title="Siêu âm CRL" data-f="42 + CRL • ACOG 5 / 7 ngày • khóa chết">
+          <div class="slide">
+            <h3 class="s-title">📏 Đo CRL ➜ tuổi thai</h3>
+            <div class="crl-stage">
+              <div class="us-screen"><svg id="usSvg" viewBox="0 0 360 240" aria-label="Màn hình siêu âm đo CRL"></svg></div>
+              <div class="crl-side">
+                <div class="big-read" id="crlDisplay">21 mm</div>
+                <input type="range" id="crlSlider" class="slider" min="10" max="84" value="21" aria-label="CRL (mm)">
+                <div class="formula-chip" id="crlFormulaDisplay">42 + 21 = 63 ngày</div>
+                <div class="answer-pop" id="crlGaDisplay">9 tuần 0 ngày</div>
+                <span id="crlZone" class="zone ok"></span>
+              </div>
+            </div>
+            <div id="crlBeads" style="width:100%"></div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Đo sao cho chuẩn?</h3>
+            <div class="posture-stage">
+              <svg id="postureSvg" viewBox="0 0 420 220"></svg>
+              <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+                <div class="seg-switch" id="postureSw"><button data-p="flex">🙇 Cúi quá</button><button data-p="neutral" class="active">😊 Trung tính</button><button data-p="ext">🙆 Ngửa quá</button></div>
+                <div class="answer-pop" id="postureOut"></div>
+              </div>
+            </div>
+            <div class="check4">
+              <div class="ck"><i>✂️</i>Mặt cắt dọc giữa: thấy củ sinh dục & toàn bộ cột sống</div>
+              <div class="ck"><i>🧘</i>Chờ tư thế trung tính (không thì sai số 5 ➜ 7 ngày)</div>
+              <div class="ck"><i>🔁</i>Đo 3 lần riêng biệt, lấy trung bình</div>
+              <div class="ck"><i>📍</i>Hộp sọ ➜ điểm cuối mông (không đo mầm chi, yolk-sac)</div>
+            </div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">⚖️ Giữ kinh cuối hay tính theo siêu âm?</h3>
+            <div class="balance-stage">
+              <svg id="balanceSvg" viewBox="0 0 420 230"></svg>
+              <div style="display:flex;flex-direction:column;gap:10px;align-items:center;max-width:340px">
+                <div class="seg-switch" id="balGroup"><button data-g="early" class="active">SA trước 9w0d • ngưỡng 5</button><button data-g="late">SA 9w0d – 13w6d • ngưỡng 7</button></div>
+                <div class="big-read" id="balDiffRead">Lệch 3 ngày</div>
+                <input type="range" id="balDiff" class="slider" min="0" max="14" value="3" aria-label="Chênh lệch LMP và CRL (ngày)">
+                <div class="verdict keep" id="balVerdict"></div>
+              </div>
+            </div>
+            <p class="s-cap">Sách: khác biệt <b>trên ngưỡng</b> ➜ tính theo siêu âm • trong ngưỡng ➜ giữ kinh cuối (VD bà H.: lệch 3 ngày lúc 12 tuần ➜ giữ).</p>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🔒 Chốt dự sinh & khóa chết</h3>
+            <div class="inputs-row c">
+              <label>Ngày siêu âm<input type="date" id="crlScan"></label>
+              <button class="btn btn-sm btn-lav" onclick="crlExample()">📘 Ví dụ sách: bà A.</button>
+              <span class="formula-chip">CRL <b id="crlNow">21</b> mm</span>
+            </div>
+            <div id="crlCalcOut" style="width:100%;display:flex;justify-content:center"></div>
+            <div class="lock-row">
+              <span class="lk-chip">📏 Khẳng định trước hết TCN1</span><span class="lk-lock">🔒</span>
+              <span class="lk-chip gray">📐 BPD / FL / AC lệch ➜ chỉnh lại</span>
+              <span class="bad">✖ Không bao giờ chỉnh ở TCN2 / TCN3</span>
+            </div>
+          </div>
+          <div class="slide">
+            <h3 class="s-title">🎯 Thử 1 câu</h3>
+            <div class="quiz" data-topic="crl,lmpcrl"></div>
+          </div>
         </div>
       </div>
+      <div class="lp-foot">
+        <button class="btn btn-sm" id="lpPrev">◀ Trước</button>
+        <span id="lpCount">1 / 5</span>
+        <button class="btn btn-hot" id="lpNext">Tiếp ▶</button>
+      </div>
+    </section>
 
-      <!-- Flashcard Question -->
+    <!-- ======================= ĐẤU TRƯỜNG ======================= -->
+    <section class="page" data-page="drill">
+      <div class="topic-row" id="topicRow">
+        <button class="pill active" data-topic="all">🎲 Tất cả</button>
+        <button class="pill" data-topic="naegele_simple">🗓️ Naegele</button>
+        <button class="pill" data-topic="naegele_overflow">🌊 Vắt tháng</button>
+        <button class="pill" data-topic="naegele_cycle">🔄 Chu kỳ dài</button>
+        <button class="pill" data-topic="ivf">🔬 IVF / phóng noãn</button>
+        <button class="pill" data-topic="crl">📏 CRL</button>
+        <button class="pill" data-topic="lmpcrl">⚖️ Kinh cuối hay SA</button>
+        <button class="pill" data-topic="ga">📆 Tuổi thai hôm khám</button>
+        <button class="pill" data-topic="traps">🚫 Bẫy</button>
+      </div>
+      <div class="drill-bar">
+        <div class="seg-switch">
+          <button id="btnModeType" class="active" onclick="setInputMode('type')">⌨️ Gõ</button>
+          <button id="btnModeChoice" onclick="setInputMode('choice')">🔘 Chọn</button>
+        </div>
+        <label class="chk" title="Tắt để tự gõ năm — luyện luôn quy tắc năm +1"><input type="checkbox" id="autoYear" checked> 📅 Tự điền năm</label>
+        <button id="blitzBtn" class="btn btn-sm btn-pink" onclick="toggleBlitz()">⏱ Blitz 60s</button>
+        <div class="stat-chips">
+          <span><i id="streakFire" class="streak-fire">🔥</i> <b id="statStreak">0</b></span>
+          <span>🎯 <b id="statScore">0</b></span>
+          <span>🏅 <b id="statBest">0</b></span>
+          <span>⏱ <b id="statAvg">–</b></span>
+        </div>
+      </div>
+      <div id="blitzWrap" class="blitz-wrap" hidden>⏱<div class="blitz-bar"><div id="blitzFill"></div></div><span id="blitzLeft">60s</span></div>
+
       <div id="flashcardBox" class="flashcard">
+        <span class="mascot-slot" data-size="92" id="drillMascot"></span>
+        <span id="qTimer" class="q-timer">⏱ 0.0s</span>
         <div id="flashCategory" class="flash-category">NAEGELE CƠ BẢN</div>
         <div id="flashLabel" class="flash-label">KỲ KINH CHÓT (LMP)</div>
         <div id="flashDate" class="flash-date">15 / 05 / 2026</div>
@@ -1081,1112 +1162,102 @@
         <div id="flashTarget" class="flash-target">👉 NGÀY DỰ SINH (EDD)? 👈</div>
       </div>
 
-      <!-- INTERFACE 1: GÕ ĐÁP ÁN TRỰC TIẾP -->
       <div id="typeInputContainer">
         <div id="typeDateRow" class="date-input-wrap">
-          <div class="date-box-item">
-            <span class="date-sub-label">NGÀY (DD)</span>
-            <input type="text" id="inpDay" maxlength="2" placeholder="22" class="date-inp" inputmode="numeric" autocomplete="off">
-          </div>
+          <div class="date-box-item"><span class="date-sub-label">NGÀY</span><input type="text" id="inpDay" maxlength="2" placeholder="22" class="date-inp" inputmode="numeric" autocomplete="off"></div>
           <span class="date-slash">/</span>
-          <div class="date-box-item">
-            <span class="date-sub-label">THÁNG (MM)</span>
-            <input type="text" id="inpMonth" maxlength="2" placeholder="02" class="date-inp" inputmode="numeric" autocomplete="off">
-          </div>
+          <div class="date-box-item"><span class="date-sub-label">THÁNG</span><input type="text" id="inpMonth" maxlength="2" placeholder="02" class="date-inp" inputmode="numeric" autocomplete="off"></div>
           <span class="date-slash">/</span>
-          <div class="date-box-item">
-            <span class="date-sub-label">NĂM (YYYY)</span>
-            <input type="text" id="inpYear" maxlength="4" placeholder="2027" class="date-inp inp-year" inputmode="numeric" autocomplete="off">
-          </div>
+          <div class="date-box-item"><span class="date-sub-label">NĂM</span><input type="text" id="inpYear" maxlength="4" placeholder="2027" class="date-inp inp-year" inputmode="numeric" autocomplete="off"></div>
         </div>
-
-        <div id="typeTextRow" style="display: none; text-align: center; margin-bottom: 14px;">
-          <input type="text" id="inpTextVal" placeholder="Ví dụ: 8 tuần 0 ngày" class="date-inp" style="width: 260px; font-size: 1.2rem;" autocomplete="off">
+        <div id="typeTextRow" style="display:none;text-align:center;margin-bottom:12px">
+          <input type="text" id="inpTextVal" placeholder="VD: 9w0d • 9 tuần 0 ngày • 63 ngày" class="date-inp inp-text" autocomplete="off">
         </div>
-
         <div class="type-actions-grid">
-          <button class="btn btn-primary" onclick="submitTypedAnswer()">
-            ✅ Xác Nhận (Phím Enter ↵)
-          </button>
-          <button class="btn btn-trap" onclick="submitTrapAnswer()">
-            🚫 KHÔNG TÍNH ĐƯỢC / PHẢI NÉ (Phím N)
-          </button>
+          <button class="btn btn-butter" onclick="submitTypedAnswer()">✅ Xác Nhận (Enter ↵)</button>
+          <button class="btn btn-trap" onclick="submitTrapAnswer()">🚫 KHÔNG TÍNH ĐƯỢC / PHẢI NÉ (N)</button>
         </div>
       </div>
+      <div id="choiceContainer" style="display:none"><div id="optionsGrid" class="options-grid"></div></div>
+      <p class="hint" id="helperTip"></p>
+    </section>
 
-      <!-- INTERFACE 2: TRẮC NGHIỆM 4 NÚT -->
-      <div id="choiceContainer" style="display: none;">
-        <div id="optionsGrid" class="options-grid"></div>
+    <!-- ======================= BẪY ======================= -->
+    <section class="page" data-page="traps">
+      <div class="page-head">
+        <h2>🚫 6 Tình Huống CẤM TÍNH / PHẢI NÉ</h2>
+        <span class="sp"></span>
+        <button class="btn btn-sm btn-sky" onclick="flipAll()">🔄 Lật hết</button>
+        <button class="btn btn-sm btn-trap" onclick="startTopicDrill('traps')">🚀 Luyện bẫy</button>
       </div>
+      <p class="sub" style="margin-bottom:12px">Gặp dấu hiệu này ➜ <b>không áp công thức</b>. Đoán trước rồi chạm để lật.</p>
+      <div class="trap-grid" id="trapGrid"></div>
+    </section>
 
-      <!-- Feedback Micro-Box -->
-      <div id="feedbackBox" class="feedback-box">
-        <div id="fbTitle" class="fb-title"></div>
-        <div id="fbHack" class="fb-hack"></div>
-      </div>
-
-      <!-- Next Button -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-        <span id="helperTip" style="font-size: 0.8rem; color: var(--muted); font-weight: 700;">
-          💡 Gõ 2 số ngày sẽ tự nhảy sang tháng • Bấm phím <b>Enter</b> để kiểm tra • Bấm phím <b>N</b> khi gặp bẫy!
-        </span>
-        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()" style="display: none;">
-          Câu Kế Tiếp ➔ (Phím Space)
-        </button>
+    <!-- ======================= THẺ CÔNG THỨC ======================= -->
+    <section class="page" data-page="cheat">
+      <div class="page-head"><a class="back" href="#home" aria-label="Quay lại"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><h2>📋 Thẻ công thức</h2><span class="sub">ưu tiên lời giảng APP chương 1 • phần còn lại theo sách bộ môn</span></div>
+      <div class="cheat-grid">
+        <div class="cc" style="--c:#f3edff"><h4><i>🧭</i>Nền tảng</h4><p>Tuổi thai (ngày) = (Khám − Kinh chót) <code>+ 1</code> — tính cả ngày kinh chót (01/02 ➜ 02/04 = 61 ngày) • thụ tinh = ngày 14 = <code>2 tuần</code> • dự sinh = <code>40 tuần</code></p></div>
+        <div class="cc" style="--c:#fff7d6;animation-delay:.04s"><h4><i>🗓️</i>Naegele</h4><p>(ngày <code>+7</code>) / (tháng <code>−3</code>) / (năm <code>+1</code>) • T1, 2, 3: tháng <code>+9</code>, năm giữ • không tránh thai nội tiết trong 2 tháng</p></div>
+        <div class="cc" style="--c:#fff0e3;animation-delay:.08s"><h4><i>🌊</i>Vắt cuối tháng</h4><p>Ngày ≥ 24: +7 rồi trừ số ngày tháng đó (tháng dự sinh), tháng <code>+1</code> <span class="muted">(sách không nói — giữ quy ước web cũ)</span></p></div>
+        <div class="cc" style="--c:#ffeaf2;animation-delay:.12s"><h4><i>🔄</i>Chu kỳ đều X ngày</h4><p>Dự sinh <code>+ (X − 28)</code> ngày • VD chu kỳ 40: rụng trứng ngày 26 ➜ tính từ ngày 12 (+12) • không đều ➜ siêu âm</p></div>
+        <div class="cc" style="--c:#e8f3ff;animation-delay:.16s"><h4><i>🔬</i>IVF</h4><p>Phôi 3 ngày ➜ <code>2w3d</code> • phôi 5 ngày ➜ <code>2w5d</code> • hôm khám = (Khám − chuyển) <code>+ 17</code> / <code>+ 19</code> (08/08 ➜ 17/09 = 8w3d) • kinh chót lí thuyết = thụ tinh − 13</p></div>
+        <div class="cc" style="--c:#eef0ff;animation-delay:.2s"><h4><i>🥚</i>Canh phóng noãn</h4><p>Ngày phóng noãn = mốc <code>2 tuần</code> ➜ tạm tính, vẫn cần siêu âm kiểm chứng • ngày giao hợp không phải ngày thụ thai</p></div>
+        <div class="cc" style="--c:#e6f9ef;animation-delay:.24s"><h4><i>📏</i>CRL</h4><p>Dùng khi <code>10 ≤ CRL ≤ 84</code> mm • 10 – 30 mm: tuổi thai (ngày) = <code>42 + CRL</code> • lí tưởng 10w0d – 13w6d (CRL 30 – 84)</p></div>
+        <div class="cc" style="--c:#fff5e0;animation-delay:.28s"><h4><i>⚖️</i>Kinh cuối hay siêu âm</h4><p>SA trước 9w0d: lệch <code>&gt; 5</code> ngày ➜ theo SA • SA đến 13w6d: lệch <code>&gt; 7</code> ➜ theo SA • khẳng định xong thì không đổi 🔒</p></div>
+        <div class="cc" style="--c:#ffeef1;animation-delay:.32s"><h4><i>✅</i>Kinh chót dùng được</h4><p>Nhớ rõ ngày đầu • chu kỳ đều • không dùng hormone trong chu kỳ có thai • không tránh thai nội tiết trong 2 tháng</p></div>
+        <div class="cc" style="--c:#f0f4ff;animation-delay:.36s"><h4><i>📐</i>BPD (từ 11 tuần)</h4><p>Tuổi thai (tuần) = <code>⅓ × (BPD − 17) + 11</code> — khi không có CRL chuẩn • không dùng MSD, yolk-sac, bề cao tử cung</p></div>
       </div>
     </section>
 
-    <!-- ====================================================================
-         VIEW 3: DANH MỤC PHẢI NÉ (TRAPS CHEAT SHEET)
-         ==================================================================== -->
-    <section id="view-traps" class="paper-card" style="display: none;">
-      <div class="tape stripe" style="top: -10px; right: 40px; --tc: var(--pink);"></div>
-      <span class="kicker" style="background: var(--pink);">🚫 ZERO-TOLERANCE TRAPS</span>
-      <h2 style="font-size: 1.35rem; margin-bottom: 6px; color: #b31d28;">Bảng Tử Thần: 6 Tình Huống CẤM TÍNH / PHẢI NÉ</h2>
-      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
-        Gặp các dấu hiệu này trong đề thi thì <b>TUYỆT ĐỐI KHÔNG ÁP DỤNG CÔNG THỨC</b> mà chọn ngay phương án phản biện:
-      </p>
-
-      <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
-        <button class="btn btn-trap btn-sm" onclick="startTopicDrill('traps')">
-          🚀 Luyện Riêng Các Câu Bẫy Này
-        </button>
+    <!-- ======================= KỶ LỤC ======================= -->
+    <section class="page" data-page="stats">
+      <div class="page-head"><h2>🏆 Kỷ Lục & Chuỗi Phản Xạ Của Thanh</h2><span class="sp"></span><button class="btn btn-sm btn-trap" onclick="resetStats()">🗑️ Xoá kỷ lục</button></div>
+      <div class="stats-grid">
+        <div class="card badge-card"><div class="bi">🔥</div><b>Streak Cao Nhất</b><div id="badgeBestStreak" class="bn" style="color:var(--brand)">0</div></div>
+        <div class="card badge-card"><div class="bi">🎯</div><b>Tổng Số Câu Đã Luyện</b><div id="badgeTotal" class="bn" style="color:var(--blue)">0</div></div>
+        <div class="card badge-card"><div class="bi">🛡️</div><b>Bẫy Đã Bắt Trúng</b><div id="badgeTraps" class="bn" style="color:var(--ok)">0</div></div>
+        <div class="card badge-card"><div class="bi">⏱️</div><b>Blitz 60s Tốt Nhất</b><div id="badgeBlitz" class="bn" style="color:#e8914a">0</div></div>
       </div>
-
-      <div class="chip-grid" style="grid-template-columns: 1fr;">
-        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
-          <span style="font-size: 1.5rem;">1️⃣</span>
-          <div>
-            <b style="color: #b31d28;">Kinh nguyệt không đều (30 - 60 ngày):</b> Ngày rụng trứng bất định ➔ <b>CẤM dùng Naegele</b>, bắt buộc dựa vào siêu âm TCN1 (CRL).
-          </div>
-        </div>
-        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
-          <span style="font-size: 1.5rem;">2️⃣</span>
-          <div>
-            <b style="color: #b31d28;">Quan hệ duy nhất 1 lần (chồng về thăm):</b> Tinh trùng sống 3 - 5 ngày ➔ <b>CẤM lấy ngày quan hệ làm ngày thụ tinh</b>, phải biết ngày rụng trứng!
-          </div>
-        </div>
-        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
-          <span style="font-size: 1.5rem;">3️⃣</span>
-          <div>
-            <b style="color: #b31d28;">Uống viên khẩn cấp Postinor-1:</b> Hoãn rụng trứng muộn ➔ <b>Kinh chót mất độ tin cậy</b>, không được vội chẩn đoán thai lưu khi CRL nhỏ.
-          </div>
-        </div>
-        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
-          <span style="font-size: 1.5rem;">4️⃣</span>
-          <div>
-            <b style="color: #b31d28;">Thai IVF siêu âm tuần 12 thấy thai nhỏ:</b> Chuẩn IVF là tuyệt đối 100% ➔ <b>TUYỆT ĐỐI CẤM ĐỔI DỰ SINH</b> (thai nhỏ do FGR hoặc Lệch bội).
-          </div>
-        </div>
-        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
-          <span style="font-size: 1.5rem;">5️⃣</span>
-          <div>
-            <b style="color: #b31d28;">Siêu âm tuần 20 đo BPD nhỏ hơn 2 tuần:</b> Đã xác lập ở TCN1 thì <b>KHÓA CHẾT</b> ngày dự sinh, không bao giờ chỉnh lại ở TCN2/TCN3.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         VIEW 4: HUY HIỆU & KỶ LỤC
-         ==================================================================== -->
-    <section id="view-badges" class="paper-card" style="display: none;">
-      <div class="tape" style="top: -10px; left: 40px; --tc: var(--mint);"></div>
-      <span class="kicker">🏆 RECORDS</span>
-      <h2 style="font-size: 1.35rem; margin-bottom: 8px;">Kỷ Lục & Chuỗi Phản Xạ Của Thanh</h2>
-      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
-        Đạt các mốc phản xạ để rèn luyện thói quen nhìn đề là bật ra đáp án ngay!
-      </p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
-          <div style="font-size: 2.2rem;">🔥</div>
-          <div style="font-weight: 800; margin: 4px 0;">Streak Cao Nhất</div>
-          <div id="badgeBestStreak" style="font-size: 2rem; font-weight: 900; color: var(--brand); font-family: var(--font-round);">0</div>
-        </div>
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
-          <div style="font-size: 2.2rem;">🎯</div>
-          <div style="font-weight: 800; margin: 4px 0;">Tổng Số Câu Đã Luyện</div>
-          <div id="badgeTotal" style="font-size: 2rem; font-weight: 900; color: #0969da; font-family: var(--font-round);">0</div>
-        </div>
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
-          <div style="font-size: 2.2rem;">🛡️</div>
-          <div style="font-weight: 800; margin: 4px 0;">Bẫy Đã Bắt Trúng</div>
-          <div id="badgeTraps" style="font-size: 2rem; font-weight: 900; color: #2ea043; font-family: var(--font-round);">0</div>
-        </div>
+      <div class="stats-2col">
+        <div class="card"><h4>🏅 Huy hiệu</h4><div class="ach-grid" id="achGrid"></div></div>
+        <div class="card"><h4>📊 Độ chính xác theo bài</h4><div id="topicBars"></div></div>
       </div>
     </section>
   </main>
 
   <footer>
     Made with 💖 for <b>Nguyễn Việt Thanh (Y23C UMP HCMC)</b> • zitthenk Medical Study Suite<br>
-    Luyện phản xạ tính nhẩm tốc độ cao theo Giáo trình <i>Thực hành Sản khoa 2025</i> & Lời Thầy Luân, Thầy Vinh.
+    Luyện phản xạ tính nhẩm theo Giáo trình <i>Thực hành Sản khoa 2025</i> & Lời Thầy Luân, Thầy Vinh • Chạy 100% offline.
   </footer>
 
-  <!-- ==========================================================================
-       JAVASCRIPT: INTERACTIVE WIDGETS, GSAP ANIMATION & DRILL LOGIC
-       ========================================================================== -->
-  <script>
-    // --- Web Audio API Synth ---
-    class SoundFX {
-      constructor() {
-        this.ctx = null;
-        this.enabled = true;
-      }
-      init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') this.ctx.resume();
-      }
-      playCorrect() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.05);
-          gain.gain.setValueAtTime(0.12, now + idx * 0.05);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.22);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now + idx * 0.05);
-          osc.stop(now + idx * 0.05 + 0.23);
-        });
-      }
-      playWrong() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(180, now);
-        osc.frequency.exponentialRampToValueAtTime(80, now + 0.2);
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.21);
-      }
-      playPop() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(580, now);
-        osc.frequency.exponentialRampToValueAtTime(850, now + 0.04);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.05);
-      }
-      playFanfare() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.07);
-          gain.gain.setValueAtTime(0.15, now + idx * 0.07);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.35);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now + idx * 0.07);
-          osc.stop(now + idx * 0.07 + 0.36);
-        });
-      }
-    }
-    const sound = new SoundFX();
-
-    // --- Confetti Canvas ---
-    const canvas = document.getElementById('confettiCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function launchConfetti() {
-      particles = [];
-      const colors = ['#ffd3e0', '#ffe0c2', '#fff1b8', '#cdeedd', '#cfe6fb', '#e76f95'];
-      for (let i = 0; i < 50; i++) {
-        particles.push({
-          x: canvas.width / 2 + (Math.random() - 0.5) * 160,
-          y: canvas.height * 0.4,
-          vx: (Math.random() - 0.5) * 12,
-          vy: Math.random() * -10 - 4,
-          size: Math.random() * 8 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          rotation: Math.random() * 360,
-          vrot: (Math.random() - 0.5) * 8,
-          opacity: 1
-        });
-      }
-      renderConfetti();
-    }
-    function renderConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let alive = false;
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.4;
-        p.rotation += p.vrot;
-        p.opacity -= 0.02;
-        if (p.opacity > 0) {
-          alive = true;
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = p.opacity;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
-          ctx.restore();
-        }
-      });
-      if (alive) requestAnimationFrame(renderConfetti);
-      else ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    // ==========================================================================
-    // 🎨 WIDGET 1: CYCLE & NAEGELE DYNAMIC SVG TIMELINE
-    // ==========================================================================
-    function updateCycleVisualizer(cycleVal) {
-      const cycle = parseInt(cycleVal, 10);
-      const diff = cycle - 28;
-      const follicular = cycle - 14;
-
-      document.getElementById('cycleDisplay').textContent = `${cycle} ngày ${cycle === 28 ? '(Chuẩn)' : (diff > 0 ? `(+${diff}d)` : `(${diff}d)`)}`;
-      document.getElementById('follicularDisplay').textContent = `${follicular} ngày`;
-      document.getElementById('offsetDisplay').textContent = `${diff >= 0 ? '+' : ''}${diff} ngày`;
-
-      // Redraw SVG Timeline
-      const svg = document.getElementById('cycleSvg');
-      const w = 700;
-      const h = 90;
-      
-      const folWidth = Math.round((follicular / cycle) * (w - 120));
-      const lutWidth = (w - 120) - folWidth;
-      const startX = 60;
-      const ovulX = startX + folWidth;
-      const endX = ovulX + lutWidth;
-
-      svg.innerHTML = `
-        <!-- Follicular Phase -->
-        <rect x="${startX}" y="24" width="${folWidth}" height="28" rx="8" fill="#ffe0c2" stroke="#2b2738" stroke-width="2"/>
-        <text x="${startX + folWidth / 2}" y="42" font-size="12" font-weight="800" text-anchor="middle" fill="#2b2738">Pha Nang Noãn (${follicular}d)</text>
-
-        <!-- Luteal Phase (Fixed 14d) -->
-        <rect x="${ovulX}" y="24" width="${lutWidth}" height="28" rx="8" fill="#cdeedd" stroke="#2b2738" stroke-width="2"/>
-        <text x="${ovulX + lutWidth / 2}" y="42" font-size="12" font-weight="800" text-anchor="middle" fill="#155724">Pha Hoàng Thể (14d cố định)</text>
-
-        <!-- Ovulation Marker -->
-        <circle cx="${ovulX}" cy="38" r="14" fill="#e76f95" stroke="#2b2738" stroke-width="2"/>
-        <text x="${ovulX}" y="43" font-size="14" text-anchor="middle">🥚</text>
-        <text x="${ovulX}" y="72" font-size="11" font-weight="900" text-anchor="middle" fill="#e76f95">Rụng Trứng (N${follicular})</text>
-
-        <!-- LMP Start Marker -->
-        <circle cx="${startX}" cy="38" r="6" fill="#2b2738"/>
-        <text x="${startX}" y="72" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">LMP (N1)</text>
-
-        <!-- Next Period Marker -->
-        <circle cx="${endX}" cy="38" r="6" fill="#2b2738"/>
-        <text x="${endX}" y="72" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Kỳ sau (N${cycle})</text>
-      `;
-
-      if (window.gsap) {
-        gsap.fromTo('#cycleSvg circle', { scale: 0.8 }, { scale: 1, duration: 0.25, ease: 'back.out' });
-      }
-    }
-
-    function setCycleVal(val) {
-      document.getElementById('cycleSlider').value = val;
-      updateCycleVisualizer(val);
-      sound.playPop();
-    }
-
-    // ==========================================================================
-    // 🎨 WIDGET 2: IVF EMBRYO TIMELINE STAGE (D3 VS D5)
-    // ==========================================================================
-    let currentIvfStage = 'D3';
-    function setIvfStage(stage) {
-      currentIvfStage = stage;
-      document.getElementById('ivfBtnD3').style.background = stage === 'D3' ? 'var(--sky)' : '#fff';
-      document.getElementById('ivfBtnD5').style.background = stage === 'D5' ? 'var(--sky)' : '#fff';
-
-      const isD3 = stage === 'D3';
-      const days = isD3 ? 16 : 18;
-      const weeksStr = isD3 ? '16 ngày (2w2d)' : '18 ngày (2w4d)';
-      document.getElementById('ivfAgeDisplay').textContent = weeksStr;
-
-      const svg = document.getElementById('ivfSvg');
-      svg.innerHTML = `
-        <!-- Timeline track -->
-        <line x1="60" y1="45" x2="640" y2="45" stroke="#2b2738" stroke-width="4" stroke-dasharray="6,4"/>
-
-        <!-- Point 1: Assumed LMP (-14d) -->
-        <circle cx="100" cy="45" r="14" fill="#fff1b8" stroke="#2b2738" stroke-width="2"/>
-        <text x="100" y="50" font-size="12" text-anchor="middle">📅</text>
-        <text x="100" y="74" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Kinh chót quy ước</text>
-        <text x="100" y="24" font-size="11" font-weight="900" text-anchor="middle" fill="#2b2738">-14 ngày</text>
-
-        <!-- Point 2: Conception (Day 0) -->
-        <circle cx="300" cy="45" r="14" fill="#ffe0c2" stroke="#2b2738" stroke-width="2"/>
-        <text x="300" y="50" font-size="12" text-anchor="middle">🧫</text>
-        <text x="300" y="74" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Chọc hút / Thụ tinh</text>
-        <text x="300" y="24" font-size="11" font-weight="900" text-anchor="middle" fill="#2b2738">Ngày 0 (2w0d)</text>
-
-        <!-- Point 3: Transfer Day -->
-        <circle cx="${isD3 ? 460 : 540}" cy="45" r="18" fill="#ffd3e0" stroke="#2b2738" stroke-width="2.5"/>
-        <text x="${isD3 ? 460 : 540}" y="51" font-size="15" text-anchor="middle">${isD3 ? '🥚' : '🧬'}</text>
-        <text x="${isD3 ? 460 : 540}" y="76" font-size="12" font-weight="900" text-anchor="middle" fill="#e76f95">Chuyển Phôi ${stage}</text>
-        <text x="${isD3 ? 460 : 540}" y="20" font-size="12" font-weight="900" text-anchor="middle" fill="#e76f95">${days} ngày (${isD3 ? '2w2d' : '2w4d'})</text>
-      `;
-
-      if (window.gsap) {
-        gsap.fromTo('#ivfSvg circle', { scale: 0.8 }, { scale: 1, duration: 0.25, ease: 'back.out' });
-      }
-      sound.playPop();
-    }
-
-    // ==========================================================================
-    // 🎨 WIDGET 3: CRL FETUS SCALER & ULTRASOUND FORMULA
-    // ==========================================================================
-    function updateCrlVisualizer(crlVal) {
-      const crl = parseInt(crlVal, 10);
-      document.getElementById('crlDisplay').textContent = `${crl} mm`;
-
-      const totalDays = 42 + crl;
-      const w = Math.floor(totalDays / 7);
-      const d = totalDays % 7;
-
-      document.getElementById('crlFormulaDisplay').textContent = `42 + ${crl} = ${totalDays} ngày`;
-      document.getElementById('crlGaDisplay').textContent = `${w} tuần ${d} ngày`;
-
-      // Scale fetus visual proportionally
-      const fetusRadius = 14 + Math.round(((crl - 10) / 74) * 26);
-      const svg = document.getElementById('crlSvg');
-
-      svg.innerHTML = `
-        <!-- Gestational sac -->
-        <ellipse cx="200" cy="48" rx="80" ry="40" fill="#f0f7ff" stroke="#2b2738" stroke-width="2" stroke-dasharray="4,3"/>
-        <text x="200" y="24" font-size="10" font-weight="800" text-anchor="middle" fill="#79718b">Túi Thai (Gestational Sac)</text>
-
-        <!-- Fetus body -->
-        <circle cx="200" cy="48" r="${fetusRadius}" fill="#ffd3e0" stroke="#2b2738" stroke-width="2"/>
-        <!-- Heart beat pulse -->
-        <circle cx="195" cy="46" r="4" fill="#e76f95">
-          <animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite"/>
-        </circle>
-        <text x="200" y="52" font-size="12" text-anchor="middle">👶</text>
-
-        <!-- Dimension Line -->
-        <line x1="120" y1="80" x2="${120 + crl * 4}" y2="80" stroke="#0969da" stroke-width="3" marker-end="url(#arrow)"/>
-        <text x="360" y="45" font-size="13" font-weight="900" fill="#2b2738">CRL = ${crl} mm ➔ ${w} tuần ${d} ngày</text>
-        <text x="360" y="65" font-size="11" font-weight="700" fill="#79718b">Công thức Thầy Luân & Bá Duy (10 - 30mm)</text>
-      `;
-    }
-
-    // ==========================================================================
-    // 🎨 WIDGET 4: DECISION TREE CLICKABLE LOGIC
-    // ==========================================================================
-    const treeState = { step1: 'yes', step2: 'regular', step3: 'none' };
-    function selectTreeNode(step, val) {
-      sound.playPop();
-      if (step === 1) {
-        treeState.step1 = val;
-        document.querySelectorAll('.tree-step-box:nth-child(2) .tree-btn').forEach(b => b.className = 'tree-btn');
-        event.target.className = val === 'yes' ? 'tree-btn active-green' : 'tree-btn active-red';
-      } else if (step === 2) {
-        treeState.step2 = val;
-        document.querySelectorAll('#treeStep2 .tree-btn').forEach(b => b.className = 'tree-btn');
-        event.target.className = val === 'irregular' ? 'tree-btn active-red' : 'tree-btn active-green';
-      } else if (step === 3) {
-        treeState.step3 = val;
-        document.querySelectorAll('#treeStep3 .tree-btn').forEach(b => b.className = 'tree-btn');
-        event.target.className = val === 'none' ? 'tree-btn active-green' : 'tree-btn active-red';
-      }
-
-      // Evaluate path
-      const resBox = document.getElementById('treeResult');
-      if (treeState.step1 === 'no') {
-        resBox.style.background = '#fff0f0';
-        resBox.style.borderColor = '#cf222e';
-        resBox.style.color = '#b31d28';
-        resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY ĐIỂM LIỆT: KHÔNG NHỚ KINH CHÓT!</b> Cấm dùng Naegele. Bắt buộc đo CRL siêu âm 3 tháng đầu!</div>';
-      } else if (treeState.step2 === 'irregular') {
-        resBox.style.background = '#fff0f0';
-        resBox.style.borderColor = '#cf222e';
-        resBox.style.color = '#b31d28';
-        resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY ĐIỂM LIỆT: KINH KHÔNG ĐỀU!</b> Ngày rụng trứng bất định. CẤM dùng kinh chót, bắt buộc dùng CRL siêu âm TCN1!</div>';
-      } else if (treeState.step3 !== 'none') {
-        resBox.style.background = '#fff0f0';
-        resBox.style.borderColor = '#cf222e';
-        resBox.style.color = '#b31d28';
-        if (treeState.step3 === 'intercourse') {
-          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY THẦY VINH: QUAN HỆ 1 LẦN!</b> Tinh trùng sống 3-5 ngày. CẤM lấy ngày quan hệ làm ngày thụ tinh!</div>';
-        } else if (treeState.step3 === 'postinor') {
-          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY POSTINOR-1:</b> Hoãn rụng trứng muộn ➔ Kinh chót mất hoàn toàn giá trị, không vội chẩn đoán thai lưu!</div>';
-        } else {
-          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY TIÊN ĐỀ TIER 0:</b> Thai IVF chuẩn tuyệt đối 100%. Thai nhỏ là do FGR hoặc Lệch bội, CẤM đổi ngày dự sinh!</div>';
-        }
-      } else {
-        resBox.style.background = '#e6ffed';
-        resBox.style.borderColor = '#2ea043';
-        resBox.style.color = '#155724';
-        if (treeState.step2 === 'long') {
-          resBox.innerHTML = '<span style="font-size: 1.5rem;">✅</span><div><b>ĐỦ ĐIỀU KIỆN HIỆU CHỈNH CHU KỲ DÀI:</b> Naegele chuẩn + Bù ngày chênh lệch (Chu kỳ - 28 ngày).</div>';
-        } else {
-          resBox.innerHTML = '<span style="font-size: 1.5rem;">✅</span><div><b>ĐỦ ĐIỀU KIỆN ÁP DỤNG NAEGELE:</b> Kinh đều, nhớ rõ kinh chót ➔ Ngày +7, Tháng -3/+9.</div>';
-        }
-      }
-    }
-
-    // ==========================================================================
-    // ⚡ DRILL ENGINE & RAPID REFLEX (TAB 2)
-    // ==========================================================================
-    const state = {
-      tab: 'learn',
-      inputMode: 'type',
-      topic: 'all',
-      streak: 0,
-      score: 0,
-      bestStreak: parseInt(localStorage.getItem('san_best_streak') || '0', 10),
-      totalAnswered: parseInt(localStorage.getItem('san_total_answered') || '0', 10),
-      trapsAvoided: parseInt(localStorage.getItem('san_traps_avoided') || '0', 10),
-      currentQ: null,
-      answered: false
-    };
-
-    function isLeapYear(y) { return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0); }
-    function getDaysInMonth(y, m) {
-      if (m === 2) return isLeapYear(y) ? 29 : 28;
-      if ([4, 6, 9, 11].includes(m)) return 30;
-      return 31;
-    }
-    function fmtDate(d) {
-      const day = String(d.getDate()).padStart(2, '0');
-      const mon = String(d.getMonth() + 1).padStart(2, '0');
-      return `${day}/${mon}/${d.getFullYear()}`;
-    }
-    function addDays(d, days) {
-      const res = new Date(d);
-      res.setDate(res.getDate() + days);
-      return res;
-    }
-
-    function calcNaegele(d, m, y, cycleLen = 28) {
-      let targetD = d + 7 + (cycleLen - 28);
-      let targetM = m;
-      let targetY = y;
-
-      if (m <= 3) {
-        targetM = m + 9;
-      } else {
-        targetM = m - 3;
-        targetY = y + 1;
-      }
-
-      const maxDays = getDaysInMonth(targetY, targetM);
-      if (targetD > maxDays) {
-        targetD -= maxDays;
-        targetM += 1;
-        if (targetM > 12) {
-          targetM = 1;
-          targetY += 1;
-        }
-      } else if (targetD <= 0) {
-        targetM -= 1;
-        if (targetM < 1) {
-          targetM = 12;
-          targetY -= 1;
-        }
-        targetD += getDaysInMonth(targetY, targetM);
-      }
-      return new Date(targetY, targetM - 1, targetD);
-    }
-
-    function shuffle(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    // --- RAPID-FIRE QUESTION GENERATORS ---
-    const RAPID_GENERATORS = [
-      function genSimpleNaegele() {
-        const year = 2026;
-        const month = Math.floor(Math.random() * 12) + 1;
-        const day = Math.floor(Math.random() * 20) + 1;
-        const lmp = new Date(year, month - 1, day);
-        const edd = calcNaegele(day, month, year, 28);
-        const eddStr = fmtDate(edd);
-
-        const d1 = fmtDate(addDays(edd, 7));
-        const d2 = fmtDate(addDays(edd, -7));
-        const d3 = fmtDate(addDays(edd, 14));
-
-        return {
-          type: 'naegele_simple',
-          categoryTag: 'BÀI 1: NAEGELE CƠ BẢN',
-          label: 'KỲ KINH CHÓT (LMP)',
-          dateStr: fmtDate(lmp),
-          condition: 'Chu kỳ kinh đều 28 ngày',
-          target: '👉 NGÀY DỰ SINH (EDD)? 👈',
-          expectedType: 'date',
-          expDay: String(edd.getDate()).padStart(2, '0'),
-          expMonth: String(edd.getMonth() + 1).padStart(2, '0'),
-          expYear: String(edd.getFullYear()),
-          correct: eddStr,
-          options: shuffle([eddStr, d1, d2, d3]),
-          hack: `💡 <b>Nhìn 1 giây:</b> Ngày ${day} + 7 = <b>${day + 7}</b> | Tháng ${month <= 3 ? `${month} + 9 = ${month + 9}` : `${month} - 3 = ${month - 3}`} | Năm ${month <= 3 ? year : year + 1} → <b>${eddStr}</b>`
-        };
-      },
-
-      function genOverflowNaegele() {
-        const year = 2026;
-        const month = Math.floor(Math.random() * 12) + 1;
-        const maxD = getDaysInMonth(year, month);
-        const day = maxD - Math.floor(Math.random() * 6);
-        const lmp = new Date(year, month - 1, day);
-        const edd = calcNaegele(day, month, year, 28);
-        const eddStr = fmtDate(edd);
-
-        const falseD2 = fmtDate(addDays(edd, 7));
-        const falseD3 = fmtDate(addDays(edd, -7));
-
-        return {
-          type: 'naegele_overflow',
-          categoryTag: 'BÀI 1B: VẮT CUỐI THÁNG',
-          label: 'KỲ KINH CHÓT (LMP)',
-          dateStr: fmtDate(lmp),
-          condition: `Tháng ${month} có ${maxD} ngày • Chu kỳ đều 28 ngày`,
-          target: '👉 NGÀY DỰ SINH (EDD)? 👈',
-          expectedType: 'date',
-          expDay: String(edd.getDate()).padStart(2, '0'),
-          expMonth: String(edd.getMonth() + 1).padStart(2, '0'),
-          expYear: String(edd.getFullYear()),
-          correct: eddStr,
-          options: shuffle([eddStr, falseD2, falseD3, '🚫 KHÔNG TÍNH ĐƯỢC']),
-          hack: `💡 <b>Nhẩm vắt tháng:</b> Ngày ${day} + 7 = ${day + 7}. Trừ đi ${maxD} ngày tháng ${month} → Ngày <b>${edd.getDate()}</b>, tháng tự tăng thêm 1 → <b>${eddStr}</b>!`
-        };
-      },
-
-      function genCycleNaegele() {
-        const year = 2026;
-        const cycle = Math.random() > 0.5 ? 35 : 32;
-        const diff = cycle - 28;
-        const month = Math.floor(Math.random() * 9) + 1;
-        const day = Math.floor(Math.random() * 18) + 1;
-        const lmp = new Date(year, month - 1, day);
-        const edd = calcNaegele(day, month, year, cycle);
-        const eddStr = fmtDate(edd);
-
-        const naive28 = fmtDate(calcNaegele(day, month, year, 28));
-        const falseD1 = fmtDate(addDays(edd, -7));
-        const falseD2 = fmtDate(addDays(edd, 14));
-
-        return {
-          type: 'naegele_cycle',
-          categoryTag: `BÀI 2: CHU KỲ DÀI ${cycle} NGÀY`,
-          label: 'KỲ KINH CHÓT (LMP)',
-          dateStr: fmtDate(lmp),
-          condition: `Chu kỳ kinh đều ${cycle} ngày (dài hơn chuẩn ${diff} ngày)`,
-          target: '👉 NGÀY DỰ SINH (EDD)? 👈',
-          expectedType: 'date',
-          expDay: String(edd.getDate()).padStart(2, '0'),
-          expMonth: String(edd.getMonth() + 1).padStart(2, '0'),
-          expYear: String(edd.getFullYear()),
-          correct: eddStr,
-          options: shuffle([eddStr, naive28, falseD1, falseD2]),
-          hack: `💡 <b>Nhẩm chu kỳ ${cycle} ngày:</b> Rụng trứng trễ hơn ${diff} ngày → Lấy Naegele chuẩn (+7 ngày) <b>CỘNG THÊM ${diff} NGÀY</b> → <b>${eddStr}</b>!`
-        };
-      },
-
-      function genTrapIrregular() {
-        const year = 2026;
-        const lmpStr = `18/04/${year}`;
-        return {
-          type: 'traps',
-          categoryTag: 'BÀI 5: 🚨 BẪY ĐIỂM LIỆT',
-          label: 'KỲ KINH CHÓT (LMP)',
-          dateStr: lmpStr,
-          condition: 'Chu kỳ kinh KHÔNG ĐỀU (dao động 30 - 60 ngày)',
-          target: '👉 TÍNH NGÀY DỰ SINH (EDD)? 👈',
-          expectedType: 'trap',
-          correct: '🚫 KHÔNG TÍNH ĐƯỢC BẰNG KINH CHÓT (Phải né!)',
-          options: shuffle([
-            '🚫 KHÔNG TÍNH ĐƯỢC BẰNG KINH CHÓT (Phải né!)',
-            `25/01/${year + 1}`,
-            `01/02/${year + 1}`,
-            `25/12/${year}`
-          ]),
-          hack: `🚨 <b>BẪY NÉ:</b> Kinh không đều thì ngày rụng trứng bất định → <b>TUYỆT ĐỐI KHÔNG DÙNG NAEGELE</b>! Bắt buộc dựa vào siêu âm 3 tháng đầu (CRL)!`
-        };
-      },
-
-      function genTrapIntercourse() {
-        return {
-          type: 'traps',
-          categoryTag: 'BÀI 5: 🚨 BẪY THẦY VINH',
-          label: 'NGÀY QUAN HỆ DUY NHẤT',
-          dateStr: '14 / 02 / 2026',
-          condition: 'Chồng công tác về quan hệ đúng 1 lần rồi đi',
-          target: '👉 LẤY LÀM MỐC TÍNH TUỔI THAI ĐƯỢC KHÔNG? 👈',
-          expectedType: 'trap',
-          correct: '🚫 KHÔNG ĐƯỢC! Phải biết ngày rụng trứng',
-          options: shuffle([
-            '🚫 KHÔNG ĐƯỢC! Phải biết ngày rụng trứng',
-            'Được, lấy 14/02 làm ngày thụ tinh (+14 ngày)',
-            'Được, lấy 14/02 làm ngày kinh chót lý thuyết',
-            'Được, lấy 14/02 thai được 2 tuần tuổi'
-          ]),
-          hack: `🚨 <b>BẪY NÉ:</b> Tinh trùng sống 3-5 ngày trong đường sinh dục; trứng có thể rụng sau 2 ngày. Không biết <b>ngày rụng trứng</b> thì <b>KHÔNG TÍNH ĐƯỢC</b>!`
-        };
-      },
-
-      function genTrapPostinor() {
-        return {
-          type: 'traps',
-          categoryTag: 'BÀI 5: 🚨 BẪY LÂM SÀNG',
-          label: 'KỲ KINH CHÓT (LMP)',
-          dateStr: '01 / 02 / 2026',
-          condition: 'Có uống viên khẩn cấp Postinor-1 sau quan hệ ngày 14',
-          target: '👉 KINH CHÓT CÓ DÙNG ĐƯỢC KHÔNG? 👈',
-          expectedType: 'trap',
-          correct: '🚫 MẤT ĐỘ TIN CẬY (Hoãn rụng trứng muộn)',
-          options: shuffle([
-            '🚫 MẤT ĐỘ TIN CẬY (Hoãn rụng trứng muộn)',
-            'Dùng bình thường theo công thức Naegele',
-            'Chỉ cần cộng thêm 3 ngày',
-            'Chỉ dùng được nếu siêu âm khớp tuổi thai'
-          ]),
-          hack: `🚨 <b>BẪY NÉ:</b> Uống Postinor-1 khẩn cấp làm hoãn phóng noãn muộn nhiều tuần → <b>Kinh chót mất hoàn toàn giá trị</b>, không được vội chẩn đoán thai lưu!`
-        };
-      },
-
-      function genTrapIvfRecall() {
-        return {
-          type: 'traps',
-          categoryTag: 'BÀI 5: 🚨 TIÊN ĐỀ TIER 0',
-          label: 'THAI KỲ IVF CHUYỂN PHÔI NGÀY 5',
-          dateStr: 'Siêu âm tuần 12 thấy CRL nhỏ hơn 8 ngày',
-          condition: 'Bác sĩ có được đổi ngày dự sinh theo siêu âm không?',
-          target: '👉 XỬ TRÍ NGÀY DỰ SINH? 👈',
-          expectedType: 'trap',
-          correct: '🚫 TUYỆT ĐỐI CẤM ĐỔI! Chuẩn IVF là bất biến',
-          options: shuffle([
-            '🚫 TUYỆT ĐỐI CẤM ĐỔI! Chuẩn IVF là bất biến',
-            'Đổi theo siêu âm CRL vì lệch > 7 ngày',
-            'Lấy trung bình cộng giữa 2 ngày',
-            'Đợi siêu âm tuần 20 BPD rồi mới đổi'
-          ]),
-          hack: `🚨 <b>BẪY NÉ:</b> Tuổi thai IVF là chuẩn tuyệt đối 100%. Thai nhỏ là do <b>FGR hoặc Lệch bội</b>, cấm đổi ngày dự sinh làm mất dấu bệnh lý!`
-        };
-      },
-
-      function genCrlQuick() {
-        const crlValues = [10, 12, 14, 16, 18, 21, 24, 28];
-        const crl = crlValues[Math.floor(Math.random() * crlValues.length)];
-        const totalDays = 42 + crl;
-        const w = Math.floor(totalDays / 7);
-        const d = totalDays % 7;
-        const ans = `${w} tuần ${d} ngày`;
-
-        const d1 = `${w} tuần ${(d + 2) % 7} ngày`;
-        const d2 = `${w - 1} tuần ${d} ngày`;
-        const d3 = `${w + 1} tuần ${(d + 5) % 7} ngày`;
-
-        return {
-          type: 'crl',
-          categoryTag: 'BÀI 4: CRL 10 - 30 mm',
-          label: 'CHIỀU DÀI ĐẦU MÔNG (CRL)',
-          dateStr: `${crl} mm`,
-          condition: 'Công thức Thầy Luân & Bá Duy: 42 + CRL (ngày)',
-          target: '👉 TUỔI THAI TƯƠNG ỨNG? 👈',
-          expectedType: 'text',
-          expWeeks: w,
-          expDays: d,
-          correct: ans,
-          options: shuffle([ans, d1, d2, d3]),
-          hack: `💡 <b>Nhẩm trong 1 giây:</b> 42 + ${crl} = <b>${totalDays} ngày</b> → 7 × ${w} + ${d} = <b>${ans}</b>!`
-        };
-      },
-
-      function genIvfTransferAge() {
-        const isD5 = Math.random() > 0.5;
-        const typeStr = isD5 ? 'Phôi Ngày 5 (Blastocyst)' : 'Phôi Ngày 3 (Cleavage)';
-
-        const days = isD5 ? 18 : 16;
-        const weeksStr = isD5 ? '18 ngày (2 tuần 4 ngày)' : '16 ngày (2 tuần 2 ngày)';
-
-        const falseAns1 = isD5 ? '19 ngày (2 tuần 5 ngày)' : '17 ngày (2 tuần 3 ngày)'; // bẫy làm tròn 14d
-        const falseAns2 = '14 ngày (2 tuần 0 ngày)';
-        const falseAns3 = '21 ngày (3 tuần 0 ngày)';
-
-        return {
-          type: 'ivf',
-          categoryTag: 'BÀI 3: IVF • THI LÝ THUYẾT ĐHYD',
-          label: `CHUYỂN ${typeStr.toUpperCase()}`,
-          dateStr: `Ngày Chuyển Phôi`,
-          condition: 'Chuẩn Sách Thực Hành 2025 Trang 2 & Thầy Âu Nhứt Luân',
-          target: '👉 TUỔI THAI TẠI NGÀY CHUYỂN PHÔI? 👈',
-          expectedType: 'text',
-          expDays: days,
-          correct: weeksStr,
-          options: shuffle([weeksStr, falseAns1, falseAns2, falseAns3]),
-          hack: `💡 <b>Thi Lý Thuyết Thầy Luân:</b> Tịnh tiến 13 ngày (14 - 1 = 13) → D3 = 13 + 3 = <b>16 ngày</b> (2w2d); D5 = 13 + 5 = <b>18 ngày</b> (2w4d)!`
-        };
-      }
-    ];
-
-    // --- Tab Switching with GSAP ---
-    function switchTab(tabId) {
-      state.tab = tabId;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
-      if (activeBtn) activeBtn.classList.add('active');
-
-      const tabs = ['learn', 'drill', 'traps', 'badges'];
-      tabs.forEach(t => {
-        const el = document.getElementById(`view-${t}`);
-        if (t === tabId) {
-          el.style.display = 'block';
-          if (window.gsap) {
-            gsap.fromTo(el, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
-          }
-        } else {
-          el.style.display = 'none';
-        }
-      });
-
-      sound.playPop();
-      if (tabId === 'badges') updateBadgeView();
-      if (tabId === 'drill' && !state.currentQ) nextQuestion();
-    }
-
-    function startTopicDrill(topicName) {
-      setTopic(topicName);
-      switchTab('drill');
-      sound.playFanfare();
-    }
-
-    document.getElementById('soundToggle').onclick = () => {
-      sound.enabled = !sound.enabled;
-      document.getElementById('soundIcon').textContent = sound.enabled ? '🔊' : '🔇';
-    };
-
-
-    function setTopic(top) {
-      state.topic = top;
-      document.querySelectorAll('.mode-pills .pill').forEach(p => p.classList.remove('active'));
-      const activePill = Array.from(document.querySelectorAll('.mode-pills .pill')).find(p => p.getAttribute('onclick').includes(top));
-      if (activePill) activePill.classList.add('active');
-      sound.playPop();
-      nextQuestion();
-    }
-
-    function setInputMode(mode) {
-      state.inputMode = mode;
-      document.getElementById('btnModeType').classList.toggle('active', mode === 'type');
-      document.getElementById('btnModeChoice').classList.toggle('active', mode === 'choice');
-
-      document.getElementById('typeInputContainer').style.display = mode === 'type' ? 'block' : 'none';
-      document.getElementById('choiceContainer').style.display = mode === 'choice' ? 'block' : 'none';
-
-      const helper = document.getElementById('helperTip');
-      if (mode === 'type') {
-        helper.innerHTML = '💡 Nhập số Ngày và Tháng • Bấm <b>Enter</b> để kiểm tra • Bấm phím <b>N</b> khi gặp bẫy!';
-        focusFirstInput();
-      } else {
-        helper.innerHTML = '💡 Mẹo iPad/Laptop: Bấm phím <b>1, 2, 3, 4</b> hoặc chạm nhanh trên màn hình!';
-      }
-      sound.playPop();
-    }
-
-    function nextQuestion() {
-      state.answered = false;
-      document.getElementById('feedbackBox').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-
-      const inpD = document.getElementById('inpDay');
-      const inpM = document.getElementById('inpMonth');
-      const inpY = document.getElementById('inpYear');
-      const inpT = document.getElementById('inpTextVal');
-
-      inpD.value = '';
-      inpM.value = '';
-      inpY.value = '';
-      inpT.value = '';
-      inpD.className = 'date-inp';
-      inpM.className = 'date-inp';
-      inpY.className = 'date-inp';
-      inpT.className = 'date-inp';
-
-      let eligible = RAPID_GENERATORS;
-      if (state.topic !== 'all') {
-        eligible = RAPID_GENERATORS.filter(f => {
-          const sample = f();
-          return sample.type === state.topic;
-        });
-      }
-      if (eligible.length === 0) eligible = RAPID_GENERATORS;
-
-      state.currentQ = eligible[Math.floor(Math.random() * eligible.length)]();
-      const q = state.currentQ;
-
-      document.getElementById('flashCategory').textContent = q.categoryTag;
-      document.getElementById('flashLabel').textContent = q.label;
-      document.getElementById('flashDate').textContent = q.dateStr;
-      document.getElementById('flashCondition').textContent = q.condition;
-      document.getElementById('flashTarget').innerHTML = q.target;
-
-      // Animate card entrance with GSAP
-      if (window.gsap) {
-        gsap.fromTo('#flashcardBox', { scale: 0.96, opacity: 0.8 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.5)' });
-      }
-
-      if (q.expectedType === 'text') {
-        document.getElementById('typeDateRow').style.display = 'none';
-        document.getElementById('typeTextRow').style.display = 'block';
-        inpT.placeholder = q.type === 'crl' ? 'Ví dụ: 8 tuần 0 ngày' : 'Số ngày hoặc tuần (VD: 18 ngày)';
-      } else {
-        document.getElementById('typeDateRow').style.display = 'flex';
-        document.getElementById('typeTextRow').style.display = 'none';
-        if (q.expYear) inpY.value = q.expYear;
-      }
-
-      const grid = document.getElementById('optionsGrid');
-      grid.innerHTML = '';
-      q.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        const isTrap = opt.includes('🚫');
-        btn.className = `opt-btn ${isTrap ? 'is-trap-btn' : ''}`;
-        btn.innerHTML = `<span class="opt-key">[${idx + 1}]</span><span class="opt-text">${opt}</span>`;
-        btn.onclick = () => selectOption(opt, btn);
-        grid.appendChild(btn);
-      });
-
-      if (state.inputMode === 'type' && state.tab === 'drill') {
-        setTimeout(focusFirstInput, 50);
-      }
-    }
-
-    function focusFirstInput() {
-      const q = state.currentQ;
-      if (!q) return;
-      if (q.expectedType === 'text') document.getElementById('inpTextVal').focus();
-      else document.getElementById('inpDay').focus();
-    }
-
-    const inpD = document.getElementById('inpDay');
-    const inpM = document.getElementById('inpMonth');
-    const inpY = document.getElementById('inpYear');
-    const inpT = document.getElementById('inpTextVal');
-
-    inpD.addEventListener('input', () => {
-      if (inpD.value.length >= 2) inpM.focus();
-    });
-    inpM.addEventListener('input', () => {
-      if (inpM.value.length >= 2) {
-        if (!inpY.value) inpY.focus();
-      }
-    });
-
-    [inpD, inpM, inpY, inpT].forEach(el => {
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          submitTypedAnswer();
-        } else if (e.key.toLowerCase() === 'n') {
-          e.preventDefault();
-          submitTrapAnswer();
-        }
-      });
-    });
-
-    function submitTypedAnswer() {
-      if (state.answered) return;
-      const q = state.currentQ;
-
-      if (q.expectedType === 'trap') {
-        handleAnswerResult(false, '❌ ĐÂY LÀ BẪY! Tình huống này KHÔNG TÍNH ĐƯỢC bằng công thức!');
-        return;
-      }
-
-      if (q.expectedType === 'text') {
-        const val = inpT.value.trim().toLowerCase();
-        let isCorrect = false;
-        if (q.type === 'crl') {
-          const totalDays = 42 + parseInt(q.dateStr, 10);
-          const w = Math.floor(totalDays / 7);
-          const d = totalDays % 7;
-          if (val.includes(String(w)) || val.includes(String(totalDays))) isCorrect = true;
-        } else if (q.type === 'ivf') {
-          if (val.includes(String(q.expDays))) isCorrect = true;
-        }
-        handleAnswerResult(isCorrect, isCorrect ? '⚡ CHÍNH XÁC NHANH NHƯ CHỚP!' : '❌ CHƯA CHÍNH XÁC!');
-        return;
-      }
-
-      const userD = inpD.value.trim().padStart(2, '0');
-      const userM = inpM.value.trim().padStart(2, '0');
-      const userY = inpY.value.trim();
-
-      if (!userD || !userM) {
-        inpD.focus();
-        return;
-      }
-
-      const isMatch = (userD === q.expDay && userM === q.expMonth && (!userY || userY === q.expYear));
-      handleAnswerResult(isMatch, isMatch ? '⚡ CHÍNH XÁC NHANH NHƯ CHỚP!' : '❌ CHƯA CHÍNH XÁC!');
-    }
-
-    function submitTrapAnswer() {
-      if (state.answered) return;
-      const q = state.currentQ;
-      const isCorrect = (q.expectedType === 'trap');
-      handleAnswerResult(isCorrect, isCorrect ? '🎯 BẮT TRÚNG BẪY! RẤT TỈNH TÁO!' : '❌ BẪY SAI! Tình huống này VẪN TÍNH ĐƯỢC bình thường!');
-    }
-
-    function selectOption(selectedOpt, btnEl) {
-      if (state.answered) return;
-      const q = state.currentQ;
-      const isCorrect = (selectedOpt === q.correct);
-
-      const btns = document.querySelectorAll('.opt-btn');
-      btns.forEach(b => b.disabled = true);
-
-      if (isCorrect) btnEl.classList.add('correct');
-      else {
-        btnEl.classList.add('wrong');
-        btns.forEach(b => {
-          if (b.innerText.includes(q.correct)) b.classList.add('correct');
-        });
-      }
-
-      handleAnswerResult(isCorrect, isCorrect ? '⚡ CHÍNH XÁC NHANH NHƯ CHỚP!' : '❌ CHƯA CHÍNH XÁC!');
-    }
-
-    function handleAnswerResult(isCorrect, title) {
-      state.answered = true;
-      state.totalAnswered++;
-      const q = state.currentQ;
-      const isTrap = q.expectedType === 'trap';
-
-      if (isCorrect) {
-        sound.playCorrect();
-        state.streak++;
-        state.score++;
-        if (isTrap) state.trapsAvoided++;
-        if (state.streak > state.bestStreak) {
-          state.bestStreak = state.streak;
-          localStorage.setItem('san_best_streak', state.bestStreak);
-        }
-        if (state.streak >= 10 && state.streak % 5 === 0) {
-          sound.playFanfare();
-          launchConfetti();
-        }
-
-        // Streak Fire effect
-        const fireEl = document.getElementById('streakFire');
-        if (state.streak >= 3) {
-          fireEl.classList.add('active');
-          document.getElementById('flashcardBox').classList.add('on-fire');
-        }
-
-        showFeedback(true, title, q.hack);
-
-        // Auto-advance on correct answers (0.35s)
-        setTimeout(() => {
-          if (state.answered && state.tab === 'drill') nextQuestion();
-        }, 380);
-
-      } else {
-        sound.playWrong();
-        state.streak = 0;
-        document.getElementById('streakFire').classList.remove('active');
-        document.getElementById('flashcardBox').classList.remove('on-fire');
-
-        // Shake flashcard
-        if (window.gsap) {
-          gsap.fromTo('#flashcardBox', { x: -8 }, { x: 8, duration: 0.08, repeat: 4, yoyo: true, onComplete: () => gsap.set('#flashcardBox', { x: 0 }) });
-        }
-
-        showFeedback(false, title, q.hack);
-      }
-
-      saveStats();
-      updateStats();
-      document.getElementById('nextBtn').style.display = 'inline-flex';
-    }
-
-    function showFeedback(isCorrect, title, hack) {
-      const fb = document.getElementById('feedbackBox');
-      fb.className = `feedback-box ${isCorrect ? 'correct' : 'wrong'}`;
-      document.getElementById('fbTitle').innerHTML = `${isCorrect ? '✅' : '⚠️'} ${title}`;
-      document.getElementById('fbHack').innerHTML = hack;
-      fb.style.display = 'block';
-    }
-
-    function updateStats() {
-      document.getElementById('statStreak').textContent = state.streak;
-      document.getElementById('statScore').textContent = state.score;
-      document.getElementById('statBest').textContent = state.bestStreak;
-    }
-
-    function saveStats() {
-      localStorage.setItem('san_total_answered', state.totalAnswered);
-      localStorage.setItem('san_traps_avoided', state.trapsAvoided);
-    }
-
-    function updateBadgeView() {
-      document.getElementById('badgeBestStreak').textContent = state.bestStreak;
-      document.getElementById('badgeTotal').textContent = state.totalAnswered;
-      document.getElementById('badgeTraps').textContent = state.trapsAvoided;
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (state.tab !== 'drill') return;
-
-      if (state.inputMode === 'choice') {
-        if (['1', '2', '3', '4'].includes(e.key) && !state.answered) {
-          const idx = parseInt(e.key, 10) - 1;
-          const btns = document.querySelectorAll('.opt-btn');
-          if (btns[idx]) btns[idx].click();
-        }
-      }
-
-      if (e.code === 'Space' && state.answered) {
-        e.preventDefault();
-        nextQuestion();
-      }
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      updateCycleVisualizer(28);
-      setIvfStage('D3');
-      updateCrlVisualizer(21);
-      updateStats();
-      nextQuestion();
-    });
-  </script>
+  <!-- Bảng giải thích khi trả lời sai (đấu trường) -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-card" id="sheetCard">
+      <div id="fbTitle" class="fb-title"></div>
+      <div id="fbHack" class="fb-hack"></div>
+      <div id="fbSteps" class="fb-steps"></div>
+      <div class="sheet-actions">
+        <button id="fbReplay" class="btn btn-sm btn-sky" onclick="replayQ(state.currentQ)">🎬 Xem hoạt ảnh giải</button>
+        <button id="nextBtn" class="btn btn-sm btn-hot" onclick="nextQuestion()">Câu kế ➜ (Space)</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast" hidden></div>
+
+  <div id="blitzModal" class="modal" hidden>
+    <div class="card">
+      <span class="kick">⏱ Blitz 60 giây</span>
+      <h2 style="margin:6px 0">Hết giờ!</h2>
+      <div id="blitzResult" style="margin:8px 0 14px;font-weight:700"></div>
+      <div class="row-c">
+        <button class="btn btn-sm" onclick="$('#blitzModal').hidden = true">Đóng</button>
+        <button class="btn btn-sm btn-pink" onclick="startBlitz()">🔁 Chơi lại</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
