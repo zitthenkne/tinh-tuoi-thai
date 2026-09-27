@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>zitthenk Phản Xạ Tuổi Thai & Ngày Dự Sinh — Sản Y4 ĐHYD</title>
+  <title>zitthenk Lớp Học & Phản Xạ Tuổi Thai — Sản Y4 ĐHYD</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23ffd3e0%22/><path d=%22M20 50 A30 30 0 0 1 80 50 A30 30 0 0 1 20 50 Z%22 fill=%22none%22 stroke=%22%232f2a3f%22 stroke-width=%228%22/><circle cx=%2250%22 cy=%2250%22 r=%2214%22 fill=%22%23e76f95%22/><path d=%22M50 20 L50 32 M50 68 L50 80 M20 50 L32 50 M68 50 L80 50%22 stroke=%22%232f2a3f%22 stroke-width=%226%22 stroke-linecap=%22round%22/></svg>">
   <meta name="theme-color" content="#ffd3e0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="SanCalc Y4">
   
-  <!-- Verified 100% Vietnamese Fonts (Zero Glyphs Missing) -->
+  <!-- Verified 100% Vietnamese Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -37,16 +37,12 @@
       --trap-bg: #fff0f0;
       --trap-border: #cf222e;
       
-      --correct: #2ea043;
-      --wrong: #cf222e;
-      
       --grid: rgba(143, 177, 230, .20);
       --r: 16px;
       --sh: 2px 3px 0 var(--ink);
       --sh-lg: 4px 5px 0 var(--ink);
       --sh-sm: 1px 2px 0 var(--ink);
       
-      /* Font stack hoàn toàn sạch lỗi dấu tiếng Việt */
       --font-main: 'Plus Jakarta Sans', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-round: 'Nunito', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
@@ -69,7 +65,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4, .brand, .btn, .tab-btn, .kicker, .flash-date, .pill, .opt-key, .stat-num, .input-switch-btn {
+    h1, h2, h3, h4, .brand, .btn, .tab-btn, .kicker, .flash-date, .pill, .opt-key, .stat-num, .input-switch-btn, .lesson-num {
       font-family: var(--font-round);
     }
     b, strong { font-weight: 800; }
@@ -169,7 +165,7 @@
 
     /* Main Container */
     #container {
-      max-width: 880px;
+      max-width: 900px;
       width: 100%;
       margin: 0 auto;
       padding: 14px;
@@ -218,7 +214,7 @@
       border: 2px solid var(--ink);
       border-radius: var(--r);
       box-shadow: var(--sh-lg);
-      padding: 20px;
+      padding: 22px;
       position: relative;
       margin-bottom: 20px;
     }
@@ -263,14 +259,114 @@
     }
     .btn-primary { background: var(--butter); }
     .btn-pink { background: var(--pink); }
+    .btn-mint { background: var(--mint); }
+    .btn-sky { background: var(--sky); }
     .btn-trap {
       background: #ffe3e3;
       border-color: #cf222e;
       color: #900;
     }
-    .btn-trap:hover {
-      background: #ffd0d0;
-      box-shadow: 3px 4px 0 #cf222e;
+
+    /* ==========================================================================
+       TAB 1: LỘ TRÌNH BÀI GIẢNG (STRUCTURED LEARNING PATH)
+       ========================================================================== */
+    .workflow-guide-banner {
+      background: linear-gradient(135deg, #fff0f5 0%, #fff7eb 100%);
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--sh-sm);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .workflow-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+    .workflow-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+    .w-step {
+      background: #fff;
+      border: 1.5px solid var(--ink);
+      padding: 2px 10px;
+      border-radius: 999px;
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .lesson-card {
+      background: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--sh-sm);
+      position: relative;
+    }
+    .lesson-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+    .lesson-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lesson-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--butter);
+      border: 2px solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+    .lesson-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .lesson-theory-box {
+      background: var(--soft);
+      border-left: 4px solid var(--brand);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .lesson-example-box {
+      background: #f8faff;
+      border: 1.5px dashed #0969da;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .example-title {
+      color: #0969da;
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* Controls Bar: Switch Mode (Gõ vs Trắc nghiệm) */
@@ -390,9 +486,7 @@
       gap: 6px;
     }
 
-    /* ==========================================================================
-       MODE 1: TYPED INPUT INTERFACE (GÕ ĐÁP ÁN)
-       ========================================================================== */
+    /* TYPED INPUT INTERFACE */
     #typeInputContainer {
       background: #fff;
       border: 2px solid var(--ink);
@@ -457,9 +551,7 @@
       .type-actions-grid { grid-template-columns: 1fr; }
     }
 
-    /* ==========================================================================
-       MODE 2: MULTIPLE CHOICE (TRẮC NGHIỆM 4 NÚT)
-       ========================================================================== */
+    /* MULTIPLE CHOICE GRID */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -598,21 +690,6 @@
       z-index: 999;
     }
 
-    /* Tables */
-    .math-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px 0;
-      font-size: 0.88rem;
-    }
-    .math-table th, .math-table td {
-      border: 1.5px solid var(--ink);
-      padding: 8px 10px;
-      text-align: left;
-    }
-    .math-table th { background: var(--butter); }
-    .math-table tr:nth-child(even) { background: var(--soft); }
-
     /* Footer */
     footer {
       text-align: center;
@@ -631,10 +708,10 @@
   <!-- Top bar -->
   <header id="topbar">
     <a href="#" class="brand-wrap">
-      <div class="brand-logo">⚡</div>
+      <div class="brand-logo">🎓</div>
       <div>
-        <span class="brand-text">zitthenk <b>Phản Xạ Tuổi Thai</b></span>
-        <span class="brand-sub">Sản Y4 ĐHYD TP.HCM • Luyện Tốc Độ Nhìn Là Ra Ngay</span>
+        <span class="brand-text">zitthenk <b>Lớp Học & Phản Xạ Tuổi Thai</b></span>
+        <span class="brand-sub">Sản Y4 ĐHYD TP.HCM • Giảng Kỹ Cốt Lõi ➔ Luyện Phản Xạ Nhanh</span>
       </div>
     </a>
     <div class="top-actions">
@@ -650,34 +727,209 @@
   <main id="container">
     <!-- Navigation Tabs -->
     <nav class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('drill')">⚡ Phản Xạ Thần Tốc</button>
-      <button class="tab-btn" onclick="switchTab('rules')">🧠 3 Giây Nhìn Là Ra</button>
-      <button class="tab-btn" onclick="switchTab('traps')">🚫 Danh Mục Phải Né</button>
-      <button class="tab-btn" onclick="switchTab('badges')">🏆 Kỷ Lục & Streak</button>
+      <button class="tab-btn active" onclick="switchTab('learn')">🎓 1. Bài Giảng & Ví Dụ</button>
+      <button class="tab-btn" onclick="switchTab('drill')">⚡ 2. Đấu Trường Phản Xạ</button>
+      <button class="tab-btn" onclick="switchTab('traps')">🚫 3. Bảng Tử Thần Phải Né</button>
+      <button class="tab-btn" onclick="switchTab('badges')">🏆 4. Kỷ Lục & Streak</button>
     </nav>
 
     <!-- ====================================================================
-         VIEW 1: PHẢN XẠ THẦN TỐC
+         VIEW 1: LỘ TRÌNH BÀI GIẢNG & VÍ DỤ MẪU (LEARN FIRST)
          ==================================================================== -->
-    <section id="view-drill" class="paper-card">
+    <section id="view-learn" class="paper-card">
       <div class="tape" style="top: -12px; right: 40px; --tc: var(--butter);"></div>
-      <span class="kicker">⚡ RAPID-FIRE • CHỌN GÕ HOẶC TRẮC NGHIỆM</span>
+      <span class="kicker">🎓 WORKFLOW HỌC TẬP CHUẨN Y KHOA</span>
+      <h2 style="font-size: 1.4rem; margin-bottom: 6px;">Lộ Trình: Giảng Bài ➔ Xem Ví Dụ ➔ Thực Hành</h2>
+      <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 16px;">
+        Đừng vội luyện trắc nghiệm mò! Hãy nắm chắc bản chất từng bài, xem mẹo nhẩm 3 giây trong ví dụ mẫu rồi bấm nút <b>"Thực Hành Ngay"</b> để luyện phản xạ cho đúng bài đó nhé!
+      </p>
+
+      <div class="workflow-guide-banner">
+        <div class="workflow-icon">🗺️</div>
+        <div>
+          <div style="font-weight: 800; font-size: 0.95rem;">Quy trình 3 bước để đạt tốc độ "nhìn 1 cái là ra":</div>
+          <div class="workflow-steps">
+            <span class="w-step">1. Đọc cốt lõi sinh học</span>
+            <span>➔</span>
+            <span class="w-step">2. Xem cách phân tích ví dụ</span>
+            <span>➔</span>
+            <span class="w-step" style="background: var(--pink);">3. Bấm "Thực hành ngay bài này"</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI 1 -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-title-wrap">
+            <div class="lesson-num">1</div>
+            <div>
+              <div class="lesson-title">Công Thức Naegele & Mẹo Nhẩm Vắt Tháng</div>
+              <small style="color: var(--muted); font-weight: 700;">Áp dụng cho chu kỳ đều 28 ngày, nhớ rõ kinh chót</small>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('naegele_simple')">
+            🚀 Luyện Bài 1 Ngay
+          </button>
+        </div>
+
+        <div class="lesson-theory-box">
+          <b>🧠 Cốt lõi lý thuyết:</b> Mốc zero tính từ ngày đầu kỳ kinh cuối (LMP), thêm 2 tuần vô kinh trước thụ tinh.
+          <br>• <b>Công thức Naegele:</b> Ngày + 7 • Tháng - 3 • Năm + 1 (hoặc Tháng + 9 nếu tháng 1, 2, 3).
+          <br>• <b>Bí thuật nhẩm 3 giây:</b>
+          <br>&nbsp;&nbsp;- Tháng 1, 2, 3: cộng thẳng 9 (+9), năm giữ nguyên.
+          <br>&nbsp;&nbsp;- Tháng 4 đến 12: trừ thẳng 3 (-3), năm cộng 1 (+1).
+          <br>&nbsp;&nbsp;- Ngày ≤ 21: cộng 7 thẳng. Nếu ngày ≥ 24: lấy ngày + 7 trừ đi số ngày tháng đó (30 hoặc 31), tháng tự động tăng thêm 1!
+        </div>
+
+        <div class="lesson-example-box">
+          <div class="example-title">💡 Ví Dụ Mẫu & Cách Nhẩm Từng Bước:</div>
+          • <b>Ví dụ 1 (Không vắt tháng):</b> LMP = <b>12/02/2026</b>.
+          <br>&nbsp;&nbsp;➔ Ngày: 12 + 7 = <b>19</b>. Tháng: 2 + 9 = <b>11</b>. Năm: <b>2026</b> ➔ <b>19/11/2026</b> (nhẩm mất 1 giây!).
+          <br>• <b>Ví dụ 2 (Vắt qua cuối tháng):</b> LMP = <b>26/05/2026</b>.
+          <br>&nbsp;&nbsp;➔ Ngày: 26 + 7 = 33. Tháng 5 có 31 ngày ➔ 33 - 31 = <b>02</b>.
+          <br>&nbsp;&nbsp;➔ Tháng: 5 - 3 = 2, cộng thêm 1 tháng tràn thành <b>03</b>. Năm: <b>2027</b> ➔ <b>02/03/2027</b>!
+        </div>
+      </div>
+
+      <!-- BÀI 2 -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-title-wrap">
+            <div class="lesson-num">2</div>
+            <div>
+              <div class="lesson-title">Chu Kỳ Kinh Dài & Bẫy Kinh Không Đều</div>
+              <small style="color: var(--muted); font-weight: 700;">Chu kỳ 32 ngày, 35 ngày vs Kinh thất thường</small>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('naegele_cycle')">
+            🚀 Luyện Bài 2 Ngay
+          </button>
+        </div>
+
+        <div class="lesson-theory-box">
+          <b>🧠 Cốt lõi sinh học:</b> Pha hoàng thể luôn cố định 14 ngày. Phóng noãn xảy ra trước kỳ kinh sau đúng 14 ngày.
+          <br>• Chu kỳ <b>35 ngày</b>: Rụng trứng ngày thứ 35 - 14 = 21 (trễ hơn 7 ngày so với chuẩn) ➔ <b>Lấy kết quả Naegele chuẩn CỘNG THÊM 7 NGÀY!</b>
+          <br>• Chu kỳ <b>32 ngày</b>: Rụng trứng trễ hơn 4 ngày ➔ <b>Lấy Naegele chuẩn CỘNG THÊM 4 NGÀY!</b>
+          <br>• 🚨 <b>BẪY ĐIỂM LIỆT:</b> Nếu kinh <b>KHÔNG ĐỀU</b> (dao động 30-60 ngày) ➔ <b>TUYỆT ĐỐI KHÔNG DÙNG NAEGELE</b>, bắt buộc dựa vào siêu âm CRL 3 tháng đầu!
+        </div>
+
+        <div class="lesson-example-box">
+          <div class="example-title">💡 Ví Dụ Mẫu & Cách Nhẩm:</div>
+          • <b>Ví dụ:</b> LMP = 10/04/2026, chu kỳ đều <b>35 ngày</b>.
+          <br>&nbsp;&nbsp;➔ Naegele chuẩn: Ngày 10 + 7 = 17. Tháng 4 - 3 = 01. Năm 2027 ➔ 17/01/2027.
+          <br>&nbsp;&nbsp;➔ Hiệu chỉnh chu kỳ 35 ngày (+7): 17 + 7 = <b>24/01/2027</b>!
+        </div>
+      </div>
+
+      <!-- BÀI 3 -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-title-wrap">
+            <div class="lesson-num">3</div>
+            <div>
+              <div class="lesson-title">Tuổi Thai IVF Chuẩn Bộ Môn Thầy Luân & Thầy Vinh</div>
+              <small style="color: var(--muted); font-weight: 700;">Sách Thực Hành Sản Khoa 2025 Trang 2 (Cấp 1 Tối Thượng)</small>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('ivf')">
+            🚀 Luyện Bài 3 Ngay
+          </button>
+        </div>
+
+        <div class="lesson-theory-box">
+          <b>🧠 Cốt lõi học thuật (Vì sao trừ/cộng 13 ngày?):</b>
+          <br>Ở thai tự nhiên quy ước ngày 14 là ngày thụ tinh (thai được 2 tuần). Khoảng cách tịnh tiến từ ngày 1 đến ngày 14 chỉ là <b>13 ngày</b> ($14 - 1 = 13$).
+          <br>• <b>Phôi Ngày 3 (Cleavage):</b> Tuổi thai ngày chuyển = 13 + 3 = <b>16 ngày (2 tuần 2 ngày)</b>.
+          <br>• <b>Phôi Ngày 5 (Blastocyst):</b> Tuổi thai ngày chuyển = 13 + 5 = <b>18 ngày (2 tuần 4 ngày)</b>.
+          <br>• 💡 <b>Thuật toán Thầy Vinh:</b> Ngày thụ tinh = Ngày chuyển phôi - 5. Đếm số ngày từ thụ tinh đến hiện tại, <b>CỘNG 13 NGÀY</b> rồi chia 7!
+        </div>
+
+        <div class="lesson-example-box">
+          <div class="example-title">💡 Ví Dụ Thầy Vinh Giảng (Lớp APP Chương 1):</div>
+          • Bệnh nhân chuyển phôi D5 ngày <b>08/08</b>, khám ngày <b>17/09</b>.
+          <br>&nbsp;&nbsp;1. Ngày thụ tinh = 08/08 - 5 ngày = 03/08.
+          <br>&nbsp;&nbsp;2. Số ngày từ 03/08 đến 17/09: Tháng 8 có 31 ngày (31 - 3 + 1 = 29 ngày) + 17 ngày tháng 9 = 46 ngày.
+          <br>&nbsp;&nbsp;3. Cộng 13 ngày = 46 + 13 = <b>59 ngày</b> ➔ 59 / 7 = <b>8 tuần 3 ngày</b>! (Đứa nào cộng 14 ra 8w4d là sai trắc nghiệm!).
+        </div>
+      </div>
+
+      <!-- BÀI 4 -->
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-title-wrap">
+            <div class="lesson-num">4</div>
+            <div>
+              <div class="lesson-title">Thước Đo Siêu Âm Sớm CRL (10 - 30 mm)</div>
+              <small style="color: var(--muted); font-weight: 700;">Công thức Thầy Luân & Quy tắc Khóa ngày dự sinh</small>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('crl')">
+            🚀 Luyện Bài 4 Ngay
+          </button>
+        </div>
+
+        <div class="lesson-theory-box">
+          <b>🧠 Cốt lõi siêu âm:</b> Giai đoạn sớm biến thiên sinh học nhỏ nhất.
+          <br>• <b>Công thức Thầy Luân & Bá Duy ($CRL = 10 - 30\text{ mm}$):</b>
+          <br>&nbsp;&nbsp;<b>Tuổi thai (ngày) = 42 + CRL (mm)</b>
+          <br>• <b>Quy tắc ACOG:</b> Thai &lt; 9w lệch &gt; 5 ngày mới đổi; Thai 9 - 13w6 lệch &gt; 7 ngày mới đổi.
+          <br>• 🚨 <b>QUY TẮC BẤT BIẾN:</b> Đã xác lập ngày dự sinh ở TCN1 thì <b>KHÓA CHẾT</b>, cấm dùng số đo TCN2/TCN3 để đổi lại!
+        </div>
+
+        <div class="lesson-example-box">
+          <div class="example-title">💡 Mẹo Nhẩm Nhanh 1 Giây:</div>
+          • CRL = 14mm ➔ 42 + 14 = 56 ngày = <b>8 tuần 0 ngày</b> tròn!
+          <br>• CRL = 21mm ➔ 42 + 21 = 63 ngày = <b>9 tuần 0 ngày</b> tròn!
+          <br>• CRL = 28mm ➔ 42 + 28 = 70 ngày = <b>10 tuần 0 ngày</b> tròn!
+        </div>
+      </div>
+
+      <!-- BÀI 5 -->
+      <div class="lesson-card" style="border-color: #cf222e;">
+        <div class="lesson-header">
+          <div class="lesson-title-wrap">
+            <div class="lesson-num" style="background: #ffe3e3; color: #b31d28;">5</div>
+            <div>
+              <div class="lesson-title" style="color: #b31d28;">Danh Mục 6 Bẫy Điểm Liệt Của Thầy Cô</div>
+              <small style="color: var(--muted); font-weight: 700;">Dấu hiệu nhận biết để né ngay lập tức</small>
+            </div>
+          </div>
+          <button class="btn btn-trap btn-sm" onclick="startTopicDrill('traps')">
+            🚀 Luyện Bẫy Điểm Liệt
+          </button>
+        </div>
+
+        <div class="lesson-theory-box" style="border-left-color: #cf222e; background: #fff5f5;">
+          1. <b>Quan hệ duy nhất 1 lần:</b> Tinh trùng sống 3-5 ngày ➔ CẤM lấy ngày quan hệ làm ngày thụ tinh, phải biết ngày rụng trứng!
+          <br>2. <b>Uống thuốc khẩn cấp Postinor-1:</b> Hoãn rụng trứng muộn ➔ Kinh chót mất độ tin cậy, không vội chẩn đoán thai lưu khi CRL nhỏ.
+          <br>3. <b>Thai IVF:</b> Chuẩn 100% ➔ CẤM hiệu chỉnh lùi ngày dự sinh theo siêu âm (thai nhỏ là do FGR hoặc lệch bội).
+          <br>4. <b>Siêu âm tuần 20 đo thai nhỏ 2 tuần:</b> CẤM đổi ngày dự sinh ➔ Khóa chết ngày dự sinh 3 tháng đầu!
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: ĐẤU TRƯỜNG PHẢN XẠ (DRILL)
+         ==================================================================== -->
+    <section id="view-drill" class="paper-card" style="display: none;">
+      <div class="tape stripe" style="top: -12px; right: 40px; --tc: var(--mint);"></div>
+      <span class="kicker">⚡ BƯỚC 2: THỰC HÀNH PHẢN XẠ THẦN TỐC</span>
 
       <!-- Topic Filters -->
       <div class="mode-pills">
-        <span style="font-size: 0.85rem; font-weight: 800; align-self: center; margin-right: 4px;">Dạng bài:</span>
+        <span style="font-size: 0.85rem; font-weight: 800; align-self: center; margin-right: 4px;">Đang luyện:</span>
         <button class="pill active" onclick="setTopic('all')">Tất cả ngẫu nhiên</button>
-        <button class="pill" onclick="setTopic('naegele_simple')">Naegele tháng 1-3 & 4-12</button>
-        <button class="pill" onclick="setTopic('naegele_overflow')">Vắt qua cuối tháng (24-31)</button>
-        <button class="pill" onclick="setTopic('naegele_cycle')">Chu kỳ dài (32d, 35d)</button>
-        <button class="pill" onclick="setTopic('traps')">Bẫy điểm liệt (Né ngay)</button>
-        <button class="pill" onclick="setTopic('crl')">CRL nhẩm (42+CRL)</button>
-        <button class="pill" onclick="setTopic('ivf')">IVF D3 & D5</button>
+        <button class="pill" onclick="setTopic('naegele_simple')">Bài 1: Naegele</button>
+        <button class="pill" onclick="setTopic('naegele_overflow')">Bài 1b: Vắt tháng</button>
+        <button class="pill" onclick="setTopic('naegele_cycle')">Bài 2: Chu kỳ dài</button>
+        <button class="pill" onclick="setTopic('ivf')">Bài 3: IVF D3/D5</button>
+        <button class="pill" onclick="setTopic('crl')">Bài 4: CRL 42+CRL</button>
+        <button class="pill" onclick="setTopic('traps')">Bài 5: Bẫy phải né</button>
       </div>
 
       <!-- Controls Row: Mode Switcher & Stats -->
       <div class="control-row">
-        <!-- Switch between Type input & Multiple Choice -->
         <div class="mode-switch-group">
           <button id="btnModeType" class="input-switch-btn active" onclick="setInputMode('type')">
             ⌨️ Gõ Đáp Án
@@ -694,7 +946,7 @@
         </div>
       </div>
 
-      <!-- Main Flashcard Question -->
+      <!-- Flashcard Question -->
       <div class="flashcard">
         <div id="flashCategory" class="flash-category">NAEGELE CƠ BẢN</div>
         <div id="flashLabel" class="flash-label">KỲ KINH CHÓT (LMP)</div>
@@ -722,7 +974,6 @@
           </div>
         </div>
 
-        <!-- Single Text Input for CRL or Week/Day questions -->
         <div id="typeTextRow" style="display: none; text-align: center; margin-bottom: 14px;">
           <input type="text" id="inpTextVal" placeholder="Ví dụ: 8 tuần 0 ngày" class="date-inp" style="width: 240px; font-size: 1.2rem;" autocomplete="off">
         </div>
@@ -760,121 +1011,62 @@
     </section>
 
     <!-- ====================================================================
-         VIEW 2: NGUYÊN TẮC 3 GIÂY NHÌN LÀ RA
-         ==================================================================== -->
-    <section id="view-rules" class="paper-card" style="display: none;">
-      <div class="tape stripe" style="top: -12px; left: 40px; --tc: var(--pink);"></div>
-      <span class="kicker">🧠 VISUAL PATTERNS</span>
-      <h2 style="font-size: 1.35rem; margin-bottom: 8px;">Quy Tắc Nhìn 1 Cái Là Ra Luôn</h2>
-      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
-        Bộ não chỉ cần xử lý 2 con số (Ngày và Tháng) độc lập theo các phản xạ sau:
-      </p>
-
-      <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; margin-bottom: 14px; box-shadow: var(--sh-sm);">
-        <h4 style="color: var(--brand); font-size: 1.05rem; margin-bottom: 6px;">⚡ PHẢN XẠ 1: XỬ LÝ THÁNG (Cực Dễ)</h4>
-        <ul style="padding-left: 20px; font-size: 0.92rem; line-height: 1.6;">
-          <li>Tháng <b>1, 2, 3</b> → <b>CỘNG 9</b> (+9), Năm <b>GIỮ NGUYÊN</b>.<br>
-            <i>Ví dụ: Tháng 1 → Tháng 10; Tháng 2 → Tháng 11; Tháng 3 → Tháng 12.</i>
-          </li>
-          <li>Tháng <b>4 đến 12</b> → <b>TRỪ 3</b> (-3), Năm <b>CỘNG 1</b> (+1).<br>
-            <i>Ví dụ: Tháng 5 → Tháng 2; Tháng 8 → Tháng 5; Tháng 11 → Tháng 8 năm sau.</i>
-          </li>
-        </ul>
-      </div>
-
-      <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; margin-bottom: 14px; box-shadow: var(--sh-sm);">
-        <h4 style="color: #0969da; font-size: 1.05rem; margin-bottom: 6px;">⚡ PHẢN XẠ 2: XỬ LÝ NGÀY (CỘNG 7)</h4>
-        <ul style="padding-left: 20px; font-size: 0.92rem; line-height: 1.6;">
-          <li><b>Nếu ngày ≤ 21</b> (hoặc ≤ 23 với tháng 30-31 ngày): Cộng thẳng 7!<br>
-            <i>Ví dụ: Ngày 15 + 7 = 22. Nhìn là thấy ngay 22!</i>
-          </li>
-          <li><b>Nếu ngày ≥ 24 (Tràn cuối tháng):</b> Lấy ngày + 7 rồi trừ đi số ngày tháng đó (30 hoặc 31), tháng tự động tăng thêm 1!<br>
-            <i>Ví dụ: Ngày 26/05 → 26 + 7 = 33. Tháng 5 có 31 ngày → 33 - 31 = 2. Tháng 5 chuyển sang tháng 3 năm sau → <b>02/03</b>.</i>
-          </li>
-        </ul>
-      </div>
-
-      <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; margin-bottom: 14px; box-shadow: var(--sh-sm);">
-        <h4 style="color: #2ea043; font-size: 1.05rem; margin-bottom: 6px;">⚡ PHẢN XẠ 3: CHU KỲ DÀI (X NGÀY)</h4>
-        <p style="font-size: 0.92rem; line-height: 1.5;">
-          • Rụng trứng luôn cách ngày hành kinh sau 14 ngày.<br>
-          • Chu kỳ <b>35 ngày</b> dài hơn chuẩn 28 ngày là 7 ngày → Lấy ngày Naegele <b>CỘNG THÊM 7 NGÀY</b>!<br>
-          • Chu kỳ <b>32 ngày</b> dài hơn chuẩn 4 ngày → Lấy ngày Naegele <b>CỘNG THÊM 4 NGÀY</b>!
-        </p>
-      </div>
-
-      <div style="background: var(--butter); border: 2px solid var(--ink); border-radius: 12px; padding: 14px; box-shadow: var(--sh-sm);">
-        <h4 style="font-size: 1.05rem; margin-bottom: 4px;">⚡ PHẢN XẠ 4: THẦN CHÚ CRL (10 - 30 mm)</h4>
-        <p style="font-size: 0.95rem; font-weight: 800;">Tuổi thai (ngày) = 42 + CRL (mm)</p>
-        <p style="font-size: 0.88rem; margin-top: 4px;">
-          • CRL = 14mm → 42 + 14 = 56 ngày = <b>8 tuần 0 ngày</b>.<br>
-          • CRL = 21mm → 42 + 21 = 63 ngày = <b>9 tuần 0 ngày</b>.<br>
-          • CRL = 28mm → 42 + 28 = 70 ngày = <b>10 tuần 0 ngày</b>.
-        </p>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         VIEW 3: DANH MỤC TRƯỜNG HỢP PHẢI NÉ
+         VIEW 3: DANH MỤC PHẢI NÉ
          ==================================================================== -->
     <section id="view-traps" class="paper-card" style="display: none;">
       <div class="tape stripe" style="top: -12px; right: 40px; --tc: var(--pink);"></div>
       <span class="kicker" style="background: var(--pink);">🚫 ZERO-TOLERANCE TRAPS</span>
-      <h2 style="font-size: 1.35rem; margin-bottom: 6px; color: #b31d28;">Danh Mục Trường Hợp CẤM TÍNH / PHẢI NÉ NGAY</h2>
+      <h2 style="font-size: 1.35rem; margin-bottom: 6px; color: #b31d28;">Bảng Tử Thần: Các Trường Hợp CẤM TÍNH / PHẢI NÉ</h2>
       <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
         Gặp các dấu hiệu này trong đề thi thì <b>TUYỆT ĐỐI KHÔNG ÁP DỤNG CÔNG THỨC</b> mà chọn ngay phương án phản biện:
       </p>
 
-      <table class="math-table">
+      <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+        <button class="btn btn-trap btn-sm" onclick="startTopicDrill('traps')">
+          🚀 Luyện Riêng Các Câu Bẫy Này
+        </button>
+      </div>
+
+      <table class="math-table" style="width: 100%; border-collapse: collapse;">
         <thead>
-          <tr>
-            <th>Tình Huống Đề Bài</th>
-            <th>Phản Xạ Cốt Tử</th>
-            <th>Lý Do Sinh Học & Lời Giảng Viên</th>
+          <tr style="background: var(--butter);">
+            <th style="border: 1.5px solid var(--ink); padding: 8px;">Tình Huống Đề Bài</th>
+            <th style="border: 1.5px solid var(--ink); padding: 8px;">Phản Xạ Cốt Tử</th>
+            <th style="border: 1.5px solid var(--ink); padding: 8px;">Lý Do Sinh Học & Lời Thầy Cô</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><b>Kinh nguyệt không đều</b> (ví dụ 30 - 60 ngày)</td>
-            <td><b style="color: #b31d28;">🚫 KHÔNG DÙNG ĐƯỢC KINH CHÓT!</b></td>
-            <td>Ngày rụng trứng biến động hoàn toàn không đoán trước được. Bắt buộc dựa vào <b>siêu âm 3 tháng đầu (CRL)</b>.</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;"><b>Kinh nguyệt không đều</b> (30 - 60 ngày)</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KHÔNG DÙNG ĐƯỢC KINH CHÓT!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Ngày rụng trứng bất định. Bắt buộc dựa vào <b>siêu âm 3 tháng đầu (CRL)</b>.</td>
           </tr>
           <tr>
-            <td><b>Quan hệ duy nhất 1 lần</b> (chồng về thăm)</td>
-            <td><b style="color: #b31d28;">🚫 CẤM LẤY NGÀY QUAN HỆ ĐỂ TÍNH!</b></td>
-            <td>Tinh trùng sống 3 - 5 ngày trong đường sinh dục; trứng có thể rụng sau 2 ngày. Phải biết <b>ngày rụng trứng</b> mới tính được!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;"><b>Quan hệ duy nhất 1 lần</b> (chồng về thăm)</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 CẤM LẤY NGÀY QUAN HỆ ĐỂ TÍNH!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Tinh trùng sống 3 - 5 ngày; trứng có thể rụng sau 2 ngày. Phải biết ngày rụng trứng!</td>
           </tr>
           <tr>
-            <td>Uống <b>thuốc tránh thai khẩn cấp</b> (Postinor-1)</td>
-            <td><b style="color: #b31d28;">🚫 KINH CHÓT MẤT ĐỘ TIN CẬY!</b></td>
-            <td>Levonorgestrel làm hoãn rụng trứng muộn nhiều tuần. CẤM vội chẩn đoán thai lưu khi CRL nhỏ hơn tuổi thai kinh chót (hẹn SA lại sau 7-10 ngày).</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Uống <b>thuốc tránh thai khẩn cấp</b> (Postinor-1)</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KINH CHÓT MẤT ĐỘ TIN CẬY!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Levonorgestrel hoãn rụng trứng muộn, cấm vội chẩn đoán thai lưu khi CRL nhỏ.</td>
           </tr>
           <tr>
-            <td>Mới ngưng thuốc ngừa thai phối hợp &lt; 3 tháng</td>
-            <td><b style="color: #b31d28;">🚫 KHÔNG TÍNH ĐƯỢC BẰNG NAEGELE!</b></td>
-            <td>Trục hạ đồi - buồng trứng chưa hồi phục hoàn toàn, chu kỳ đầu sau ngưng thuốc thường không rụng trứng chuẩn ngày 14.</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Thai IVF siêu âm tuần 12 thấy <b>CRL nhỏ 8 ngày</b></td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 TUYỆT ĐỐI CẤM ĐỔI DỰ SINH!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Chuẩn IVF là tuyệt đối 100%. Thai nhỏ là do <b>FGR hoặc Lệch bội</b>, không phải sai số!</td>
           </tr>
           <tr>
-            <td>Đang cho con bú / vô kinh tiết sữa</td>
-            <td><b style="color: #b31d28;">🚫 KHÔNG CÓ KINH ĐỂ TÍNH!</b></td>
-            <td>Prolactin cao ức chế rụng trứng, có thể thụ thai trước kỳ kinh đầu tiên xuất hiện trở lại → Siêu âm CRL là thước đo duy nhất.</td>
-          </tr>
-          <tr>
-            <td>Thai IVF siêu âm tuần 12 thấy CRL nhỏ hơn 8 ngày</td>
-            <td><b style="color: #b31d28;">🚫 TUYỆT ĐỐI CẤM ĐỔI NGÀY DỰ SINH!</b></td>
-            <td>Tuổi thai IVF là chuẩn tuyệt đối 100%. Thai nhỏ là chỉ dấu <b>Thai chậm tăng trưởng sớm (FGR) hoặc Bất thường NST</b>, không phải do sai số tuổi thai!</td>
-          </tr>
-          <tr>
-            <td>Siêu âm tuần 20 BPD/FL lệch &gt; 2 tuần so với SA tuần 12</td>
-            <td><b style="color: #b31d28;">🚫 KHÓA CHẾT NGÀY DỰ SINH!</b></td>
-            <td>Đã xác lập ngày dự sinh ở 3 tháng đầu là <b>BẤT BIẾN</b> suốt thai kỳ. Cấm dùng siêu âm 3 tháng giữa/cuối để đổi lại!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Siêu âm tuần 20 đo BPD <b>nhỏ hơn 2 tuần</b></td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KHÓA CHẾT DỰ SINH 3 THÁNG ĐẦU!</td>
+            <td style="border: 1.5px solid var(--ink); padding: 8px;">Đã xác lập ngày dự sinh ở TCN1 thì bất biến suốt thai kỳ!</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <!-- ====================================================================
-         VIEW 4: HUY HIỆU & TIẾN ĐỘ
+         VIEW 4: HUY HIỆU & KỶ LỤC
          ==================================================================== -->
     <section id="view-badges" class="paper-card" style="display: none;">
       <div class="tape" style="top: -12px; left: 40px; --tc: var(--mint);"></div>
@@ -888,17 +1080,17 @@
         <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
           <div style="font-size: 2rem;">⚡</div>
           <div style="font-weight: 800; margin: 4px 0;">Streak Cao Nhất</div>
-          <div id="badgeBestStreak" style="font-size: 1.8rem; font-weight: 900; color: var(--brand);">0</div>
+          <div id="badgeBestStreak" style="font-size: 1.8rem; font-weight: 900; color: var(--brand); font-family: var(--font-round);">0</div>
         </div>
         <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
           <div style="font-size: 2rem;">🎯</div>
           <div style="font-weight: 800; margin: 4px 0;">Tổng Số Câu Đã Luyện</div>
-          <div id="badgeTotal" style="font-size: 1.8rem; font-weight: 900; color: #0969da;">0</div>
+          <div id="badgeTotal" style="font-size: 1.8rem; font-weight: 900; color: #0969da; font-family: var(--font-round);">0</div>
         </div>
         <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
           <div style="font-size: 2rem;">🛡️</div>
           <div style="font-weight: 800; margin: 4px 0;">Bẫy Đã Tránh Được</div>
-          <div id="badgeTraps" style="font-size: 1.8rem; font-weight: 900; color: #2ea043;">0</div>
+          <div id="badgeTraps" style="font-size: 1.8rem; font-weight: 900; color: #2ea043; font-family: var(--font-round);">0</div>
         </div>
       </div>
     </section>
@@ -910,7 +1102,7 @@
   </footer>
 
   <!-- ==========================================================================
-       JAVASCRIPT: DUAL INPUT MODES, AUTO-ADVANCE & SOUNDS
+       JAVASCRIPT: WORKFLOW ROUTER, DRILL & AUDIO
        ========================================================================== -->
   <script>
     // --- Web Audio API Synth ---
@@ -1050,8 +1242,8 @@
 
     // --- State ---
     const state = {
-      tab: 'drill',
-      inputMode: 'type', // 'type' (Gõ đáp án) or 'choice' (Trắc nghiệm 4 nút)
+      tab: 'learn', // default is now structured learning!
+      inputMode: 'type',
       topic: 'all',
       theoryMode: 'theory',
       streak: 0,
@@ -1063,7 +1255,6 @@
       answered: false
     };
 
-    // --- Helpers ---
     function isLeapYear(y) { return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0); }
     function getDaysInMonth(y, m) {
       if (m === 2) return isLeapYear(y) ? 29 : 28;
@@ -1123,7 +1314,6 @@
 
     // --- RAPID-FIRE QUESTION GENERATORS ---
     const RAPID_GENERATORS = [
-      // 1. Naegele Cơ Bản Tháng 1-3 & 4-12
       function genSimpleNaegele() {
         const year = 2026;
         const month = Math.floor(Math.random() * 12) + 1;
@@ -1138,7 +1328,7 @@
 
         return {
           type: 'naegele_simple',
-          categoryTag: 'NAEGELE CƠ BẢN',
+          categoryTag: 'BÀI 1: NAEGELE CƠ BẢN',
           label: 'KỲ KINH CHÓT (LMP)',
           dateStr: fmtDate(lmp),
           condition: 'Chu kỳ kinh đều 28 ngày',
@@ -1153,12 +1343,11 @@
         };
       },
 
-      // 2. Naegele Vắt Qua Cuối Tháng
       function genOverflowNaegele() {
         const year = 2026;
         const month = Math.floor(Math.random() * 12) + 1;
         const maxD = getDaysInMonth(year, month);
-        const day = maxD - Math.floor(Math.random() * 6); // 25-31
+        const day = maxD - Math.floor(Math.random() * 6);
         const lmp = new Date(year, month - 1, day);
         const edd = calcNaegele(day, month, year, 28);
         const eddStr = fmtDate(edd);
@@ -1168,7 +1357,7 @@
 
         return {
           type: 'naegele_overflow',
-          categoryTag: 'VẮT CUỐI THÁNG',
+          categoryTag: 'BÀI 1B: VẮT CUỐI THÁNG',
           label: 'KỲ KINH CHÓT (LMP)',
           dateStr: fmtDate(lmp),
           condition: `Tháng ${month} có ${maxD} ngày • Chu kỳ đều 28 ngày`,
@@ -1183,7 +1372,6 @@
         };
       },
 
-      // 3. Naegele Chu Kỳ Dài (32, 35 ngày)
       function genCycleNaegele() {
         const year = 2026;
         const cycle = Math.random() > 0.5 ? 35 : 32;
@@ -1200,7 +1388,7 @@
 
         return {
           type: 'naegele_cycle',
-          categoryTag: `CHU KỲ DÀI ${cycle} NGÀY`,
+          categoryTag: `BÀI 2: CHU KỲ DÀI ${cycle} NGÀY`,
           label: 'KỲ KINH CHÓT (LMP)',
           dateStr: fmtDate(lmp),
           condition: `Chu kỳ kinh đều ${cycle} ngày (dài hơn chuẩn ${diff} ngày)`,
@@ -1215,13 +1403,12 @@
         };
       },
 
-      // 4. BẪY: Kinh không đều
       function genTrapIrregular() {
         const year = 2026;
         const lmpStr = `18/04/${year}`;
         return {
           type: 'traps',
-          categoryTag: '🚨 BẪY ĐIỂM LIỆT',
+          categoryTag: 'BÀI 5: 🚨 BẪY ĐIỂM LIỆT',
           label: 'KỲ KINH CHÓT (LMP)',
           dateStr: lmpStr,
           condition: 'Chu kỳ kinh KHÔNG ĐỀU (dao động 30 - 60 ngày)',
@@ -1238,11 +1425,10 @@
         };
       },
 
-      // 5. BẪY: Quan hệ 1 lần
       function genTrapIntercourse() {
         return {
           type: 'traps',
-          categoryTag: '🚨 BẪY THẦY VINH',
+          categoryTag: 'BÀI 5: 🚨 BẪY THẦY VINH',
           label: 'NGÀY QUAN HỆ DUY NHẤT',
           dateStr: '14 / 02 / 2026',
           condition: 'Chồng công tác về quan hệ đúng 1 lần rồi đi',
@@ -1259,11 +1445,10 @@
         };
       },
 
-      // 6. BẪY: Postinor-1 khẩn cấp
       function genTrapPostinor() {
         return {
           type: 'traps',
-          categoryTag: '🚨 BẪY LÂM SÀNG',
+          categoryTag: 'BÀI 5: 🚨 BẪY LÂM SÀNG',
           label: 'KỲ KINH CHÓT (LMP)',
           dateStr: '01 / 02 / 2026',
           condition: 'Có uống viên khẩn cấp Postinor-1 sau quan hệ ngày 14',
@@ -1280,11 +1465,10 @@
         };
       },
 
-      // 7. BẪY: Chỉnh lùi thai IVF
       function genTrapIvfRecall() {
         return {
           type: 'traps',
-          categoryTag: '🚨 TIÊN ĐỀ TIER 0',
+          categoryTag: 'BÀI 5: 🚨 TIÊN ĐỀ TIER 0',
           label: 'THAI KỲ IVF CHUYỂN PHÔI NGÀY 5',
           dateStr: 'Siêu âm tuần 12 thấy CRL nhỏ hơn 8 ngày',
           condition: 'Bác sĩ có được đổi ngày dự sinh theo siêu âm không?',
@@ -1301,7 +1485,6 @@
         };
       },
 
-      // 8. CRL Nhẩm Nhanh 10-30mm
       function genCrlQuick() {
         const crlValues = [10, 12, 14, 16, 18, 21, 24, 28];
         const crl = crlValues[Math.floor(Math.random() * crlValues.length)];
@@ -1316,7 +1499,7 @@
 
         return {
           type: 'crl',
-          categoryTag: 'CRL 10 - 30 mm',
+          categoryTag: 'BÀI 4: CRL 10 - 30 mm',
           label: 'CHIỀU DÀI ĐẦU MÔNG (CRL)',
           dateStr: `${crl} mm`,
           condition: 'Công thức Thầy Luân & Bá Duy: 42 + CRL (ngày)',
@@ -1330,7 +1513,6 @@
         };
       },
 
-      // 9. IVF D3 vs D5: Tuổi thai tại ngày chuyển phôi
       function genIvfTransferAge() {
         const isD5 = Math.random() > 0.5;
         const isTheory = state.theoryMode === 'theory';
@@ -1352,7 +1534,7 @@
 
         return {
           type: 'ivf',
-          categoryTag: isTheory ? 'IVF • THI LÝ THUYẾT ĐHYD' : 'IVF • TRẠM OSCE',
+          categoryTag: isTheory ? 'BÀI 3: IVF • THI LÝ THUYẾT ĐHYD' : 'BÀI 3: IVF • TRẠM OSCE',
           label: `CHUYỂN ${typeStr.toUpperCase()}`,
           dateStr: `Ngày Chuyển Phôi`,
           condition: isTheory ? 'Chuẩn Sách Thực Hành 2025 Trang 2 & Thầy Luân' : 'Chuẩn Làm Tròn Trạm OSCE',
@@ -1375,13 +1557,21 @@
       const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
       if (activeBtn) activeBtn.classList.add('active');
 
+      document.getElementById('view-learn').style.display = tabId === 'learn' ? 'block' : 'none';
       document.getElementById('view-drill').style.display = tabId === 'drill' ? 'block' : 'none';
-      document.getElementById('view-rules').style.display = tabId === 'rules' ? 'block' : 'none';
       document.getElementById('view-traps').style.display = tabId === 'traps' ? 'block' : 'none';
       document.getElementById('view-badges').style.display = tabId === 'badges' ? 'block' : 'none';
 
       sound.playPop();
       if (tabId === 'badges') updateBadgeView();
+      if (tabId === 'drill' && !state.currentQ) nextQuestion();
+    }
+
+    // Direct CTA from Learn to Drill
+    function startTopicDrill(topicName) {
+      setTopic(topicName);
+      switchTab('drill');
+      sound.playFanfare();
     }
 
     document.getElementById('soundToggle').onclick = () => {
@@ -1435,7 +1625,6 @@
       document.getElementById('feedbackBox').style.display = 'none';
       document.getElementById('nextBtn').style.display = 'none';
 
-      // Reset inputs
       const inpD = document.getElementById('inpDay');
       const inpM = document.getElementById('inpMonth');
       const inpY = document.getElementById('inpYear');
@@ -1462,14 +1651,12 @@
       state.currentQ = eligible[Math.floor(Math.random() * eligible.length)]();
       const q = state.currentQ;
 
-      // Render Flashcard
       document.getElementById('flashCategory').textContent = q.categoryTag;
       document.getElementById('flashLabel').textContent = q.label;
       document.getElementById('flashDate').textContent = q.dateStr;
       document.getElementById('flashCondition').textContent = q.condition;
       document.getElementById('flashTarget').innerHTML = q.target;
 
-      // Adjust input boxes depending on question type
       if (q.expectedType === 'text') {
         document.getElementById('typeDateRow').style.display = 'none';
         document.getElementById('typeTextRow').style.display = 'block';
@@ -1477,13 +1664,9 @@
       } else {
         document.getElementById('typeDateRow').style.display = 'flex';
         document.getElementById('typeTextRow').style.display = 'none';
-        // Prefill expected year so user only needs to type Day and Month!
-        if (q.expYear) {
-          inpY.value = q.expYear;
-        }
+        if (q.expYear) inpY.value = q.expYear;
       }
 
-      // Render Multiple Choice Options
       const grid = document.getElementById('optionsGrid');
       grid.innerHTML = '';
       q.options.forEach((opt, idx) => {
@@ -1495,7 +1678,7 @@
         grid.appendChild(btn);
       });
 
-      if (state.inputMode === 'type') {
+      if (state.inputMode === 'type' && state.tab === 'drill') {
         setTimeout(focusFirstInput, 50);
       }
     }
@@ -1503,14 +1686,10 @@
     function focusFirstInput() {
       const q = state.currentQ;
       if (!q) return;
-      if (q.expectedType === 'text') {
-        document.getElementById('inpTextVal').focus();
-      } else {
-        document.getElementById('inpDay').focus();
-      }
+      if (q.expectedType === 'text') document.getElementById('inpTextVal').focus();
+      else document.getElementById('inpDay').focus();
     }
 
-    // --- Auto-jump input handler ---
     const inpD = document.getElementById('inpDay');
     const inpM = document.getElementById('inpMonth');
     const inpY = document.getElementById('inpYear');
@@ -1537,13 +1716,11 @@
       });
     });
 
-    // Submit typed answer
     function submitTypedAnswer() {
       if (state.answered) return;
       const q = state.currentQ;
 
       if (q.expectedType === 'trap') {
-        // User typed a date when it was a trap!
         handleAnswerResult(false, '❌ ĐÂY LÀ BẪY! Tình huống này KHÔNG TÍNH ĐƯỢC bằng công thức!');
         return;
       }
@@ -1552,7 +1729,6 @@
         const val = inpT.value.trim().toLowerCase();
         let isCorrect = false;
         if (q.type === 'crl') {
-          // Accept "8w", "8 tuần", "8 tuần 0 ngày", "56", "56 ngày"
           const totalDays = 42 + parseInt(q.dateStr, 10);
           const w = Math.floor(totalDays / 7);
           const d = totalDays % 7;
@@ -1564,7 +1740,6 @@
         return;
       }
 
-      // Expected date comparison
       const userD = inpD.value.trim().padStart(2, '0');
       const userM = inpM.value.trim().padStart(2, '0');
       const userY = inpY.value.trim();
@@ -1578,7 +1753,6 @@
       handleAnswerResult(isMatch, isMatch ? '⚡ CHÍNH XÁC NHANH NHƯ CHỚP!' : '❌ CHƯA CHÍNH XÁC!');
     }
 
-    // Submit "Phải né / Không tính được"
     function submitTrapAnswer() {
       if (state.answered) return;
       const q = state.currentQ;
@@ -1586,7 +1760,6 @@
       handleAnswerResult(isCorrect, isCorrect ? '🎯 BẮT TRÚNG BẪY! RẤT TỈNH TÁO!' : '❌ BẪY SAI! Tình huống này VẪN TÍNH ĐƯỢC bình thường!');
     }
 
-    // Multiple Choice selection
     function selectOption(selectedOpt, btnEl) {
       if (state.answered) return;
       const q = state.currentQ;
@@ -1662,7 +1835,6 @@
       document.getElementById('badgeTraps').textContent = state.trapsAvoided;
     }
 
-    // --- Keyboard Hotkeys ---
     window.addEventListener('keydown', (e) => {
       if (state.tab !== 'drill') return;
 
@@ -1680,7 +1852,6 @@
       }
     });
 
-    // --- Init ---
     window.addEventListener('DOMContentLoaded', () => {
       updateStats();
       nextQuestion();
