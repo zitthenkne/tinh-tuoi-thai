@@ -76,7 +76,6 @@
     .brand .mascot-slot { width: 44px; flex-shrink: 0; }
     .brand-t { font-family: var(--f-head); font-size: 1.2rem; font-weight: 800; line-height: 1.1; display: block; }
     .brand-t em { font-style: normal; color: var(--brand); }
-    .brand small { display: block; font-size: .72rem; color: var(--muted); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 330px; }
     #nav { display: flex; gap: 6px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 4px; box-shadow: var(--sh-sm); }
     #nav a {
       text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 999px; font-weight: 800;
@@ -711,7 +710,6 @@
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       #topbar { padding: 8px 12px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, .96); }
-      .brand small { display: none; }
       #nav {
         position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 70; justify-content: space-around; border-radius: 24px; padding: 6px;
         box-shadow: 0 4px 0 var(--ink), 0 8px 30px rgba(59, 47, 74, .18);
@@ -774,7 +772,6 @@
       <span class="mascot-slot" data-size="44"></span>
       <span style="min-width:0">
         <b class="brand-t">zitthenk <em>học tính tuổi thai</em></b>
-        <small>Nguyễn Việt Thanh (Y23C ĐHYD) • Trực Quan Hóa & Phản Xạ Thần Tốc</small>
       </span>
     </a>
     <nav id="nav">
@@ -799,7 +796,7 @@
             <span class="mascot-slot" data-size="112" id="homeMascot"></span>
             <div class="bubble" id="homeBubble">Chào Thanh! Hôm nay mình luyện tính tuổi thai nha 💕</div>
           </div>
-          <h1>Tuổi thai = <mark>đếm từ Ngày 0</mark></h1>
+          <h1>Tuổi thai = <mark>đếm từ ngày kinh&nbsp;chót&nbsp;=&nbsp;ngày&nbsp;1</mark></h1>
           <div class="path-chips">
             <div class="pc" style="--c:var(--butter)"><i>📅</i><span>Kinh chót tin cậy</span><b>Naegele</b></div>
             <div class="pc" style="--c:var(--sky)"><i>🧬</i><span>Thai IVF</span><b>14 + tuổi phôi</b></div>
