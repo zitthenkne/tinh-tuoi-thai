@@ -3,48 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>zitthenk Lớp Học & Phản Xạ Tuổi Thai — Sản Y4 ĐHYD</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23ffd3e0%22/><path d=%22M20 50 A30 30 0 0 1 80 50 A30 30 0 0 1 20 50 Z%22 fill=%22none%22 stroke=%22%232f2a3f%22 stroke-width=%228%22/><circle cx=%2250%22 cy=%2250%22 r=%2214%22 fill=%22%23e76f95%22/><path d=%22M50 20 L50 32 M50 68 L50 80 M20 50 L32 50 M68 50 L80 50%22 stroke=%22%232f2a3f%22 stroke-width=%226%22 stroke-linecap=%22round%22/></svg>">
+  <title>SanCalc Y4 • Luyện Tính Tuổi Thai & Phản Xạ Trực Quan</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23ffd3e0%22/><circle cx=%2250%22 cy=%2250%22 r=%2226%22 fill=%22%23e76f95%22/><text x=%2250%22 y=%2258%22 font-size=%2226%22 text-anchor=%22middle%22 fill=%22white%22 font-weight=%22bold%22>Y4</text></svg>">
   <meta name="theme-color" content="#ffd3e0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="SanCalc Y4">
-  
-  <!-- Verified 100% Vietnamese Fonts -->
+
+  <!-- Full Vietnamese Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- GSAP 3 for Ultra Smooth Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
   <style>
-    /* ==========================================================================
-       zitthenk Design System: Sổ Dán Pastel Retro Cute (Chuẩn Font Tiếng Việt)
-       ========================================================================== */
     :root {
       --bg: #fffaf2;
       --surface: #fffefb;
-      --ink: #2f2a3f;
-      --muted: #756c88;
-      --line: #eaded2;
+      --ink: #2b2738;
+      --muted: #79718b;
+      --line: #ebdcd0;
       --soft: #fbf5ec;
       --brand: #e76f95;
-      
+
       --pink: #ffd3e0;
       --peach: #ffe0c2;
       --butter: #fff1b8;
       --mint: #cdeedd;
       --sky: #cfe6fb;
-      --lav: #e2d6fb;
+      --lav: #e4d7fb;
+
       --trap-bg: #fff0f0;
       --trap-border: #cf222e;
-      
-      --grid: rgba(143, 177, 230, .20);
+      --trap-ink: #b31d28;
+
+      --grid: rgba(143, 177, 230, .18);
       --r: 16px;
       --sh: 2px 3px 0 var(--ink);
-      --sh-lg: 4px 5px 0 var(--ink);
+      --sh-lg: 4px 6px 0 var(--ink);
       --sh-sm: 1px 2px 0 var(--ink);
-      
-      --font-main: 'Plus Jakarta Sans', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-round: 'Nunito', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --font-main: 'Plus Jakarta Sans', 'Nunito', sans-serif;
+      --font-round: 'Nunito', 'Plus Jakarta Sans', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -54,48 +53,47 @@
       background-image: 
         linear-gradient(var(--grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: 22px 22px;
+      background-size: 20px 20px;
       color: var(--ink);
       font-family: var(--font-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       line-height: 1.5;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, .brand, .btn, .tab-btn, .kicker, .flash-date, .pill, .opt-key, .stat-num, .input-switch-btn, .lesson-num {
+    h1, h2, h3, h4, .brand, .btn, .tab-btn, .kicker, .flash-date, .pill, .opt-key, .stat-num, .input-switch-btn, .metric-value {
       font-family: var(--font-round);
     }
     b, strong { font-weight: 800; }
 
-    /* Washi tape */
+    /* Washi tape decoration */
     .tape {
       position: absolute;
       z-index: 3;
-      height: 22px;
-      width: 96px;
+      height: 20px;
+      width: 86px;
       pointer-events: none;
       opacity: .92;
-      background: radial-gradient(circle, rgba(255, 255, 255, .85) 2.2px, transparent 2.8px) 0 0 / 11px 11px, var(--tc, var(--pink));
+      background: radial-gradient(circle, rgba(255, 255, 255, .8) 2px, transparent 2.5px) 0 0 / 10px 10px, var(--tc, var(--pink));
       clip-path: polygon(0 8%, 5% 0, 10% 10%, 15% 0, 20% 8%, 25% 0, 30% 8%, 35% 0, 40% 10%, 45% 0, 50% 8%, 55% 0, 60% 8%, 65% 0, 70% 10%, 75% 0, 80% 8%, 85% 0, 90% 10%, 95% 0, 100% 8%, 100% 92%, 95% 100%, 90% 90%, 85% 100%, 80% 92%, 75% 100%, 70% 90%, 65% 100%, 60% 92%, 55% 100%, 50% 90%, 45% 100%, 40% 92%, 35% 100%, 30% 90%, 25% 100%, 20% 92%, 15% 100%, 10% 90%, 5% 100%, 0 92%);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
     }
     .tape.stripe {
-      background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .55) 0 5px, transparent 5px 10px), var(--tc, var(--mint));
+      background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .5) 0 5px, transparent 5px 10px), var(--tc, var(--mint));
     }
 
-    /* Top bar */
+    /* Top Navigation Bar */
     #topbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 253, 248, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 2px dashed #eccfd9;
-      padding: 10px 16px;
+      background: rgba(255, 253, 248, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px dashed #e8cfd7;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -110,8 +108,8 @@
       color: var(--ink);
     }
     .brand-logo {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
       background: var(--pink);
       border: 2px solid var(--ink);
@@ -119,13 +117,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
-      transform: rotate(-4deg);
+      font-size: 1.3rem;
+      transform: rotate(-3deg);
       flex-shrink: 0;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .brand-logo:hover {
+      transform: rotate(6deg) scale(1.1);
     }
     .brand-text {
       font-size: 1.15rem;
-      font-weight: 800;
+      font-weight: 900;
       line-height: 1.2;
     }
     .brand-text b { color: var(--brand); }
@@ -133,8 +135,7 @@
       display: block;
       font-size: 0.72rem;
       color: var(--muted);
-      font-family: var(--font-main);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .top-actions {
@@ -149,36 +150,39 @@
       box-shadow: var(--sh-sm);
       border-radius: 999px;
       padding: 6px 12px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 800;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
-      font-family: var(--font-round);
+      transition: all 0.12s ease;
     }
     .icon-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 2px 3px 0 var(--ink);
+      transform: translate(-1px, -2px);
+      box-shadow: var(--sh);
+    }
+    .icon-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: none;
     }
 
-    /* Main Container */
+    /* Layout Container */
     #container {
-      max-width: 900px;
+      max-width: 860px;
       width: 100%;
-      margin: 0 auto;
-      padding: 14px;
+      margin: 18px auto;
+      padding: 0 16px;
       flex: 1;
     }
 
-    /* Navigation Tabs */
+    /* Tab Switcher */
     .tab-bar {
       display: flex;
       gap: 8px;
+      margin-bottom: 16px;
       overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 14px;
+      padding-bottom: 4px;
       scrollbar-width: none;
     }
     .tab-bar::-webkit-scrollbar { display: none; }
@@ -186,26 +190,27 @@
     .tab-btn {
       background: #fff;
       border: 2px solid var(--ink);
+      padding: 9px 18px;
       border-radius: 999px;
-      box-shadow: var(--sh-sm);
-      padding: 8px 18px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 800;
+      color: var(--ink);
       cursor: pointer;
+      box-shadow: var(--sh-sm);
       white-space: nowrap;
-      display: flex;
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.15s;
+      gap: 6px;
     }
     .tab-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 2px 3px 0 var(--ink);
+      transform: translate(-1px, -2px);
+      box-shadow: var(--sh);
     }
     .tab-btn.active {
       background: var(--pink);
-      transform: translate(-1px, -1px);
       box-shadow: var(--sh);
+      transform: translate(-1px, -2px);
     }
 
     /* Cards */
@@ -221,33 +226,33 @@
 
     .kicker {
       display: inline-block;
-      background: var(--sky);
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--butter);
       border: 1.5px solid var(--ink);
       padding: 2px 10px;
-      border-radius: 6px;
-      font-size: 0.76rem;
-      font-weight: 800;
+      border-radius: 999px;
+      margin-bottom: 10px;
       box-shadow: 1px 1px 0 var(--ink);
-      margin-bottom: 8px;
-      transform: rotate(-1.5deg);
     }
 
     /* Buttons */
     .btn {
       border: 2px solid var(--ink);
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-weight: 800;
+      border-radius: 12px;
+      padding: 10px 18px;
       font-size: 0.95rem;
+      font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       box-shadow: var(--sh);
-      transition: all 0.15s;
-      background: #fff;
-      font-family: var(--font-round);
+      transition: all 0.12s ease;
+      text-decoration: none;
     }
     .btn:hover {
       transform: translate(-1px, -2px);
@@ -257,119 +262,235 @@
       transform: translate(1px, 2px);
       box-shadow: none;
     }
-    .btn-primary { background: var(--butter); }
-    .btn-pink { background: var(--pink); }
-    .btn-mint { background: var(--mint); }
-    .btn-sky { background: var(--sky); }
-    .btn-trap {
-      background: #ffe3e3;
-      border-color: #cf222e;
-      color: #900;
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      border-radius: 999px;
     }
+    .btn-primary { background: var(--butter); color: var(--ink); }
+    .btn-pink { background: var(--pink); color: var(--ink); }
+    .btn-mint { background: var(--mint); color: var(--ink); }
+    .btn-sky { background: var(--sky); color: var(--ink); }
+    .btn-trap { background: #ffe4e4; border-color: var(--trap-border); color: var(--trap-ink); }
 
     /* ==========================================================================
-       TAB 1: LỘ TRÌNH BÀI GIẢNG (STRUCTURED LEARNING PATH)
+       VISUAL WIDGETS (INTERACTIVE SANDBOX - TAB 1)
        ========================================================================== */
-    .workflow-guide-banner {
-      background: linear-gradient(135deg, #fff0f5 0%, #fff7eb 100%);
+    .widget-box {
+      background: #ffffff;
       border: 2px solid var(--ink);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      box-shadow: var(--sh-sm);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .workflow-icon {
-      font-size: 2.2rem;
-      flex-shrink: 0;
-    }
-    .workflow-steps {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-    .w-step {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      padding: 2px 10px;
-      border-radius: 999px;
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-
-    .lesson-card {
-      background: #fff;
-      border: 2px solid var(--ink);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: var(--sh-sm);
+      margin-bottom: 18px;
+      box-shadow: var(--sh);
       position: relative;
+      overflow: hidden;
     }
-    .lesson-header {
+    .widget-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      gap: 10px;
-    }
-    .lesson-title-wrap {
-      display: flex;
       align-items: center;
-      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    .lesson-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: var(--butter);
-      border: 2px solid var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-    .lesson-title {
+    .widget-title {
       font-size: 1.15rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .widget-badge {
+      font-size: 0.75rem;
       font-weight: 800;
-      color: var(--ink);
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      background: var(--soft);
     }
 
-    .lesson-theory-box {
+    /* Slider styling */
+    .visual-slider-wrap {
+      margin: 12px 0;
+    }
+    .visual-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: #e7dfd5;
+      border: 2px solid var(--ink);
+      outline: none;
+      transition: background 0.2s;
+    }
+    .visual-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 2px solid var(--ink);
+      box-shadow: var(--sh-sm);
+      cursor: pointer;
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .visual-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Interactive SVG Timelines */
+    .timeline-svg {
+      width: 100%;
+      height: auto;
+      max-height: 110px;
+      display: block;
+      margin: 10px 0;
+      background: #fbf9f5;
+      border: 1.5px dashed var(--line);
+      border-radius: 12px;
+    }
+
+    /* Metric Highlight Grid */
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .metric-card {
       background: var(--soft);
-      border-left: 4px solid var(--brand);
-      padding: 10px 14px;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.92rem;
-      margin-bottom: 12px;
-      line-height: 1.6;
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 1px 2px 0 var(--ink);
     }
-    .lesson-example-box {
-      background: #f8faff;
-      border: 1.5px dashed #0969da;
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-    .example-title {
-      color: #0969da;
+    .metric-title {
+      font-size: 0.75rem;
       font-weight: 800;
-      margin-bottom: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .metric-value {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--ink);
+      margin-top: 2px;
+    }
+
+    /* Mini Rule Chips (Bento Style) */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip-card {
+      background: #fff;
+      border: 1.5px solid var(--ink);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+    .chip-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Decision Tree Nodes */
+    .tree-step-box {
+      border: 2px dashed #cfc2b6;
+      border-radius: 14px;
+      padding: 12px;
+      background: #fcfbfa;
+      margin-bottom: 12px;
+    }
+    .tree-question {
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
+    .tree-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tree-btn {
+      background: #fff;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 1px 1px 0 var(--ink);
+      transition: all 0.12s;
+    }
+    .tree-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .tree-btn.active-green {
+      background: var(--mint);
+      border-color: #1e7e34;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .tree-btn.active-red {
+      background: #ffe3e3;
+      border-color: #cf222e;
+      color: #900;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
 
-    /* Controls Bar: Switch Mode (Gõ vs Trắc nghiệm) */
+    .tree-result-box {
+      background: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      box-shadow: var(--sh-sm);
+    }
+
+    /* ==========================================================================
+       DRILL TAB (FLASHCARD & REFLEX ARENA - TAB 2)
+       ========================================================================== */
+    .mode-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .pill {
+      background: #fff;
+      border: 1.5px solid var(--ink);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 1px 1px 0 var(--ink);
+      transition: all 0.12s;
+    }
+    .pill.active {
+      background: var(--butter);
+      box-shadow: 2px 2px 0 var(--ink);
+      transform: translate(-1px, -1px);
+    }
+
     .control-row {
       display: flex;
       flex-wrap: wrap;
@@ -409,7 +530,7 @@
     .drill-stats {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
     .stat-badge {
@@ -428,6 +549,17 @@
       color: var(--brand);
     }
 
+    /* Streak Fire Container */
+    .streak-fire-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .streak-fire-wrap.active {
+      transform: scale(1.15);
+    }
+
     /* Flashcard Box */
     .flashcard {
       background: #fff;
@@ -438,7 +570,13 @@
       box-shadow: 4px 6px 0 var(--ink);
       position: relative;
       margin-bottom: 16px;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .flashcard.on-fire {
+      border-color: #e76f95;
+      box-shadow: 0 0 16px rgba(231, 111, 149, 0.4), 4px 6px 0 var(--ink);
+    }
+
     .flash-category {
       display: inline-block;
       padding: 3px 12px;
@@ -451,89 +589,77 @@
       margin-bottom: 10px;
     }
     .flash-label {
-      font-size: 0.92rem;
+      font-size: 0.84rem;
       color: var(--muted);
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.5px;
     }
     .flash-date {
-      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      font-size: 2.2rem;
       font-weight: 900;
-      color: var(--brand);
-      margin: 6px 0;
-      letter-spacing: 0.02em;
-      line-height: 1.2;
+      color: var(--ink);
+      line-height: 1.15;
+      margin: 4px 0 8px 0;
     }
     .flash-condition {
       display: inline-block;
       background: var(--soft);
-      border: 1.5px dashed var(--ink);
+      border: 1.5px dashed #cfc2b6;
       border-radius: 8px;
-      padding: 4px 14px;
-      font-size: 0.95rem;
+      padding: 4px 12px;
+      font-size: 0.9rem;
       font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 12px;
+      color: #554e66;
+      margin-bottom: 8px;
     }
     .flash-target {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      color: #0969da;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      color: var(--brand);
     }
 
-    /* TYPED INPUT INTERFACE */
-    #typeInputContainer {
-      background: #fff;
-      border: 2px solid var(--ink);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 2px 3px 0 var(--ink);
-    }
+    /* Date Input Box */
     .date-input-wrap {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
       margin-bottom: 14px;
-      flex-wrap: wrap;
     }
     .date-box-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
     }
     .date-sub-label {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 800;
       color: var(--muted);
+      margin-bottom: 4px;
     }
     .date-inp {
-      width: 80px;
+      width: 72px;
       height: 52px;
       border: 2.5px solid var(--ink);
-      border-radius: 10px;
+      border-radius: 12px;
+      background: #fff;
       font-family: var(--font-round);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 900;
       text-align: center;
-      background: var(--soft);
+      color: var(--ink);
+      box-shadow: 2px 3px 0 var(--ink);
       outline: none;
-      box-shadow: 2px 2px 0 var(--ink);
-      transition: all 0.15s;
+      transition: all 0.12s;
     }
     .date-inp:focus {
-      background: #fff;
+      background: #fffcee;
       border-color: var(--brand);
-      box-shadow: 2px 3px 0 var(--brand);
+      transform: translateY(-2px);
+      box-shadow: 3px 5px 0 var(--ink);
     }
-    .date-inp.inp-year { width: 110px; }
+    .date-inp.inp-year { width: 92px; }
     .date-slash {
       font-size: 1.8rem;
       font-weight: 900;
@@ -551,7 +677,7 @@
       .type-actions-grid { grid-template-columns: 1fr; }
     }
 
-    /* MULTIPLE CHOICE GRID */
+    /* Multiple Choice Grid */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -613,13 +739,15 @@
       background: #fed7d7 !important;
       border-color: #c53030 !important;
       color: #742a2a !important;
-      animation: shake 0.3s;
+      animation: shake 0.35s;
     }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
     }
 
     /* Feedback Micro-Card */
@@ -629,17 +757,17 @@
       padding: 12px 16px;
       margin-bottom: 14px;
       display: none;
-      animation: popIn 0.2s ease-out;
+      animation: popIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     @keyframes popIn {
-      from { transform: scale(0.96); opacity: 0; }
+      from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
     .feedback-box.correct { background: #e6ffed; border-color: #2ea043; }
     .feedback-box.wrong { background: #ffeef0; border-color: #cf222e; }
     .fb-title {
       font-size: 1.05rem;
-      font-weight: 800;
+      font-weight: 900;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
@@ -655,31 +783,7 @@
       font-weight: 700;
     }
 
-    /* Mode selector bar */
-    .mode-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    .pill {
-      background: #fff;
-      border: 1.5px solid var(--ink);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 1px 1px 0 var(--ink);
-      transition: all 0.12s;
-    }
-    .pill.active {
-      background: var(--butter);
-      box-shadow: 2px 2px 0 var(--ink);
-      transform: translate(-1px, -1px);
-    }
-
-    /* Confetti canvas */
+    /* Confetti Canvas */
     #confettiCanvas {
       position: fixed;
       top: 0;
@@ -690,7 +794,6 @@
       z-index: 999;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 18px 14px;
@@ -708,10 +811,10 @@
   <!-- Top bar -->
   <header id="topbar">
     <a href="#" class="brand-wrap">
-      <div class="brand-logo">🎓</div>
+      <div class="brand-logo">🤰</div>
       <div>
-        <span class="brand-text">zitthenk <b>Lớp Học & Phản Xạ Tuổi Thai</b></span>
-        <span class="brand-sub">Sản Y4 ĐHYD TP.HCM • Giảng Kỹ Cốt Lõi ➔ Luyện Phản Xạ Nhanh</span>
+        <span class="brand-text">SanCalc Y4 • <b>Phản Xạ Tuổi Thai</b></span>
+        <span class="brand-sub">Nguyễn Việt Thanh (Y23C ĐHYD) • Trực Quan Hóa & Phản Xạ Thần Tốc</span>
       </div>
     </a>
     <div class="top-actions">
@@ -727,205 +830,226 @@
   <main id="container">
     <!-- Navigation Tabs -->
     <nav class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('learn')">🎓 1. Bài Giảng & Ví Dụ</button>
+      <button class="tab-btn active" onclick="switchTab('learn')">🎨 1. Trực Quan Hóa (Sandbox)</button>
       <button class="tab-btn" onclick="switchTab('drill')">⚡ 2. Đấu Trường Phản Xạ</button>
       <button class="tab-btn" onclick="switchTab('traps')">🚫 3. Bảng Tử Thần Phải Né</button>
       <button class="tab-btn" onclick="switchTab('badges')">🏆 4. Kỷ Lục & Streak</button>
     </nav>
 
     <!-- ====================================================================
-         VIEW 1: LỘ TRÌNH BÀI GIẢNG & VÍ DỤ MẪU (LEARN FIRST)
+         VIEW 1: TRỰC QUAN HÓA & INTERACTIVE SANDBOX (MINIMAL TEXT, MAXIMUM VISUALS)
          ==================================================================== -->
     <section id="view-learn" class="paper-card">
-      <div class="tape" style="top: -12px; right: 40px; --tc: var(--butter);"></div>
-      <span class="kicker">🎓 WORKFLOW HỌC TẬP CHUẨN Y KHOA</span>
-      <h2 style="font-size: 1.4rem; margin-bottom: 6px;">Lộ Trình: Giảng Bài ➔ Xem Ví Dụ ➔ Thực Hành</h2>
-      <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 16px;">
-        Đừng vội luyện trắc nghiệm mò! Hãy nắm chắc bản chất từng bài, xem mẹo nhẩm 3 giây trong ví dụ mẫu rồi bấm nút <b>"Thực Hành Ngay"</b> để luyện phản xạ cho đúng bài đó nhé!
+      <div class="tape" style="top: -10px; right: 40px; --tc: var(--butter);"></div>
+      <span class="kicker">🎨 INTERACTIVE SANDBOX • HỌC BẰNG HÌNH ẢNH</span>
+      <h2 style="font-size: 1.4rem; margin-bottom: 4px;">Khám Phá Bản Chất Sinh Học Qua Thước Đo Tương Tác</h2>
+      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
+        Kéo thanh trượt để mắt thấy tai nghe sự thay đổi của chu kỳ kinh, phôi thai IVF và siêu âm CRL.
       </p>
 
-      <div class="workflow-guide-banner">
-        <div class="workflow-icon">🗺️</div>
-        <div>
-          <div style="font-weight: 800; font-size: 0.95rem;">Quy trình 3 bước để đạt tốc độ "nhìn 1 cái là ra":</div>
-          <div class="workflow-steps">
-            <span class="w-step">1. Đọc cốt lõi sinh học</span>
-            <span>➔</span>
-            <span class="w-step">2. Xem cách phân tích ví dụ</span>
-            <span>➔</span>
-            <span class="w-step" style="background: var(--pink);">3. Bấm "Thực hành ngay bài này"</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- BÀI 1 -->
-      <div class="lesson-card">
-        <div class="lesson-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-num">1</div>
-            <div>
-              <div class="lesson-title">Công Thức Naegele & Mẹo Nhẩm Vắt Tháng</div>
-              <small style="color: var(--muted); font-weight: 700;">Áp dụng cho chu kỳ đều 28 ngày, nhớ rõ kinh chót</small>
-            </div>
+      <!-- WIDGET 1: THƯỚC ĐO CHU KỲ KINH & NAEGELE -->
+      <div class="widget-box">
+        <div class="widget-header">
+          <div class="widget-title">
+            <span>🗓️</span> Thước Đo Chu Kỳ Kinh & Naegele Động
           </div>
           <button class="btn btn-primary btn-sm" onclick="startTopicDrill('naegele_simple')">
-            🚀 Luyện Bài 1 Ngay
+            ⚡ Luyện Phản Xạ Bài Này
           </button>
         </div>
 
-        <div class="lesson-theory-box">
-          <b>🧠 Cốt lõi lý thuyết:</b> Mốc zero tính từ ngày đầu kỳ kinh cuối (LMP), thêm 2 tuần vô kinh trước thụ tinh.
-          <br>• <b>Công thức Naegele:</b> Ngày + 7 • Tháng - 3 • Năm + 1 (hoặc Tháng + 9 nếu tháng 1, 2, 3).
-          <br>• <b>Bí thuật nhẩm 3 giây:</b>
-          <br>&nbsp;&nbsp;- Tháng 1, 2, 3: cộng thẳng 9 (+9), năm giữ nguyên.
-          <br>&nbsp;&nbsp;- Tháng 4 đến 12: trừ thẳng 3 (-3), năm cộng 1 (+1).
-          <br>&nbsp;&nbsp;- Ngày ≤ 21: cộng 7 thẳng. Nếu ngày ≥ 24: lấy ngày + 7 trừ đi số ngày tháng đó (30 hoặc 31), tháng tự động tăng thêm 1!
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.85rem; font-weight: 800; color: var(--muted);">ĐỘ DÀI CHU KỲ KINH:</span>
+          <span id="cycleDisplay" style="font-size: 1.25rem; font-weight: 900; color: var(--brand);">28 ngày (Chuẩn)</span>
         </div>
 
-        <div class="lesson-example-box">
-          <div class="example-title">💡 Ví Dụ Mẫu & Cách Nhẩm Từng Bước:</div>
-          • <b>Ví dụ 1 (Không vắt tháng):</b> LMP = <b>12/02/2026</b>.
-          <br>&nbsp;&nbsp;➔ Ngày: 12 + 7 = <b>19</b>. Tháng: 2 + 9 = <b>11</b>. Năm: <b>2026</b> ➔ <b>19/11/2026</b> (nhẩm mất 1 giây!).
-          <br>• <b>Ví dụ 2 (Vắt qua cuối tháng):</b> LMP = <b>26/05/2026</b>.
-          <br>&nbsp;&nbsp;➔ Ngày: 26 + 7 = 33. Tháng 5 có 31 ngày ➔ 33 - 31 = <b>02</b>.
-          <br>&nbsp;&nbsp;➔ Tháng: 5 - 3 = 2, cộng thêm 1 tháng tràn thành <b>03</b>. Năm: <b>2027</b> ➔ <b>02/03/2027</b>!
+        <div class="visual-slider-wrap">
+          <input type="range" id="cycleSlider" class="visual-slider" min="21" max="45" value="28" oninput="updateCycleVisualizer(this.value)">
         </div>
-      </div>
 
-      <!-- BÀI 2 -->
-      <div class="lesson-card">
-        <div class="lesson-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-num">2</div>
-            <div>
-              <div class="lesson-title">Chu Kỳ Kinh Dài & Bẫy Kinh Không Đều</div>
-              <small style="color: var(--muted); font-weight: 700;">Chu kỳ 32 ngày, 35 ngày vs Kinh thất thường</small>
-            </div>
+        <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+          <button class="btn btn-sm btn-sky" onclick="setCycleVal(28)">28d (Chuẩn)</button>
+          <button class="btn btn-sm btn-pink" onclick="setCycleVal(32)">32d (+4)</button>
+          <button class="btn btn-sm btn-butter" onclick="setCycleVal(35)">35d (+7)</button>
+        </div>
+
+        <!-- Dynamic SVG Timeline -->
+        <svg id="cycleSvg" class="timeline-svg" viewBox="0 0 700 90"></svg>
+
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-title">Pha Nang Noãn</div>
+            <div id="follicularDisplay" class="metric-value" style="color: #0969da;">14 ngày</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="startTopicDrill('naegele_cycle')">
-            🚀 Luyện Bài 2 Ngay
-          </button>
+          <div class="metric-card">
+            <div class="metric-title">Pha Hoàng Thể</div>
+            <div class="metric-value" style="color: #2ea043;">14 ngày (Cố định)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Độ Lệch Naegele</div>
+            <div id="offsetDisplay" class="metric-value" style="color: var(--brand);">+0 ngày</div>
+          </div>
         </div>
 
-        <div class="lesson-theory-box">
-          <b>🧠 Cốt lõi sinh học:</b> Pha hoàng thể luôn cố định 14 ngày. Phóng noãn xảy ra trước kỳ kinh sau đúng 14 ngày.
-          <br>• Chu kỳ <b>35 ngày</b>: Rụng trứng ngày thứ 35 - 14 = 21 (trễ hơn 7 ngày so với chuẩn) ➔ <b>Lấy kết quả Naegele chuẩn CỘNG THÊM 7 NGÀY!</b>
-          <br>• Chu kỳ <b>32 ngày</b>: Rụng trứng trễ hơn 4 ngày ➔ <b>Lấy Naegele chuẩn CỘNG THÊM 4 NGÀY!</b>
-          <br>• 🚨 <b>BẪY ĐIỂM LIỆT:</b> Nếu kinh <b>KHÔNG ĐỀU</b> (dao động 30-60 ngày) ➔ <b>TUYỆT ĐỐI KHÔNG DÙNG NAEGELE</b>, bắt buộc dựa vào siêu âm CRL 3 tháng đầu!
-        </div>
-
-        <div class="lesson-example-box">
-          <div class="example-title">💡 Ví Dụ Mẫu & Cách Nhẩm:</div>
-          • <b>Ví dụ:</b> LMP = 10/04/2026, chu kỳ đều <b>35 ngày</b>.
-          <br>&nbsp;&nbsp;➔ Naegele chuẩn: Ngày 10 + 7 = 17. Tháng 4 - 3 = 01. Năm 2027 ➔ 17/01/2027.
-          <br>&nbsp;&nbsp;➔ Hiệu chỉnh chu kỳ 35 ngày (+7): 17 + 7 = <b>24/01/2027</b>!
+        <!-- 3 Bento Chips Mẹo Nhẩm -->
+        <div class="chip-grid">
+          <div class="chip-card" style="background: #fff8eb;">
+            <span class="chip-icon">✨</span>
+            <div><b>Tháng 1, 2, 3:</b> Cộng thẳng 9 (+9), năm giữ nguyên</div>
+          </div>
+          <div class="chip-card" style="background: #f0f7ff;">
+            <span class="chip-icon">⚡</span>
+            <div><b>Tháng 4 đến 12:</b> Trừ thẳng 3 (-3), năm cộng 1 (+1)</div>
+          </div>
+          <div class="chip-card" style="background: #fbf0f4;">
+            <span class="chip-icon">🚀</span>
+            <div><b>Ngày ≥ 24:</b> +7 rồi trừ số ngày tháng đó, tháng tự +1</div>
+          </div>
         </div>
       </div>
 
-      <!-- BÀI 3 -->
-      <div class="lesson-card">
-        <div class="lesson-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-num">3</div>
-            <div>
-              <div class="lesson-title">Tuổi Thai IVF Chuẩn Bộ Môn Thầy Luân & Thầy Vinh</div>
-              <small style="color: var(--muted); font-weight: 700;">Sách Thực Hành Sản Khoa 2025 Trang 2 (Cấp 1 Tối Thượng)</small>
-            </div>
+      <!-- WIDGET 2: TRỤC THỜI GIAN PHÔI IVF (N3 VS N5) -->
+      <div class="widget-box">
+        <div class="widget-header">
+          <div class="widget-title">
+            <span>🔬</span> Trục Thời Gian Phôi IVF Chuẩn Thầy Luân & Thầy Vinh
           </div>
           <button class="btn btn-primary btn-sm" onclick="startTopicDrill('ivf')">
-            🚀 Luyện Bài 3 Ngay
+            ⚡ Luyện Phản Xạ IVF
           </button>
         </div>
 
-        <div class="lesson-theory-box">
-          <b>🧠 Cốt lõi học thuật (Vì sao trừ/cộng 13 ngày?):</b>
-          <br>Ở thai tự nhiên quy ước ngày 14 là ngày thụ tinh (thai được 2 tuần). Khoảng cách tịnh tiến từ ngày 1 đến ngày 14 chỉ là <b>13 ngày</b> ($14 - 1 = 13$).
-          <br>• <b>Phôi Ngày 3 (Cleavage):</b> Tuổi thai ngày chuyển = 13 + 3 = <b>16 ngày (2 tuần 2 ngày)</b>.
-          <br>• <b>Phôi Ngày 5 (Blastocyst):</b> Tuổi thai ngày chuyển = 13 + 5 = <b>18 ngày (2 tuần 4 ngày)</b>.
-          <br>• 💡 <b>Thuật toán Thầy Vinh:</b> Ngày thụ tinh = Ngày chuyển phôi - 5. Đếm số ngày từ thụ tinh đến hiện tại, <b>CỘNG 13 NGÀY</b> rồi chia 7!
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <button id="ivfBtnD3" class="btn btn-sm btn-sky" onclick="setIvfStage('D3')">
+            🥚 Phôi Ngày 3 (Cleavage - 8 tế bào)
+          </button>
+          <button id="ivfBtnD5" class="btn btn-sm" style="background: #fff;" onclick="setIvfStage('D5')">
+            🧬 Phôi Ngày 5 (Blastocyst - Phôi nang)
+          </button>
         </div>
 
-        <div class="lesson-example-box">
-          <div class="example-title">💡 Ví Dụ Thầy Vinh Giảng (Lớp APP Chương 1):</div>
-          • Bệnh nhân chuyển phôi D5 ngày <b>08/08</b>, khám ngày <b>17/09</b>.
-          <br>&nbsp;&nbsp;1. Ngày thụ tinh = 08/08 - 5 ngày = 03/08.
-          <br>&nbsp;&nbsp;2. Số ngày từ 03/08 đến 17/09: Tháng 8 có 31 ngày (31 - 3 + 1 = 29 ngày) + 17 ngày tháng 9 = 46 ngày.
-          <br>&nbsp;&nbsp;3. Cộng 13 ngày = 46 + 13 = <b>59 ngày</b> ➔ 59 / 7 = <b>8 tuần 3 ngày</b>! (Đứa nào cộng 14 ra 8w4d là sai trắc nghiệm!).
+        <!-- Dynamic SVG IVF Timeline -->
+        <svg id="ivfSvg" class="timeline-svg" viewBox="0 0 700 90" style="max-height: 120px;"></svg>
+
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-title">Tuổi Thai Ngày Chuyển</div>
+            <div id="ivfAgeDisplay" class="metric-value" style="color: #0969da;">16 ngày (2w2d)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Bản Chất Trừ 13 Ngày</div>
+            <div class="metric-value" style="color: #2ea043;">14 - 1 = 13 ngày</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Thuật Toán Thầy Vinh</div>
+            <div class="metric-value" style="color: var(--brand); font-size: 1.1rem;">Thụ Tinh + Ngày + 13</div>
+          </div>
         </div>
       </div>
 
-      <!-- BÀI 4 -->
-      <div class="lesson-card">
-        <div class="lesson-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-num">4</div>
-            <div>
-              <div class="lesson-title">Thước Đo Siêu Âm Sớm CRL (10 - 30 mm)</div>
-              <small style="color: var(--muted); font-weight: 700;">Công thức Thầy Luân & Quy tắc Khóa ngày dự sinh</small>
-            </div>
+      <!-- WIDGET 3: THƯỚC ĐO SIÊU ÂM CRL 10 - 84 MM -->
+      <div class="widget-box">
+        <div class="widget-header">
+          <div class="widget-title">
+            <span>📏</span> Thước Đo Siêu Âm CRL & Công Thức Thầy Luân
           </div>
           <button class="btn btn-primary btn-sm" onclick="startTopicDrill('crl')">
-            🚀 Luyện Bài 4 Ngay
+            ⚡ Luyện Phản Xạ CRL
           </button>
         </div>
 
-        <div class="lesson-theory-box">
-          <b>🧠 Cốt lõi siêu âm:</b> Giai đoạn sớm biến thiên sinh học nhỏ nhất.
-          <br>• <b>Công thức Thầy Luân & Bá Duy ($CRL = 10 - 30\text{ mm}$):</b>
-          <br>&nbsp;&nbsp;<b>Tuổi thai (ngày) = 42 + CRL (mm)</b>
-          <br>• <b>Quy tắc ACOG:</b> Thai &lt; 9w lệch &gt; 5 ngày mới đổi; Thai 9 - 13w6 lệch &gt; 7 ngày mới đổi.
-          <br>• 🚨 <b>QUY TẮC BẤT BIẾN:</b> Đã xác lập ngày dự sinh ở TCN1 thì <b>KHÓA CHẾT</b>, cấm dùng số đo TCN2/TCN3 để đổi lại!
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.85rem; font-weight: 800; color: var(--muted);">CHIỀU DÀI ĐẦU MÔNG (CRL):</span>
+          <span id="crlDisplay" style="font-size: 1.25rem; font-weight: 900; color: var(--brand);">21 mm</span>
         </div>
 
-        <div class="lesson-example-box">
-          <div class="example-title">💡 Mẹo Nhẩm Nhanh 1 Giây:</div>
-          • CRL = 14mm ➔ 42 + 14 = 56 ngày = <b>8 tuần 0 ngày</b> tròn!
-          <br>• CRL = 21mm ➔ 42 + 21 = 63 ngày = <b>9 tuần 0 ngày</b> tròn!
-          <br>• CRL = 28mm ➔ 42 + 28 = 70 ngày = <b>10 tuần 0 ngày</b> tròn!
+        <div class="visual-slider-wrap">
+          <input type="range" id="crlSlider" class="visual-slider" min="10" max="84" value="21" oninput="updateCrlVisualizer(this.value)">
+        </div>
+
+        <!-- SVG Fetus Scaler Graphic -->
+        <svg id="crlSvg" class="timeline-svg" viewBox="0 0 700 95" style="max-height: 120px;"></svg>
+
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-title">Công Thức Thầy Luân</div>
+            <div id="crlFormulaDisplay" class="metric-value" style="color: #0969da;">42 + 21 = 63 ngày</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Tuổi Thai Chính Xác</div>
+            <div id="crlGaDisplay" class="metric-value" style="color: #2ea043;">9 tuần 0 ngày</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Quy Tắc Khóa ACOG</div>
+            <div class="metric-value" style="color: var(--brand); font-size: 1.1rem;">🔒 Khóa Chết TCN1</div>
+          </div>
         </div>
       </div>
 
-      <!-- BÀI 5 -->
-      <div class="lesson-card" style="border-color: #cf222e;">
-        <div class="lesson-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-num" style="background: #ffe3e3; color: #b31d28;">5</div>
-            <div>
-              <div class="lesson-title" style="color: #b31d28;">Danh Mục 6 Bẫy Điểm Liệt Của Thầy Cô</div>
-              <small style="color: var(--muted); font-weight: 700;">Dấu hiệu nhận biết để né ngay lập tức</small>
-            </div>
+      <!-- WIDGET 4: CÂY QUYẾT ĐỊNH CLICKABLE NÉ BẪY ĐIỂM LIỆT -->
+      <div class="widget-box" style="border-color: #cf222e;">
+        <div class="widget-header">
+          <div class="widget-title" style="color: #b31d28;">
+            <span>🛡️</span> Cây Quyết Định Clickable: Né 6 Bẫy Điểm Liệt
           </div>
           <button class="btn btn-trap btn-sm" onclick="startTopicDrill('traps')">
-            🚀 Luyện Bẫy Điểm Liệt
+            ⚡ Luyện Bẫy Điểm Liệt
           </button>
         </div>
 
-        <div class="lesson-theory-box" style="border-left-color: #cf222e; background: #fff5f5;">
-          1. <b>Quan hệ duy nhất 1 lần:</b> Tinh trùng sống 3-5 ngày ➔ CẤM lấy ngày quan hệ làm ngày thụ tinh, phải biết ngày rụng trứng!
-          <br>2. <b>Uống thuốc khẩn cấp Postinor-1:</b> Hoãn rụng trứng muộn ➔ Kinh chót mất độ tin cậy, không vội chẩn đoán thai lưu khi CRL nhỏ.
-          <br>3. <b>Thai IVF:</b> Chuẩn 100% ➔ CẤM hiệu chỉnh lùi ngày dự sinh theo siêu âm (thai nhỏ là do FGR hoặc lệch bội).
-          <br>4. <b>Siêu âm tuần 20 đo thai nhỏ 2 tuần:</b> CẤM đổi ngày dự sinh ➔ Khóa chết ngày dự sinh 3 tháng đầu!
+        <div class="tree-step-box">
+          <div class="tree-question">1️⃣ Nhớ chính xác ngày đầu kinh chót (LMP)?</div>
+          <div class="tree-options">
+            <button class="tree-btn active-green" onclick="selectTreeNode(1, 'yes')">✅ Nhớ rõ từng ngày</button>
+            <button class="tree-btn" onclick="selectTreeNode(1, 'no')">❌ Không nhớ / Cho con bú / Vô kinh</button>
+          </div>
+        </div>
+
+        <div id="treeStep2" class="tree-step-box">
+          <div class="tree-question">2️⃣ Chu kỳ kinh nguyệt như thế nào?</div>
+          <div class="tree-options">
+            <button class="tree-btn active-green" onclick="selectTreeNode(2, 'regular')">✅ Đều 28 - 30 ngày</button>
+            <button class="tree-btn" onclick="selectTreeNode(2, 'long')">⚠️ Đều nhưng dài (32 - 35 ngày)</button>
+            <button class="tree-btn" onclick="selectTreeNode(2, 'irregular')">🚫 KHÔNG ĐỀU (dao động 30-60 ngày)</button>
+          </div>
+        </div>
+
+        <div id="treeStep3" class="tree-step-box">
+          <div class="tree-question">3️⃣ Có yếu tố nhiễu / bẫy đặc biệt nào không?</div>
+          <div class="tree-options">
+            <button class="tree-btn active-green" onclick="selectTreeNode(3, 'none')">✅ Không có gì bất thường</button>
+            <button class="tree-btn" onclick="selectTreeNode(3, 'intercourse')">🚨 Quan hệ duy nhất 1 lần</button>
+            <button class="tree-btn" onclick="selectTreeNode(3, 'postinor')">🚨 Uống Postinor-1 khẩn cấp</button>
+            <button class="tree-btn" onclick="selectTreeNode(3, 'ivf_fgr')">🚨 Thai IVF siêu âm thai nhỏ</button>
+          </div>
+        </div>
+
+        <div id="treeResult" class="tree-result-box" style="background: #e6ffed; border-color: #2ea043; color: #155724;">
+          <span style="font-size: 1.5rem;">✅</span>
+          <div>
+            <b>ĐỦ ĐIỀU KIỆN ÁP DỤNG NAEGELE:</b> Kinh đều, nhớ rõ kinh chót ➔ Ngày +7, Tháng -3/+9.
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ====================================================================
-         VIEW 2: ĐẤU TRƯỜNG PHẢN XẠ (DRILL)
+         VIEW 2: ĐẤU TRƯỜNG PHẢN XẠ (DRILL ARENA)
          ==================================================================== -->
     <section id="view-drill" class="paper-card" style="display: none;">
-      <div class="tape stripe" style="top: -12px; right: 40px; --tc: var(--mint);"></div>
-      <span class="kicker">⚡ BƯỚC 2: THỰC HÀNH PHẢN XẠ THẦN TỐC</span>
+      <div class="tape stripe" style="top: -10px; right: 40px; --tc: var(--mint);"></div>
+      <span class="kicker">⚡ ĐẤU TRƯỜNG PHẢN XẠ THẦN TỐC</span>
 
       <!-- Topic Filters -->
       <div class="mode-pills">
         <span style="font-size: 0.85rem; font-weight: 800; align-self: center; margin-right: 4px;">Đang luyện:</span>
         <button class="pill active" onclick="setTopic('all')">Tất cả ngẫu nhiên</button>
-        <button class="pill" onclick="setTopic('naegele_simple')">Bài 1: Naegele</button>
-        <button class="pill" onclick="setTopic('naegele_overflow')">Bài 1b: Vắt tháng</button>
-        <button class="pill" onclick="setTopic('naegele_cycle')">Bài 2: Chu kỳ dài</button>
-        <button class="pill" onclick="setTopic('ivf')">Bài 3: IVF D3/D5</button>
-        <button class="pill" onclick="setTopic('crl')">Bài 4: CRL 42+CRL</button>
-        <button class="pill" onclick="setTopic('traps')">Bài 5: Bẫy phải né</button>
+        <button class="pill" onclick="setTopic('naegele_simple')">Naegele cơ bản</button>
+        <button class="pill" onclick="setTopic('naegele_overflow')">Vắt cuối tháng</button>
+        <button class="pill" onclick="setTopic('naegele_cycle')">Chu kỳ dài</button>
+        <button class="pill" onclick="setTopic('ivf')">IVF D3/D5</button>
+        <button class="pill" onclick="setTopic('crl')">CRL 42+CRL</button>
+        <button class="pill" onclick="setTopic('traps')">Bẫy điểm liệt</button>
       </div>
 
       <!-- Controls Row: Mode Switcher & Stats -->
@@ -940,14 +1064,16 @@
         </div>
 
         <div class="drill-stats">
-          <div class="stat-badge">🔥 Streak: <span id="statStreak" class="stat-num">0</span></div>
+          <div class="stat-badge">
+            <span id="streakFire" class="streak-fire-wrap">🔥</span> Streak: <span id="statStreak" class="stat-num">0</span>
+          </div>
           <div class="stat-badge">🎯 Đúng: <span id="statScore" class="stat-num">0</span></div>
           <div class="stat-badge">⚡ Kỷ lục: <span id="statBest" class="stat-num">0</span></div>
         </div>
       </div>
 
       <!-- Flashcard Question -->
-      <div class="flashcard">
+      <div id="flashcardBox" class="flashcard">
         <div id="flashCategory" class="flash-category">NAEGELE CƠ BẢN</div>
         <div id="flashLabel" class="flash-label">KỲ KINH CHÓT (LMP)</div>
         <div id="flashDate" class="flash-date">15 / 05 / 2026</div>
@@ -975,7 +1101,7 @@
         </div>
 
         <div id="typeTextRow" style="display: none; text-align: center; margin-bottom: 14px;">
-          <input type="text" id="inpTextVal" placeholder="Ví dụ: 8 tuần 0 ngày" class="date-inp" style="width: 240px; font-size: 1.2rem;" autocomplete="off">
+          <input type="text" id="inpTextVal" placeholder="Ví dụ: 8 tuần 0 ngày" class="date-inp" style="width: 260px; font-size: 1.2rem;" autocomplete="off">
         </div>
 
         <div class="type-actions-grid">
@@ -1011,12 +1137,12 @@
     </section>
 
     <!-- ====================================================================
-         VIEW 3: DANH MỤC PHẢI NÉ
+         VIEW 3: DANH MỤC PHẢI NÉ (TRAPS CHEAT SHEET)
          ==================================================================== -->
     <section id="view-traps" class="paper-card" style="display: none;">
-      <div class="tape stripe" style="top: -12px; right: 40px; --tc: var(--pink);"></div>
+      <div class="tape stripe" style="top: -10px; right: 40px; --tc: var(--pink);"></div>
       <span class="kicker" style="background: var(--pink);">🚫 ZERO-TOLERANCE TRAPS</span>
-      <h2 style="font-size: 1.35rem; margin-bottom: 6px; color: #b31d28;">Bảng Tử Thần: Các Trường Hợp CẤM TÍNH / PHẢI NÉ</h2>
+      <h2 style="font-size: 1.35rem; margin-bottom: 6px; color: #b31d28;">Bảng Tử Thần: 6 Tình Huống CẤM TÍNH / PHẢI NÉ</h2>
       <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
         Gặp các dấu hiệu này trong đề thi thì <b>TUYỆT ĐỐI KHÔNG ÁP DỤNG CÔNG THỨC</b> mà chọn ngay phương án phản biện:
       </p>
@@ -1027,49 +1153,45 @@
         </button>
       </div>
 
-      <table class="math-table" style="width: 100%; border-collapse: collapse;">
-        <thead>
-          <tr style="background: var(--butter);">
-            <th style="border: 1.5px solid var(--ink); padding: 8px;">Tình Huống Đề Bài</th>
-            <th style="border: 1.5px solid var(--ink); padding: 8px;">Phản Xạ Cốt Tử</th>
-            <th style="border: 1.5px solid var(--ink); padding: 8px;">Lý Do Sinh Học & Lời Thầy Cô</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;"><b>Kinh nguyệt không đều</b> (30 - 60 ngày)</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KHÔNG DÙNG ĐƯỢC KINH CHÓT!</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Ngày rụng trứng bất định. Bắt buộc dựa vào <b>siêu âm 3 tháng đầu (CRL)</b>.</td>
-          </tr>
-          <tr>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;"><b>Quan hệ duy nhất 1 lần</b> (chồng về thăm)</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 CẤM LẤY NGÀY QUAN HỆ ĐỂ TÍNH!</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Tinh trùng sống 3 - 5 ngày; trứng có thể rụng sau 2 ngày. Phải biết ngày rụng trứng!</td>
-          </tr>
-          <tr>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Uống <b>thuốc tránh thai khẩn cấp</b> (Postinor-1)</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KINH CHÓT MẤT ĐỘ TIN CẬY!</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Levonorgestrel hoãn rụng trứng muộn, cấm vội chẩn đoán thai lưu khi CRL nhỏ.</td>
-          </tr>
-          <tr>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Thai IVF siêu âm tuần 12 thấy <b>CRL nhỏ 8 ngày</b></td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 TUYỆT ĐỐI CẤM ĐỔI DỰ SINH!</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Chuẩn IVF là tuyệt đối 100%. Thai nhỏ là do <b>FGR hoặc Lệch bội</b>, không phải sai số!</td>
-          </tr>
-          <tr>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Siêu âm tuần 20 đo BPD <b>nhỏ hơn 2 tuần</b></td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px; color: #b31d28; font-weight: 800;">🚫 KHÓA CHẾT DỰ SINH 3 THÁNG ĐẦU!</td>
-            <td style="border: 1.5px solid var(--ink); padding: 8px;">Đã xác lập ngày dự sinh ở TCN1 thì bất biến suốt thai kỳ!</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="chip-grid" style="grid-template-columns: 1fr;">
+        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
+          <span style="font-size: 1.5rem;">1️⃣</span>
+          <div>
+            <b style="color: #b31d28;">Kinh nguyệt không đều (30 - 60 ngày):</b> Ngày rụng trứng bất định ➔ <b>CẤM dùng Naegele</b>, bắt buộc dựa vào siêu âm TCN1 (CRL).
+          </div>
+        </div>
+        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
+          <span style="font-size: 1.5rem;">2️⃣</span>
+          <div>
+            <b style="color: #b31d28;">Quan hệ duy nhất 1 lần (chồng về thăm):</b> Tinh trùng sống 3 - 5 ngày ➔ <b>CẤM lấy ngày quan hệ làm ngày thụ tinh</b>, phải biết ngày rụng trứng!
+          </div>
+        </div>
+        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
+          <span style="font-size: 1.5rem;">3️⃣</span>
+          <div>
+            <b style="color: #b31d28;">Uống viên khẩn cấp Postinor-1:</b> Hoãn rụng trứng muộn ➔ <b>Kinh chót mất độ tin cậy</b>, không được vội chẩn đoán thai lưu khi CRL nhỏ.
+          </div>
+        </div>
+        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
+          <span style="font-size: 1.5rem;">4️⃣</span>
+          <div>
+            <b style="color: #b31d28;">Thai IVF siêu âm tuần 12 thấy thai nhỏ:</b> Chuẩn IVF là tuyệt đối 100% ➔ <b>TUYỆT ĐỐI CẤM ĐỔI DỰ SINH</b> (thai nhỏ do FGR hoặc Lệch bội).
+          </div>
+        </div>
+        <div class="chip-card" style="background: #fff8f8; border-color: #cf222e; padding: 12px;">
+          <span style="font-size: 1.5rem;">5️⃣</span>
+          <div>
+            <b style="color: #b31d28;">Siêu âm tuần 20 đo BPD nhỏ hơn 2 tuần:</b> Đã xác lập ở TCN1 thì <b>KHÓA CHẾT</b> ngày dự sinh, không bao giờ chỉnh lại ở TCN2/TCN3.
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ====================================================================
          VIEW 4: HUY HIỆU & KỶ LỤC
          ==================================================================== -->
     <section id="view-badges" class="paper-card" style="display: none;">
-      <div class="tape" style="top: -12px; left: 40px; --tc: var(--mint);"></div>
+      <div class="tape" style="top: -10px; left: 40px; --tc: var(--mint);"></div>
       <span class="kicker">🏆 RECORDS</span>
       <h2 style="font-size: 1.35rem; margin-bottom: 8px;">Kỷ Lục & Chuỗi Phản Xạ Của Thanh</h2>
       <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
@@ -1077,20 +1199,20 @@
       </p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
-          <div style="font-size: 2rem;">⚡</div>
+        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
+          <div style="font-size: 2.2rem;">🔥</div>
           <div style="font-weight: 800; margin: 4px 0;">Streak Cao Nhất</div>
-          <div id="badgeBestStreak" style="font-size: 1.8rem; font-weight: 900; color: var(--brand); font-family: var(--font-round);">0</div>
+          <div id="badgeBestStreak" style="font-size: 2rem; font-weight: 900; color: var(--brand); font-family: var(--font-round);">0</div>
         </div>
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
-          <div style="font-size: 2rem;">🎯</div>
+        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
+          <div style="font-size: 2.2rem;">🎯</div>
           <div style="font-weight: 800; margin: 4px 0;">Tổng Số Câu Đã Luyện</div>
-          <div id="badgeTotal" style="font-size: 1.8rem; font-weight: 900; color: #0969da; font-family: var(--font-round);">0</div>
+          <div id="badgeTotal" style="font-size: 2rem; font-weight: 900; color: #0969da; font-family: var(--font-round);">0</div>
         </div>
-        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; text-align: center;">
-          <div style="font-size: 2rem;">🛡️</div>
-          <div style="font-weight: 800; margin: 4px 0;">Bẫy Đã Tránh Được</div>
-          <div id="badgeTraps" style="font-size: 1.8rem; font-weight: 900; color: #2ea043; font-family: var(--font-round);">0</div>
+        <div style="background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 16px; text-align: center; box-shadow: var(--sh);">
+          <div style="font-size: 2.2rem;">🛡️</div>
+          <div style="font-weight: 800; margin: 4px 0;">Bẫy Đã Bắt Trúng</div>
+          <div id="badgeTraps" style="font-size: 2rem; font-weight: 900; color: #2ea043; font-family: var(--font-round);">0</div>
         </div>
       </div>
     </section>
@@ -1102,7 +1224,7 @@
   </footer>
 
   <!-- ==========================================================================
-       JAVASCRIPT: WORKFLOW ROUTER, DRILL & AUDIO
+       JAVASCRIPT: INTERACTIVE WIDGETS, GSAP ANIMATION & DRILL LOGIC
        ========================================================================== -->
   <script>
     // --- Web Audio API Synth ---
@@ -1126,13 +1248,13 @@
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.06);
-          gain.gain.setValueAtTime(0.12, now + idx * 0.06);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.25);
+          osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+          gain.gain.setValueAtTime(0.12, now + idx * 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.22);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
-          osc.start(now + idx * 0.06);
-          osc.stop(now + idx * 0.06 + 0.26);
+          osc.start(now + idx * 0.05);
+          osc.stop(now + idx * 0.05 + 0.23);
         });
       }
       playWrong() {
@@ -1141,10 +1263,10 @@
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(200, now);
-        osc.frequency.exponentialRampToValueAtTime(90, now + 0.2);
-        gain.gain.setValueAtTime(0.2, now);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.2);
+        gain.gain.setValueAtTime(0.18, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
@@ -1158,8 +1280,8 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(600, now);
-        osc.frequency.exponentialRampToValueAtTime(800, now + 0.04);
+        osc.frequency.setValueAtTime(580, now);
+        osc.frequency.exponentialRampToValueAtTime(850, now + 0.04);
         gain.gain.setValueAtTime(0.08, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
         osc.connect(gain);
@@ -1171,23 +1293,23 @@
         if (!this.enabled) return;
         this.init();
         const now = this.ctx.currentTime;
-        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, idx) => {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-          gain.gain.setValueAtTime(0.15, now + idx * 0.08);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+          osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+          gain.gain.setValueAtTime(0.15, now + idx * 0.07);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.35);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
-          osc.start(now + idx * 0.08);
-          osc.stop(now + idx * 0.08 + 0.41);
+          osc.start(now + idx * 0.07);
+          osc.stop(now + idx * 0.07 + 0.36);
         });
       }
     }
     const sound = new SoundFX();
 
-    // --- Confetti ---
+    // --- Confetti Canvas ---
     const canvas = document.getElementById('confettiCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -1203,10 +1325,10 @@
       const colors = ['#ffd3e0', '#ffe0c2', '#fff1b8', '#cdeedd', '#cfe6fb', '#e76f95'];
       for (let i = 0; i < 50; i++) {
         particles.push({
-          x: canvas.width / 2 + (Math.random() - 0.5) * 150,
+          x: canvas.width / 2 + (Math.random() - 0.5) * 160,
           y: canvas.height * 0.4,
-          vx: (Math.random() - 0.5) * 10,
-          vy: Math.random() * -10 - 3,
+          vx: (Math.random() - 0.5) * 12,
+          vy: Math.random() * -10 - 4,
           size: Math.random() * 8 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
@@ -1240,9 +1362,205 @@
       else ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // --- State ---
+    // ==========================================================================
+    // 🎨 WIDGET 1: CYCLE & NAEGELE DYNAMIC SVG TIMELINE
+    // ==========================================================================
+    function updateCycleVisualizer(cycleVal) {
+      const cycle = parseInt(cycleVal, 10);
+      const diff = cycle - 28;
+      const follicular = cycle - 14;
+
+      document.getElementById('cycleDisplay').textContent = `${cycle} ngày ${cycle === 28 ? '(Chuẩn)' : (diff > 0 ? `(+${diff}d)` : `(${diff}d)`)}`;
+      document.getElementById('follicularDisplay').textContent = `${follicular} ngày`;
+      document.getElementById('offsetDisplay').textContent = `${diff >= 0 ? '+' : ''}${diff} ngày`;
+
+      // Redraw SVG Timeline
+      const svg = document.getElementById('cycleSvg');
+      const w = 700;
+      const h = 90;
+      
+      const folWidth = Math.round((follicular / cycle) * (w - 120));
+      const lutWidth = (w - 120) - folWidth;
+      const startX = 60;
+      const ovulX = startX + folWidth;
+      const endX = ovulX + lutWidth;
+
+      svg.innerHTML = `
+        <!-- Follicular Phase -->
+        <rect x="${startX}" y="24" width="${folWidth}" height="28" rx="8" fill="#ffe0c2" stroke="#2b2738" stroke-width="2"/>
+        <text x="${startX + folWidth / 2}" y="42" font-size="12" font-weight="800" text-anchor="middle" fill="#2b2738">Pha Nang Noãn (${follicular}d)</text>
+
+        <!-- Luteal Phase (Fixed 14d) -->
+        <rect x="${ovulX}" y="24" width="${lutWidth}" height="28" rx="8" fill="#cdeedd" stroke="#2b2738" stroke-width="2"/>
+        <text x="${ovulX + lutWidth / 2}" y="42" font-size="12" font-weight="800" text-anchor="middle" fill="#155724">Pha Hoàng Thể (14d cố định)</text>
+
+        <!-- Ovulation Marker -->
+        <circle cx="${ovulX}" cy="38" r="14" fill="#e76f95" stroke="#2b2738" stroke-width="2"/>
+        <text x="${ovulX}" y="43" font-size="14" text-anchor="middle">🥚</text>
+        <text x="${ovulX}" y="72" font-size="11" font-weight="900" text-anchor="middle" fill="#e76f95">Rụng Trứng (N${follicular})</text>
+
+        <!-- LMP Start Marker -->
+        <circle cx="${startX}" cy="38" r="6" fill="#2b2738"/>
+        <text x="${startX}" y="72" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">LMP (N1)</text>
+
+        <!-- Next Period Marker -->
+        <circle cx="${endX}" cy="38" r="6" fill="#2b2738"/>
+        <text x="${endX}" y="72" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Kỳ sau (N${cycle})</text>
+      `;
+
+      if (window.gsap) {
+        gsap.fromTo('#cycleSvg circle', { scale: 0.8 }, { scale: 1, duration: 0.25, ease: 'back.out' });
+      }
+    }
+
+    function setCycleVal(val) {
+      document.getElementById('cycleSlider').value = val;
+      updateCycleVisualizer(val);
+      sound.playPop();
+    }
+
+    // ==========================================================================
+    // 🎨 WIDGET 2: IVF EMBRYO TIMELINE STAGE (D3 VS D5)
+    // ==========================================================================
+    let currentIvfStage = 'D3';
+    function setIvfStage(stage) {
+      currentIvfStage = stage;
+      document.getElementById('ivfBtnD3').style.background = stage === 'D3' ? 'var(--sky)' : '#fff';
+      document.getElementById('ivfBtnD5').style.background = stage === 'D5' ? 'var(--sky)' : '#fff';
+
+      const isD3 = stage === 'D3';
+      const days = isD3 ? 16 : 18;
+      const weeksStr = isD3 ? '16 ngày (2w2d)' : '18 ngày (2w4d)';
+      document.getElementById('ivfAgeDisplay').textContent = weeksStr;
+
+      const svg = document.getElementById('ivfSvg');
+      svg.innerHTML = `
+        <!-- Timeline track -->
+        <line x1="60" y1="45" x2="640" y2="45" stroke="#2b2738" stroke-width="4" stroke-dasharray="6,4"/>
+
+        <!-- Point 1: Assumed LMP (-14d) -->
+        <circle cx="100" cy="45" r="14" fill="#fff1b8" stroke="#2b2738" stroke-width="2"/>
+        <text x="100" y="50" font-size="12" text-anchor="middle">📅</text>
+        <text x="100" y="74" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Kinh chót quy ước</text>
+        <text x="100" y="24" font-size="11" font-weight="900" text-anchor="middle" fill="#2b2738">-14 ngày</text>
+
+        <!-- Point 2: Conception (Day 0) -->
+        <circle cx="300" cy="45" r="14" fill="#ffe0c2" stroke="#2b2738" stroke-width="2"/>
+        <text x="300" y="50" font-size="12" text-anchor="middle">🧫</text>
+        <text x="300" y="74" font-size="11" font-weight="800" text-anchor="middle" fill="#79718b">Chọc hút / Thụ tinh</text>
+        <text x="300" y="24" font-size="11" font-weight="900" text-anchor="middle" fill="#2b2738">Ngày 0 (2w0d)</text>
+
+        <!-- Point 3: Transfer Day -->
+        <circle cx="${isD3 ? 460 : 540}" cy="45" r="18" fill="#ffd3e0" stroke="#2b2738" stroke-width="2.5"/>
+        <text x="${isD3 ? 460 : 540}" y="51" font-size="15" text-anchor="middle">${isD3 ? '🥚' : '🧬'}</text>
+        <text x="${isD3 ? 460 : 540}" y="76" font-size="12" font-weight="900" text-anchor="middle" fill="#e76f95">Chuyển Phôi ${stage}</text>
+        <text x="${isD3 ? 460 : 540}" y="20" font-size="12" font-weight="900" text-anchor="middle" fill="#e76f95">${days} ngày (${isD3 ? '2w2d' : '2w4d'})</text>
+      `;
+
+      if (window.gsap) {
+        gsap.fromTo('#ivfSvg circle', { scale: 0.8 }, { scale: 1, duration: 0.25, ease: 'back.out' });
+      }
+      sound.playPop();
+    }
+
+    // ==========================================================================
+    // 🎨 WIDGET 3: CRL FETUS SCALER & ULTRASOUND FORMULA
+    // ==========================================================================
+    function updateCrlVisualizer(crlVal) {
+      const crl = parseInt(crlVal, 10);
+      document.getElementById('crlDisplay').textContent = `${crl} mm`;
+
+      const totalDays = 42 + crl;
+      const w = Math.floor(totalDays / 7);
+      const d = totalDays % 7;
+
+      document.getElementById('crlFormulaDisplay').textContent = `42 + ${crl} = ${totalDays} ngày`;
+      document.getElementById('crlGaDisplay').textContent = `${w} tuần ${d} ngày`;
+
+      // Scale fetus visual proportionally
+      const fetusRadius = 14 + Math.round(((crl - 10) / 74) * 26);
+      const svg = document.getElementById('crlSvg');
+
+      svg.innerHTML = `
+        <!-- Gestational sac -->
+        <ellipse cx="200" cy="48" rx="80" ry="40" fill="#f0f7ff" stroke="#2b2738" stroke-width="2" stroke-dasharray="4,3"/>
+        <text x="200" y="24" font-size="10" font-weight="800" text-anchor="middle" fill="#79718b">Túi Thai (Gestational Sac)</text>
+
+        <!-- Fetus body -->
+        <circle cx="200" cy="48" r="${fetusRadius}" fill="#ffd3e0" stroke="#2b2738" stroke-width="2"/>
+        <!-- Heart beat pulse -->
+        <circle cx="195" cy="46" r="4" fill="#e76f95">
+          <animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite"/>
+        </circle>
+        <text x="200" y="52" font-size="12" text-anchor="middle">👶</text>
+
+        <!-- Dimension Line -->
+        <line x1="120" y1="80" x2="${120 + crl * 4}" y2="80" stroke="#0969da" stroke-width="3" marker-end="url(#arrow)"/>
+        <text x="360" y="45" font-size="13" font-weight="900" fill="#2b2738">CRL = ${crl} mm ➔ ${w} tuần ${d} ngày</text>
+        <text x="360" y="65" font-size="11" font-weight="700" fill="#79718b">Công thức Thầy Luân & Bá Duy (10 - 30mm)</text>
+      `;
+    }
+
+    // ==========================================================================
+    // 🎨 WIDGET 4: DECISION TREE CLICKABLE LOGIC
+    // ==========================================================================
+    const treeState = { step1: 'yes', step2: 'regular', step3: 'none' };
+    function selectTreeNode(step, val) {
+      sound.playPop();
+      if (step === 1) {
+        treeState.step1 = val;
+        document.querySelectorAll('.tree-step-box:nth-child(2) .tree-btn').forEach(b => b.className = 'tree-btn');
+        event.target.className = val === 'yes' ? 'tree-btn active-green' : 'tree-btn active-red';
+      } else if (step === 2) {
+        treeState.step2 = val;
+        document.querySelectorAll('#treeStep2 .tree-btn').forEach(b => b.className = 'tree-btn');
+        event.target.className = val === 'irregular' ? 'tree-btn active-red' : 'tree-btn active-green';
+      } else if (step === 3) {
+        treeState.step3 = val;
+        document.querySelectorAll('#treeStep3 .tree-btn').forEach(b => b.className = 'tree-btn');
+        event.target.className = val === 'none' ? 'tree-btn active-green' : 'tree-btn active-red';
+      }
+
+      // Evaluate path
+      const resBox = document.getElementById('treeResult');
+      if (treeState.step1 === 'no') {
+        resBox.style.background = '#fff0f0';
+        resBox.style.borderColor = '#cf222e';
+        resBox.style.color = '#b31d28';
+        resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY ĐIỂM LIỆT: KHÔNG NHỚ KINH CHÓT!</b> Cấm dùng Naegele. Bắt buộc đo CRL siêu âm 3 tháng đầu!</div>';
+      } else if (treeState.step2 === 'irregular') {
+        resBox.style.background = '#fff0f0';
+        resBox.style.borderColor = '#cf222e';
+        resBox.style.color = '#b31d28';
+        resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY ĐIỂM LIỆT: KINH KHÔNG ĐỀU!</b> Ngày rụng trứng bất định. CẤM dùng kinh chót, bắt buộc dùng CRL siêu âm TCN1!</div>';
+      } else if (treeState.step3 !== 'none') {
+        resBox.style.background = '#fff0f0';
+        resBox.style.borderColor = '#cf222e';
+        resBox.style.color = '#b31d28';
+        if (treeState.step3 === 'intercourse') {
+          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY THẦY VINH: QUAN HỆ 1 LẦN!</b> Tinh trùng sống 3-5 ngày. CẤM lấy ngày quan hệ làm ngày thụ tinh!</div>';
+        } else if (treeState.step3 === 'postinor') {
+          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY POSTINOR-1:</b> Hoãn rụng trứng muộn ➔ Kinh chót mất hoàn toàn giá trị, không vội chẩn đoán thai lưu!</div>';
+        } else {
+          resBox.innerHTML = '<span style="font-size: 1.5rem;">🚫</span><div><b>BẪY TIÊN ĐỀ TIER 0:</b> Thai IVF chuẩn tuyệt đối 100%. Thai nhỏ là do FGR hoặc Lệch bội, CẤM đổi ngày dự sinh!</div>';
+        }
+      } else {
+        resBox.style.background = '#e6ffed';
+        resBox.style.borderColor = '#2ea043';
+        resBox.style.color = '#155724';
+        if (treeState.step2 === 'long') {
+          resBox.innerHTML = '<span style="font-size: 1.5rem;">✅</span><div><b>ĐỦ ĐIỀU KIỆN HIỆU CHỈNH CHU KỲ DÀI:</b> Naegele chuẩn + Bù ngày chênh lệch (Chu kỳ - 28 ngày).</div>';
+        } else {
+          resBox.innerHTML = '<span style="font-size: 1.5rem;">✅</span><div><b>ĐỦ ĐIỀU KIỆN ÁP DỤNG NAEGELE:</b> Kinh đều, nhớ rõ kinh chót ➔ Ngày +7, Tháng -3/+9.</div>';
+        }
+      }
+    }
+
+    // ==========================================================================
+    // ⚡ DRILL ENGINE & RAPID REFLEX (TAB 2)
+    // ==========================================================================
     const state = {
-      tab: 'learn', // default is now structured learning!
+      tab: 'learn',
       inputMode: 'type',
       topic: 'all',
       theoryMode: 'theory',
@@ -1517,7 +1835,7 @@
         const isD5 = Math.random() > 0.5;
         const isTheory = state.theoryMode === 'theory';
         const typeStr = isD5 ? 'Phôi Ngày 5 (Blastocyst)' : 'Phôi Ngày 3 (Cleavage)';
-        
+
         let days = 0;
         let weeksStr = '';
         if (isTheory) {
@@ -1550,24 +1868,31 @@
       }
     ];
 
-    // --- Tab Switching ---
+    // --- Tab Switching with GSAP ---
     function switchTab(tabId) {
       state.tab = tabId;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
       if (activeBtn) activeBtn.classList.add('active');
 
-      document.getElementById('view-learn').style.display = tabId === 'learn' ? 'block' : 'none';
-      document.getElementById('view-drill').style.display = tabId === 'drill' ? 'block' : 'none';
-      document.getElementById('view-traps').style.display = tabId === 'traps' ? 'block' : 'none';
-      document.getElementById('view-badges').style.display = tabId === 'badges' ? 'block' : 'none';
+      const tabs = ['learn', 'drill', 'traps', 'badges'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`view-${t}`);
+        if (t === tabId) {
+          el.style.display = 'block';
+          if (window.gsap) {
+            gsap.fromTo(el, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+          }
+        } else {
+          el.style.display = 'none';
+        }
+      });
 
       sound.playPop();
       if (tabId === 'badges') updateBadgeView();
       if (tabId === 'drill' && !state.currentQ) nextQuestion();
     }
 
-    // Direct CTA from Learn to Drill
     function startTopicDrill(topicName) {
       setTopic(topicName);
       switchTab('drill');
@@ -1596,7 +1921,8 @@
     function setTopic(top) {
       state.topic = top;
       document.querySelectorAll('.mode-pills .pill').forEach(p => p.classList.remove('active'));
-      Array.from(document.querySelectorAll('.mode-pills .pill')).find(p => p.getAttribute('onclick').includes(top)).classList.add('active');
+      const activePill = Array.from(document.querySelectorAll('.mode-pills .pill')).find(p => p.getAttribute('onclick').includes(top));
+      if (activePill) activePill.classList.add('active');
       sound.playPop();
       nextQuestion();
     }
@@ -1619,7 +1945,6 @@
       sound.playPop();
     }
 
-    // --- DRILL ENGINE ---
     function nextQuestion() {
       state.answered = false;
       document.getElementById('feedbackBox').style.display = 'none';
@@ -1656,6 +1981,11 @@
       document.getElementById('flashDate').textContent = q.dateStr;
       document.getElementById('flashCondition').textContent = q.condition;
       document.getElementById('flashTarget').innerHTML = q.target;
+
+      // Animate card entrance with GSAP
+      if (window.gsap) {
+        gsap.fromTo('#flashcardBox', { scale: 0.96, opacity: 0.8 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.5)' });
+      }
 
       if (q.expectedType === 'text') {
         document.getElementById('typeDateRow').style.display = 'none';
@@ -1794,14 +2124,36 @@
           state.bestStreak = state.streak;
           localStorage.setItem('san_best_streak', state.bestStreak);
         }
-        if (state.streak % 10 === 0) {
+        if (state.streak >= 10 && state.streak % 5 === 0) {
           sound.playFanfare();
           launchConfetti();
         }
+
+        // Streak Fire effect
+        const fireEl = document.getElementById('streakFire');
+        if (state.streak >= 3) {
+          fireEl.classList.add('active');
+          document.getElementById('flashcardBox').classList.add('on-fire');
+        }
+
         showFeedback(true, title, q.hack);
+
+        // Auto-advance on correct answers (0.35s)
+        setTimeout(() => {
+          if (state.answered && state.tab === 'drill') nextQuestion();
+        }, 380);
+
       } else {
         sound.playWrong();
         state.streak = 0;
+        document.getElementById('streakFire').classList.remove('active');
+        document.getElementById('flashcardBox').classList.remove('on-fire');
+
+        // Shake flashcard
+        if (window.gsap) {
+          gsap.fromTo('#flashcardBox', { x: -8 }, { x: 8, duration: 0.08, repeat: 4, yoyo: true, onComplete: () => gsap.set('#flashcardBox', { x: 0 }) });
+        }
+
         showFeedback(false, title, q.hack);
       }
 
@@ -1853,6 +2205,9 @@
     });
 
     window.addEventListener('DOMContentLoaded', () => {
+      updateCycleVisualizer(28);
+      setIvfStage('D3');
+      updateCrlVisualizer(21);
       updateStats();
       nextQuestion();
     });
