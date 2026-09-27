@@ -821,9 +821,9 @@
       <button id="soundToggle" class="icon-btn" title="Bật/Tắt âm thanh">
         <span id="soundIcon">🔊</span>
       </button>
-      <button id="theoryToggle" class="icon-btn" style="background: var(--sky);" title="Quy Chuẩn Thi">
-        <span>📚</span> <span id="modeLabel">Chuẩn Thầy Luân (16/18d)</span>
-      </button>
+      <div class="icon-btn" style="background: var(--sky); cursor: default;" title="Chuẩn Thi Lý Thuyết Thầy Luân">
+        <span>📚</span> <span>Chuẩn Thầy Luân (16/18d)</span>
+      </div>
     </div>
   </header>
 
@@ -1563,7 +1563,6 @@
       tab: 'learn',
       inputMode: 'type',
       topic: 'all',
-      theoryMode: 'theory',
       streak: 0,
       score: 0,
       bestStreak: parseInt(localStorage.getItem('san_best_streak') || '0', 10),
@@ -1833,37 +1832,27 @@
 
       function genIvfTransferAge() {
         const isD5 = Math.random() > 0.5;
-        const isTheory = state.theoryMode === 'theory';
         const typeStr = isD5 ? 'Phôi Ngày 5 (Blastocyst)' : 'Phôi Ngày 3 (Cleavage)';
 
-        let days = 0;
-        let weeksStr = '';
-        if (isTheory) {
-          days = isD5 ? 18 : 16;
-          weeksStr = isD5 ? '18 ngày (2 tuần 4 ngày)' : '16 ngày (2 tuần 2 ngày)';
-        } else {
-          days = isD5 ? 19 : 17;
-          weeksStr = isD5 ? '19 ngày (2 tuần 5 ngày)' : '17 ngày (2 tuần 3 ngày)';
-        }
+        const days = isD5 ? 18 : 16;
+        const weeksStr = isD5 ? '18 ngày (2 tuần 4 ngày)' : '16 ngày (2 tuần 2 ngày)';
 
-        const falseAns1 = isD5 ? (isTheory ? '19 ngày (2 tuần 5 ngày)' : '18 ngày (2 tuần 4 ngày)') : (isTheory ? '17 ngày (2 tuần 3 ngày)' : '16 ngày (2 tuần 2 ngày)');
+        const falseAns1 = isD5 ? '19 ngày (2 tuần 5 ngày)' : '17 ngày (2 tuần 3 ngày)'; // bẫy làm tròn 14d
         const falseAns2 = '14 ngày (2 tuần 0 ngày)';
         const falseAns3 = '21 ngày (3 tuần 0 ngày)';
 
         return {
           type: 'ivf',
-          categoryTag: isTheory ? 'BÀI 3: IVF • THI LÝ THUYẾT ĐHYD' : 'BÀI 3: IVF • TRẠM OSCE',
+          categoryTag: 'BÀI 3: IVF • THI LÝ THUYẾT ĐHYD',
           label: `CHUYỂN ${typeStr.toUpperCase()}`,
           dateStr: `Ngày Chuyển Phôi`,
-          condition: isTheory ? 'Chuẩn Sách Thực Hành 2025 Trang 2 & Thầy Luân' : 'Chuẩn Làm Tròn Trạm OSCE',
+          condition: 'Chuẩn Sách Thực Hành 2025 Trang 2 & Thầy Âu Nhứt Luân',
           target: '👉 TUỔI THAI TẠI NGÀY CHUYỂN PHÔI? 👈',
           expectedType: 'text',
           expDays: days,
           correct: weeksStr,
           options: shuffle([weeksStr, falseAns1, falseAns2, falseAns3]),
-          hack: isTheory
-            ? `💡 <b>Thi Lý Thuyết:</b> Tịnh tiến 13 ngày → D3 = 13 + 3 = <b>16 ngày</b>; D5 = 13 + 5 = <b>18 ngày</b>!`
-            : `💡 <b>Trạm OSCE:</b> Quy ước mốc 14 → D3 = 14 + 3 = <b>17 ngày</b>; D5 = 14 + 5 = <b>19 ngày</b>!`
+          hack: `💡 <b>Thi Lý Thuyết Thầy Luân:</b> Tịnh tiến 13 ngày (14 - 1 = 13) → D3 = 13 + 3 = <b>16 ngày</b> (2w2d); D5 = 13 + 5 = <b>18 ngày</b> (2w4d)!`
         };
       }
     ];
@@ -1904,19 +1893,6 @@
       document.getElementById('soundIcon').textContent = sound.enabled ? '🔊' : '🔇';
     };
 
-    document.getElementById('theoryToggle').onclick = () => {
-      if (state.theoryMode === 'theory') {
-        state.theoryMode = 'osce';
-        document.getElementById('modeLabel').textContent = 'Chuẩn Trạm OSCE (17/19d)';
-        document.getElementById('theoryToggle').style.background = 'var(--butter)';
-      } else {
-        state.theoryMode = 'theory';
-        document.getElementById('modeLabel').textContent = 'Chuẩn Thầy Luân (16/18d)';
-        document.getElementById('theoryToggle').style.background = 'var(--sky)';
-      }
-      sound.playPop();
-      if (state.tab === 'drill') nextQuestion();
-    };
 
     function setTopic(top) {
       state.topic = top;
